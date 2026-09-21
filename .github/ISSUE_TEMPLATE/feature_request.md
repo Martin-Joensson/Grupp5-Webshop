@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**Definition of Done**
+**Acceptance Criteria**
 - [ ] First Criteria
 
 **Describe the solution you'd like**
