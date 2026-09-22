@@ -7,7 +7,7 @@
 | **Primär kommunikation** | Gruppens egen kanal i Microsoft Teams |
 | **Projektstyrning** | GitHub Projects |
 | **Motto** | Fuzzy but Solid |
-| **Referenser** | [PRD.md](file:///c:/docLocal/Lexicon/FE26/grupparbete/PRD.md) \| [ADR-mall](file:///c:/docLocal/Lexicon/FE26/grupparbete/docs/ADR-mall.md) \| [Domänordlista](file:///c:/docLocal/Lexicon/FE26/grupparbete/docs/GLOSSARY.md) |
+| **Referenser** | [PRD.md](./PRD.md) \| [ADR-mall](./ADR-mall.md) \| [Domänordlista](./GLOSSARY.md) |
 
 ---
 
@@ -35,8 +35,8 @@ Vi jobbar strukturerat för att behålla överblicken och undvika stress:
 * **Sprintar:** Vi rekommenderar sprintar om **5** arbetsdagar (veckobaserade).
 * **Sprint Planning:** Varje måndag kl. **9:00 - 10:00** går vi gemensamt igenom backloggen och fördelar veckans uppgifter.
 * **Issues / Tickets:** Inget arbete påbörjas utan en tillhörande Issue på GitHub.
-  * Varje Issue ska ha en tydlig beskrivning kopplad till [PRD.md](file:///c:/docLocal/Lexicon/FE26/grupparbete/PRD.md) samt en "Definition of Done".
-* **Projektbräde:** Vi använder **GitHub Projects** och uppdaterar kolumnerna (*Product Backlog, Sprint Backlog (with spring goal), In Progress, In Review, Done*) i realtid. En person bör inte ha mer än en sak "In progress" i taget. Innan du börjar på en ny issue, kolla om något ska reviewas.
+  * Varje Issue ska ha en tydlig beskrivning kopplad till [PRD.md](./PRD.md) samt en "Definition of Done".
+* **Projektbräde:** Vi använder **GitHub Projects** och uppdaterar kolumnerna (*Product Backlog, Sprint Backlog (with sprint goal), In Progress, In Review, Done*) i realtid. En person bör inte ha mer än en sak "In progress" i taget. Innan du börjar på en ny issue, kolla om något ska reviewas.
 * **Roterande Sprint Lead (Scrum Master):**  
   För att dela på ansvaret och ge alla erfarenhet av agilt ledarskap roterar vi rollen som *Sprint Lead* varje vecka. Sprint Lead öppnar mötena, håller koll på klockan (max 15 min standup) och ser till att GitHub Projects är uppdaterat:
   * **Vecka 39 (Sprint 1 - Uppstart & PRD):** `Gabriel`
@@ -102,7 +102,7 @@ Genom att skriva under/bekräfta godkänner vi att arbeta enligt detta kontrakt:
 
 * **Medlem 1:** Martin – 21/9-2026
 * **Medlem 2:** Josefin – 22/9-2026
-* **Medlem 3:** [Namn] – [Datum]
+* **Medlem 3:** Wilmer – 22/9-2026
 * **Medlem 4:** [Namn] – [Datum]
 
 ---
