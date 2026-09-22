@@ -104,7 +104,7 @@ Genom att skriva under/bekräfta godkänner vi att arbeta enligt detta kontrakt:
 * **Medlem 2:** [Namn] – [Datum]
 * **Medlem 3:** [Namn] – [Datum]
 * **Medlem 4:** [Namn] – [Datum]
-* **Medlem 5:** [Namn] – [Datum]
+- **Medlem 5:** Gabriel – 21/9-2026
 
 ---
 *Detta kontrakt är ett levande dokument och kan revideras vid gruppens sprint-retrospectives om hela teamet är enigt.*
