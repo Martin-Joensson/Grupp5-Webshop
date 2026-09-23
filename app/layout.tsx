@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Banner from "./components/Banner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,8 +20,8 @@ const materialSymbols = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Webshop - Admin",
-  description: "Admin page for webshop app",
+  title: "Webshop - Client",
+  description: "Client side of the webshop",
 };
 
 export default function RootLayout({
@@ -36,7 +35,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${materialSymbols.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Banner />
         {children}
       </body>
     </html>

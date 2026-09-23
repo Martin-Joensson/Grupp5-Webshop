@@ -8,7 +8,9 @@ export default function HomePage()
             <br/>
             <a href="/product/[id]" className="underline"> Go to product details page </a>
             <br/>
-            <a href="/cart" className="underline"> go to Cart page </a>
+            <a href="/cart" className="underline"> Go to Cart page </a>
+            <br/>
+            <a href="/admin" className="underline"> Go to Admin page </a>
         </div>
     );
 }
