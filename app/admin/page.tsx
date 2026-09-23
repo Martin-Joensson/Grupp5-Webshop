@@ -7,7 +7,7 @@ import { createUrlSearchParams } from "../lib/utils";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
-export default async function Home({
+export default async function AdminHomePage({
   searchParams,
 }: {
   searchParams: Promise<{
