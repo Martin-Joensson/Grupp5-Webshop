@@ -90,7 +90,7 @@ export default function ProductCard({
 
         <Link
           className="material-symbols p-1 rounded-lg hover:outline-2 hover:bg-indigo-500 hover:text-white"
-          href={`/edit-product/${id}`}
+          href={`admin/edit-product/${id}`}
         >
           edit
         </Link>

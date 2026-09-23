@@ -56,7 +56,7 @@ export const FilterCard = ({
       filterValues[category as keyof typeof filterValues],
     );
 
-    router.replace(`/?${params.toString()}`);
+    router.replace(`/admin/?${params.toString()}`);
   }
 
   return (

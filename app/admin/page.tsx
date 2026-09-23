@@ -1,9 +1,9 @@
-import { FilterCard } from "./components/FilterCard";
-import type { Category, ProductsResponse, Stats } from "./types";
+import { FilterCard } from "../components/FilterCard";
+import type { Category, ProductsResponse, Stats } from "../types";
 import { ProductList } from "@/components/ProductList";
-import { SearchBar } from "./components/SearchBar";
-import { Pagination } from "./components/Pagination";
-import { createUrlSearchParams } from "./lib/utils";
+import { SearchBar } from "../components/SearchBar";
+import { Pagination } from "../components/Pagination";
+import { createUrlSearchParams } from "../lib/utils";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
