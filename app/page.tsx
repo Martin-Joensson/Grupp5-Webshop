@@ -1,16 +1,20 @@
 
+import Link from "next/link";
+
 
 export default function HomePage()
 {
     return(
         <div>
             <h1 className="text-3xl"> Webshop Home page </h1>
+
+            {/* Temporary links below */}
             <br/>
-            <a href="/product/[id]" className="underline"> Go to product details page </a>
+            <Link href="/product/id" className="underline"> Go to product details page </Link>
             <br/>
-            <a href="/cart" className="underline"> Go to Cart page </a>
+            <Link href="/cart" className="underline"> Go to Cart page </Link>
             <br/>
-            <a href="/admin" className="underline"> Go to Admin page </a>
+            <Link href="/admin" className="underline"> Go to Admin page </Link>
         </div>
     );
 }
