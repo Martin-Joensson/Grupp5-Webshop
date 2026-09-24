@@ -22,7 +22,7 @@ export function ConfirmSubmitButton() {
     startTransition(async () => {
       setIsModalOpen(false);
       form.requestSubmit();
-      router.push("/");
+      router.push("/admin");
     });
   };
 
@@ -70,7 +70,7 @@ export function CancelButton() {
   return (
     <Link
       className="bg-slate-200 w-fit m-auto p-2 mbs-3 rounded-xl border-2 border-slate-200 hover:border-slate-500 hover:bg-white ease-in duration-100 cursor-pointer"
-      href="/"
+      href="/admin"
     >
       Cancel
     </Link>

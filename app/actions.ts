@@ -17,7 +17,7 @@ export async function deleteProduct(id: number) {
     };
   }
 
-  revalidatePath("/");
+  revalidatePath("/admin");
 }
 
 export async function addProductAction(formdata: FormData) {
@@ -76,6 +76,6 @@ export async function addProductAction(formdata: FormData) {
     throw new Error(`Failed to create product: ${message}`);
   }
 
-  revalidatePath("/");
+  revalidatePath("/admin");
 }
 
