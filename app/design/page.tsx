@@ -27,8 +27,8 @@ export default function Design() {
           For example giant price in cart.
           */}
       <div className="accentText font-accent">
-        <p className="text-9xl text-brand-golden">€123</p>
-        <p className="text-2xl">€123</p>
+        <p className="text-9xl text-price">€123</p>
+        <p className="text-2xl text-secondary">€123</p>
       </div>
 
       {/* Colors */}
@@ -62,7 +62,7 @@ export default function Design() {
         <Heart className="text-brand-red            w-60 h-60" />
           </div>
           
-          
+
       {/* Temporary links below */}
       <div className="grid gap-2">
         <Link href="/product/id" className="underline">
