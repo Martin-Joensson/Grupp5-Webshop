@@ -7,8 +7,8 @@ interface SimpleProduct {
   description: string;
   thumbnail: string;
   categoryId: number;
-  brand: string;
-  stock: number;
+  brand?: string;
+  stock?: number;
 }
 
 export async function createCategory(category: Omit<Category, "id">) {

@@ -24,7 +24,7 @@ model Product {
   rating               Int?
   stock                Int?
   tags                 String[]
-  brand                String
+  brand                String?
   sku                  String?
   weight               Float?
   width                Float?
