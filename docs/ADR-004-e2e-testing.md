@@ -1,6 +1,6 @@
 # ADR-004: Val av e2e testning (end-to-end testing)
 
-* **Status:** Föreslagen
+* **Status:** Beslutad
 * **Datum:** 2026-09-23
 * **Deltagare:** Josefin, Martin, Wilmer
 * **Relaterad Issue/Ticket:** #15

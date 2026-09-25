@@ -4,7 +4,7 @@
 
 # ADR-002: Val av authentication för inloggning
 
-* **Status:** Föreslagen
+* **Status:** Beslutad
 * **Datum:** 2026-09-23
 * **Deltagare:** Martin, Josefin, Wilmer
 * **Relaterad Issue/Ticket:** #14
