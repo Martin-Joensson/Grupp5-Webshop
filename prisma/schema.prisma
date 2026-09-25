@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+// Neon note: In Prisma 7+, do not include a url property in the datasource block. The connection is configured via prisma.config.ts and the adapter. (https://neon.com/docs/guides/prisma)
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id                   Int       @id @default(autoincrement())
+  title                String    @unique
+  description          String
+  categoryId           Int
+  category             Category? @relation(fields: [categoryId], references: [id])
+  price                Decimal
+  discountPercentage   Decimal?
+  rating               Int?
+  stock                Int?
+  tags                 String[]
+  brand                String?
+  sku                  String?
+  weight               Float?
+  width                Float?
+  height               Float?
+  depth                Float?
+  warrantyInformation  String?
+  shippingInformation  String?
+  availabilityStatus   String?
+  reviews              Review[]
+  returnPolicy         String?
+  minimumOrderQuantity Int?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @default(now())
+  barcode              String?
+  qrCode               String?
+  images               String[]
+  thumbnail            String
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  slug     String
+  image    String
+  products Product[]
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  product       Product? @relation(fields: [productId], references: [id])
+  productId     Int?
+  rating        Int
+  comment       String
+  date          DateTime
+  reviewerName  String
+  reviewerEmail String
+}

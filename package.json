@@ -12,6 +12,9 @@
     "check-ts": "tsc --noemit"
   },
   "dependencies": {
+    "@prisma/adapter-neon": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "^18.0.3",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -25,7 +28,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "json-server": "^0.17.4",
+    "prisma": "^7.10.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
