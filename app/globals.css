@@ -2,15 +2,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f5f5;
+  --background: #fcfcfc;
   --foreground: #171717;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  /* Colors */
+  --color-brand-red: #541413;
+  --color-brand-golden: #c79844;
+  --color-brand-darkblue: #313d55;
+  --color-brand-lightblue: #556d92;
+  --color-brand-sand: hsl(26, 15%, 59%, 30%);
+  --color-brand-offwhite: #f2f1eb;
+  --color-brand-almostblack: #10151a;
+
+  /* Semantic color naming */
+
+  --color-dark: var(--color-brand-almostblack);
+  --color-light: var(--color-brand-offwhite);
+  --color-primary: var(--color-brand-darkblue);
+  --color-secondary: var(--color-brand-lightblue);
+  --color-tertiary: var(--color-brand-red);
+  --color-accent: var(--color-brand-golden);
+  --color-price: var(--color-brand-golden);
+  --color-soft: var(--color-brand-sand);
+
+  /* Fonts */
+  --font-sans: "Jost", sans-serif;
+  --font-heading: "Chonburi", sans-serif;
+  --font-accent: "Notable", sans-serif;
 }
 
 /* Commented out dark mode support for now
@@ -25,7 +50,30 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jost), Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+}
+
+h1 {
+  font-size: 2.6rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+h4 {
+  font-size: 1.6rem;
 }
 
 @layer components {
@@ -55,5 +103,4 @@ body {
   .product-table-grid {
     @apply grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)] items-center gap-x-4 mx-4;
   }
-
 }
