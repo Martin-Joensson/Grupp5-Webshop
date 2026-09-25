@@ -23,7 +23,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center  justify-center gap-2 rounded font-medium transition-all duration-250 focus:outline-2 focus:ring-2 focus:outline-cyan-500 active:bg-primary active:text-light disabled:pointer-events-none disabled:bg-soft disabled:border-0 disabled:text-stone-400";
+    "inline-flex items-center gap-2 rounded font-medium transition-all duration-250 focus:outline-2 focus:ring-2 focus:outline-cyn-500 active:bg-primary active:text-light disabled:pointer-events-none disabled:bg-soft disabled:border-0 disabled:text-stone-400";
 
   const variantStyles: Record<ButtonVariant, string> = {
     primary: "bg-accent text-light hover:rounded-4xl",
@@ -35,16 +35,18 @@ export function Button({
       "border border-accent bg-transparent text-accent hover:rounded-4xl hover:bg-gray-100",
   };
 
+  const alignmentStyles = icon ? "justify-between" : "justify-center";
+
   const sizeStyles: Record<ButtonSize, string> = {
     sm: "h-8 px-3 text-sm",
     md: "h-10 px-4 text-sm",
-    lg: "h-12 px-6 text-base",
+    lg: "h-12 min-w-40 px-6 text-base",
   };
 
   const iconSizeStyles: Record<ButtonSize, string> = {
-    sm: "h-4 w-4 ",
-    md: "h-8 w-8 ",
-    lg: "h-10 w-10 ",
+    sm: "h-4 w-4",
+    md: "h-8 w-8",
+    lg: "h-10 w-10",
   };
 
   return (
@@ -52,6 +54,7 @@ export function Button({
       className={[
         "group",
         baseStyles,
+        alignmentStyles,
         variantStyles[variant],
         sizeStyles[size],
         fullWidth && "w-full",
@@ -73,7 +76,7 @@ export function Button({
 
       {icon && iconPosition === "right" && (
         <span
-          className={`flex shrink-0 group-hover:animate-pulse  ${iconSizeStyles[size]}`}
+          className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[size]}`}
         >
           {icon}
         </span>
