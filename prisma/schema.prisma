@@ -20,9 +20,9 @@ model Product {
   description          String
   categoryId           Int
   category             Category? @relation(fields: [categoryId], references: [id])
-  price                Decimal
+  price                Int
   discountPercentage   Decimal?
-  rating               Int?
+  rating               Float?
   stock                Int?
   tags                 String[]
   brand                String?
