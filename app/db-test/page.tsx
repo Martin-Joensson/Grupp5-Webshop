@@ -1,4 +1,4 @@
-import { getProducts } from "@/lib/database";
+import { getProducts } from "@/lib/api";
 
 export default async function DbTestPage() {
   const products = await getProducts({ limit: 8 });
