@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
-import { Category, Product, ProductsResponse } from "@/types";
+import { Category, Product, ProductsResponse, Stats } from "@/types";
 
 const DEFAULT_LIMIT = 6;
 
@@ -21,6 +21,31 @@ export async function createCategory(category: Omit<Category, "id">) {
 
 export async function getCategories() {
   return await prisma.category.findMany();
+}
+
+export async function getAvailabilityStats(): Promise<Stats> {
+  const total = await prisma.product.count();
+  const counts = await prisma.product.groupBy({
+    by: ["availabilityStatus"],
+    _count: true,
+  });
+
+  const keyMap = new Map([
+    ["In Stock", "inStock"],
+    ["Low Stock", "lowStock"],
+    ["Out of Stock", "outOfStock"],
+  ]);
+
+  const entries = counts.map((group) => {
+    const k = group.availabilityStatus;
+    const v = group._count;
+    return [keyMap.get(String(k)), v];
+  });
+
+  const stats = Object.fromEntries(entries);
+  stats.total = total;
+
+  return stats;
 }
 
 export async function createProduct(product: SimpleProduct) {

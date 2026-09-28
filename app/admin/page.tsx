@@ -4,9 +4,8 @@ import { ProductList } from "@/components/ProductList";
 import { SearchBar } from "../components/SearchBar";
 import { Pagination } from "../components/Pagination";
 import { createUrlSearchParams } from "../lib/utils";
-import { getCategories, getProducts } from "@/lib/api";
+import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
 
-const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
 export default async function AdminHomePage({
   searchParams,
@@ -24,7 +23,7 @@ export default async function AdminHomePage({
     lowStock,
     outOfStock,
     inStock,
-  }: Stats = await fetch(`${API_URL}/products/stats`).then((res) => res.json());
+  }: Stats = await getAvailabilityStats();
 
   // we use the fetch() method to get the products from the API
   // in this fetch we sort using _sort and _order and we limit the number of products using _limit

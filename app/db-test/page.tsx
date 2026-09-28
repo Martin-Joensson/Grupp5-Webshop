@@ -1,8 +1,8 @@
-import { getProducts, getStats } from "@/lib/api";
+import { getProducts, getAvailabilityStats } from "@/lib/api";
 
 export default async function DbTestPage() {
   const productsResponse = await getProducts({ limit: 8, sort: "title" });
-  const stats = await getStats();
+  const stats = await getAvailabilityStats();
   console.log(stats);
   const { products } = productsResponse;
 
