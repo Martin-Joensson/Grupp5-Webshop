@@ -65,42 +65,37 @@ export default function CartPage()
 
 
     return(
-        <>
-            <header className="bg-zinc-300 h-18">
-                <h1 className=" text-3xl mbs-3 my-auto ms-8"> Nagare temp header </h1>
-            </header>
 
-            <main className="max-w-7xl w-full mx-auto">
+        <main className="max-w-7xl w-full mx-auto">
 
-                {/* Summary of the cart with total and subtotal pricing and buttons for going to checkout or back to product catalog. */}
-                <section aria-label="Cart summary" className="mx-auto">
-                    <div className="text-5xl text-cyan-950 font-black text-center my-8">
-                        <p> Total: € 471 </p>
-                        <p> Subtotal: € 471 </p>
-                    </div>
+            {/* Summary of the cart with total and subtotal pricing and buttons for going to checkout or back to product catalog. */}
+            <section aria-label="Cart summary" className="mx-auto">
+                <div className="text-5xl text-cyan-950 font-black text-center my-8">
+                    <p> Total: € 471 </p>
+                    <p> Subtotal: € 471 </p>
+                </div>
 
-                    <div className="flex gap-4 justify-center my-8">
-                        <Link href="/" className="text-white bg-yellow-600 p-2 rounded-md"> Back </Link>
-                        <button type="button" className="text-white bg-yellow-600 p-2 rounded-md"> Checkout </button>
-                    </div>
-                </section>
+                <div className="flex gap-4 justify-center my-8">
+                    <Link href="/" className="text-white bg-yellow-600 p-2 rounded-md"> Back </Link>
+                    <button type="button" className="text-white bg-yellow-600 p-2 rounded-md"> Checkout </button>
+                </div>
+            </section>
 
-                {/* Creates a list-item with an CartItem for each product in the shopping cart. */}
-                <section aria-labelledby="cart-list-heading">
-                    <h2 id="cart-list-heading" className="text-cyan-950 text-3xl font-black text-center my-4"> My cart </h2>
+            {/* Creates a list-item with an CartItem for each product in the shopping cart. */}
+            <section aria-labelledby="cart-list-heading">
+                <h1 id="cart-list-heading" className="text-cyan-950 text-3xl font-black text-center my-4"> My cart </h1>
 
-                    <ul className="flex flex-col gap-6">
-                        { productsInCart.map( (cartProduct) => (
-                                <li key={cartProduct.id}>
-                                    <CartItem product={cartProduct} />
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </section>
+                <ul aria-label={`Shopping cart list with ${productsInCart.length} product(s)`} className="flex flex-col gap-6">
+                    { productsInCart.map( (cartProduct) => (
+                            <li key={cartProduct.id} aria-labelledby={`product-title-${cartProduct.id}`} >
+                                <CartItem product={cartProduct} />
+                            </li>
+                        ))
+                    }
+                </ul>
+            </section>
 
-            </main>
-        </>
+        </main>
     );
 }
 
@@ -111,12 +106,12 @@ function CartItem( { product }:{ product: Product } )
     const quantity: number = 2;
 
     return(
-        <article className="bg-white p-4 w-full flex gap-4 justify-between" >
+        <article aria-labelledby={`product-title-${product.id}`} className="bg-white p-4 w-full flex gap-4 justify-between" >
 
             {/* Image and title of product */}
             <div className="flex items-center gap-4 w-72">
                 <Image src={product.thumbnail} alt="" width={300} height={300} className="max-w-20 border" />
-                <h3 className="text-cyan-950 font-black text-center"> {product.title} </h3>
+                <h2 id={`product-title-${product.id}`} className="text-cyan-950 font-black text-center"> {product.title} </h2>
             </div>
 
             {/* The products discount */}
