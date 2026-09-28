@@ -17,6 +17,10 @@ export async function createCategory(category: Omit<Category, "id">) {
   await prisma.category.create({ data: category });
 }
 
+export async function getCategories() {
+  return await prisma.category.findMany();
+}
+
 export async function createProduct(product: SimpleProduct) {
   await prisma.product.create({
     data: product,

@@ -4,6 +4,7 @@ import { ProductList } from "@/components/ProductList";
 import { SearchBar } from "../components/SearchBar";
 import { Pagination } from "../components/Pagination";
 import { createUrlSearchParams } from "../lib/utils";
+import { getCategories, getProducts } from "@/lib/api";
 
 const API_URL = "http://localhost:4000";
 const defaultLimit = "6";
@@ -14,9 +15,7 @@ export default async function AdminHomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const categories: Category[] = await fetch(`${API_URL}/categories`).then(
-    (res) => res.json(),
-  );
+  const categories: Category[] = await getCategories();
 
   const stock = ["In Stock", "Low Stock", "Out of Stock"];
 
