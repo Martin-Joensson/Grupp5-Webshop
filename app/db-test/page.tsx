@@ -1,7 +1,10 @@
-import { getProducts } from "@/lib/api";
+import { getProducts, getStats } from "@/lib/api";
 
 export default async function DbTestPage() {
-  const products = await getProducts({ limit: 8 });
+  const productsResponse = await getProducts({ limit: 8, sort: "title" });
+  const stats = await getStats();
+  console.log(stats);
+  const { products } = productsResponse;
 
   return (
     <div className="flex flex-col gap-2">

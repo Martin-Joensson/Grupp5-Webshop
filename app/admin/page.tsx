@@ -61,9 +61,8 @@ export default async function AdminHomePage({
     query.set("title_like", search);
   }
 
-  const { products, total, page, pages, limit }: ProductsResponse = await fetch(
-    `${API_URL}/products/?${query.toString()}`,
-  ).then((res) => res.json());
+  const { products, total, page, pages, limit }: ProductsResponse =
+    await getProducts({ page: currentPage });
 
   return (
     <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">
