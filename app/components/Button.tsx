@@ -23,7 +23,8 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "inline-flex items-center gap-2 rounded font-medium transition-all duration-250 focus:outline-2 focus:ring-2 focus:outline-cyn-500 active:bg-primary active:text-light disabled:pointer-events-none disabled:bg-soft disabled:border-0 disabled:text-stone-400";
+"inline-flex items-center gap-2 rounded font-medium transition-all duration-250 focus:outline-2 focus:ring-2 focus:outline-cyan-500 active:bg-primary active:text-light disabled:pointer-events-none disabled:bg-soft disabled:border-0 disabled:text-stone-400";
+
 
   const variantStyles: Record<ButtonVariant, string> = {
     primary: "bg-accent text-light hover:rounded-4xl",
