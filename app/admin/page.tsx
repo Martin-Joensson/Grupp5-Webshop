@@ -61,7 +61,7 @@ export default async function AdminHomePage({
   }
 
   const { products, total, page, pages, limit }: ProductsResponse =
-    await getProducts({ page: currentPage });
+    await getProducts({ page: currentPage, expand: ["category"] });
 
   return (
     <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">

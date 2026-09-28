@@ -74,8 +74,15 @@ interface GetProductsOptions {
   limit?: number | string;
   sort?: string;
   order?: "asc" | "desc";
-  expand?: string | string[];
+  expand?: string[];
   [key: string]: string | string[] | number | boolean | undefined;
+}
+
+interface DbQuery {
+  skip: number;
+  take: number;
+  orderBy: Record<string, string>;
+  include?: Record<string, boolean>;
 }
 
 export async function getProducts(
@@ -86,6 +93,7 @@ export async function getProducts(
     page = 1,
     sort = "id",
     order = "asc",
+    expand,
   } = options;
 
   const total: number = await prisma.product.count();
@@ -94,11 +102,17 @@ export async function getProducts(
   const orderBy: Record<string, string> = {};
   orderBy[sort] = order;
 
-  const dbProducts = await prisma.product.findMany({
+  const query: DbQuery = {
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
     orderBy: orderBy,
-  });
+  };
+
+  if (expand !== undefined && expand.length > 0) {
+    query.include = Object.fromEntries(expand.map((entry) => [entry, true]));
+  }
+
+  const dbProducts = await prisma.product.findMany(query);
 
   const products: Product[] = [];
 
