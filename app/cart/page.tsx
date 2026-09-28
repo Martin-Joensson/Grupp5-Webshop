@@ -6,6 +6,7 @@ import { Product } from "@/types";
 
 export default function CartPage()
 {
+    // Temporary and static product data.
     const product1: Product = {
         id: 126,
         title: "Oppo F19 Pro Plus",
@@ -59,6 +60,10 @@ export default function CartPage()
         thumbnail: "https://cdn.dummyjson.com/product-images/groceries/water/thumbnail.webp"
     };
 
+    // Array with products in the cart.
+    const productsInCart: Product[] = [ product1, product2, product3 ];
+
+
     return(
         <>
             <header className="bg-zinc-300 h-18">
@@ -67,6 +72,7 @@ export default function CartPage()
 
             <main className="max-w-7xl w-full mx-auto">
 
+                {/* Summary of the cart with total and subtotal pricing and buttons for going to checkout or back to product catalog. */}
                 <section aria-label="Cart summary" className="mx-auto">
                     <div className="text-5xl text-cyan-950 font-black text-center my-8">
                         <p> Total: € 471 </p>
@@ -79,14 +85,18 @@ export default function CartPage()
                     </div>
                 </section>
 
+                {/* Creates a list-item with an CartItem for each product in the shopping cart. */}
                 <section aria-labelledby="cart-list-heading">
                     <h2 id="cart-list-heading" className="text-cyan-950 text-3xl font-black text-center my-4"> My cart </h2>
 
-                    <div className="flex flex-col gap-6">
-                        <CartItem product={product1} />
-                        <CartItem product={product2} />
-                        <CartItem product={product3} />
-                    </div>
+                    <ul className="flex flex-col gap-6">
+                        { productsInCart.map( (cartProduct) => (
+                                <li key={cartProduct.id}>
+                                    <CartItem product={cartProduct} />
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </section>
 
             </main>
@@ -95,37 +105,42 @@ export default function CartPage()
 }
 
 
-
+// A component for products in the cart to be placed in a <li> in the <ul> that makes up the shopping cart.
 function CartItem( { product }:{ product: Product } )
 {
-    const amount: number = 2;
+    const quantity: number = 2;
 
     return(
         <article className="bg-white p-4 w-full flex gap-4 justify-between" >
 
+            {/* Image and title of product */}
             <div className="flex items-center gap-4 w-72">
                 <Image src={product.thumbnail} alt="" width={300} height={300} className="max-w-20 border" />
                 <h3 className="text-cyan-950 font-black text-center"> {product.title} </h3>
             </div>
 
+            {/* The products discount */}
             <div className="flex items-center">
                 <p>{product.discountPercentage}% off</p>
             </div>
 
             <div className="flex gap-10 items-center">
+                {/* Quantity input field */}
                 <div className="grid">
                     <label htmlFor={`quantity-${product.id}`} className="block text-center mbs-auto mbe-2" >
                         Quantity (minimum 1)
                     </label>
-                    <input type="number" id={`quantity-${product.id}`} name="quantity" min="1" defaultValue={amount}
+                    <input type="number" id={`quantity-${product.id}`} name="quantity" min="1" defaultValue={quantity}
                         className="block border p-2" />
                 </div>
 
+                {/* Pricing per product and total for all of this product */}
                 <div>
                     <p> Per product: €{product.price} </p>
-                    <p> For all products: €{product.price * amount} </p>
+                    <p> For all products: €{product.price * quantity} </p>
                 </div>
 
+                {/* Remove from cart button */}
                 <button type="button" className="bg-black text-white p-4 h-10 w-10 rounded-xl flex items-center"> x </button>
             </div>
 
