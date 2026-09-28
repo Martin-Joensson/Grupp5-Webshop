@@ -23,6 +23,8 @@ export default function HomePage() {
 
       <Button variant="primary">Click me</Button>
 
+      <Button variant="primary">Click me</Button>
+
       {/* Temporary links below */}
       <br />
       <Link href="/product/id" className="underline">
