@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Notable, Chonburi, Jost } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -10,6 +10,23 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const notable = Notable({
+  weight: "400",
+  variable: "--font-notable",
+  subsets: ["latin"],
+});
+
+const chonburi = Chonburi({
+  weight: "400",
+  variable: "--font-chonburi",
+  subsets: ["latin"],
+});
+
+const jost = Jost({
+  variable: "--font-jost",
   subsets: ["latin"],
 });
 
@@ -32,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${materialSymbols.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${materialSymbols.variable} ${chonburi.variable} ${notable} ${jost.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {children}
