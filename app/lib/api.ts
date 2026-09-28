@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
+import { ProductInclude, ProductWhereInput } from "@/generated/prisma/models";
 import { Category, Product, ProductsResponse, Stats } from "@/types";
 
 const DEFAULT_LIMIT = 6;
@@ -75,14 +76,15 @@ interface GetProductsOptions {
   sort?: string;
   order?: "asc" | "desc";
   expand?: string[];
-  [key: string]: string | string[] | number | boolean | undefined;
+  filter?: ProductWhereInput;
 }
 
-interface DbQuery {
+interface PrismaQuery {
   skip: number;
   take: number;
   orderBy: Record<string, string>;
-  include?: Record<string, boolean>;
+  include?: ProductInclude;
+  where?: ProductWhereInput;
 }
 
 export async function getProducts(
@@ -94,15 +96,16 @@ export async function getProducts(
     sort = "id",
     order = "asc",
     expand,
+    filter,
   } = options;
 
-  const total: number = await prisma.product.count();
+  const total: number = await prisma.product.count({ where: filter });
   const pages: number = Math.ceil(total / Number(limit));
 
   const orderBy: Record<string, string> = {};
   orderBy[sort] = order;
 
-  const query: DbQuery = {
+  const query: PrismaQuery = {
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
     orderBy: orderBy,
@@ -110,6 +113,10 @@ export async function getProducts(
 
   if (expand !== undefined && expand.length > 0) {
     query.include = Object.fromEntries(expand.map((entry) => [entry, true]));
+  }
+
+  if (filter !== undefined) {
+    query.where = filter;
   }
 
   const dbProducts = await prisma.product.findMany(query);
@@ -125,3 +132,6 @@ export async function getProducts(
     pages: pages,
   };
 }
+
+// https://www.prisma.io/docs/orm/v7/reference/prisma-client-reference
+// https://www.prisma.io/docs/orm/v7/reference/prisma-client-reference#filter-conditions-and-operators

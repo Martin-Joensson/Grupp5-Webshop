@@ -5,6 +5,7 @@ import { SearchBar } from "../components/SearchBar";
 import { Pagination } from "../components/Pagination";
 import { createUrlSearchParams } from "../lib/utils";
 import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
+import { ProductWhereInput } from "@/generated/prisma/models";
 
 const defaultLimit = "6";
 export default async function AdminHomePage({
@@ -32,7 +33,7 @@ export default async function AdminHomePage({
   const {
     page: currentPage = "1",
     category: categorySlug = "",
-    stock: stockStatus = "",
+    stock: stockStatus,
     search = "",
   } = await searchParams;
 
@@ -42,26 +43,26 @@ export default async function AdminHomePage({
     (category) => category.slug === categorySlug,
   );
 
-  const query = new URLSearchParams({
-    _page: String(currentPage),
-    _limit: defaultLimit,
-    _sort: "id",
-    _order: "desc",
-    _expand: "category",
-  });
+  const filter: ProductWhereInput = {};
 
-  if (selectedCategory) {
-    query.set("categoryId", String(selectedCategory.id));
+  if (selectedCategory !== undefined) {
+    filter.categoryId = selectedCategory?.id;
   }
-  if (stockStatus) {
-    query.set("availabilityStatus", stockStatus);
+  if (stockStatus !== undefined) {
+    filter.availabilityStatus = stockStatus;
   }
-  if (search) {
-    query.set("title_like", search);
+  if (search !== undefined) {
+    filter.title = { contains: search, mode: "insensitive" };
   }
+
+  console.log(filter);
 
   const { products, total, page, pages, limit }: ProductsResponse =
-    await getProducts({ page: currentPage, expand: ["category"] });
+    await getProducts({
+      page: currentPage,
+      expand: ["category"],
+      filter: filter,
+    });
 
   return (
     <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">
