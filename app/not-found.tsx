@@ -14,7 +14,10 @@ export default function NotFound() {
         <h2 className="leading-tight">
           Lost in NAGARE
           <br />
-          <span className="font-accent text-2xl font-bold text-secondary">
+          <span
+            lang="ja"
+            className="font-accent text-2xl font-bold text-secondary"
+          >
             ナガレの中で見失う
           </span>
         </h2>
