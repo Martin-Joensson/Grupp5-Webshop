@@ -85,7 +85,7 @@ interface GetProductsOptions {
 interface PrismaQuery {
   skip: number;
   take: number;
-  orderBy: ProductOrderByWithRelationInput;
+  orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[];
   include?: ProductInclude;
   where?: ProductWhereInput;
 }
