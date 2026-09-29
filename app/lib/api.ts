@@ -6,7 +6,7 @@ import {
   ProductOrderByWithRelationInput,
   ProductWhereInput,
 } from "@/generated/prisma/models";
-import { Category, Product, ProductsResponse, Stats } from "@/types";
+import { Category, PrismaProduct, ProductsResponse, Stats } from "@/types";
 
 const DEFAULT_LIMIT = 6;
 
@@ -119,7 +119,7 @@ export async function getProducts(
   }
 
   const dbProducts = await prisma.product.findMany(query);
-  const products: Product[] = [];
+  const products: PrismaProduct[] = [];
   Object.assign(products, dbProducts);
 
   return {

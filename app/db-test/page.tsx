@@ -15,7 +15,7 @@ export default async function DbTestPage() {
       {products.map((product) => (
         <p
           key={product.id}
-        >{`${product.title} ${product.brand} ${product.price} ${product.description}`}</p>
+        >{`${product.createdAt instanceof Date} ${product.createdAt} ${product.title} ${product.brand} ${product.price} ${product.description}`}</p>
       ))}
     </div>
   );
