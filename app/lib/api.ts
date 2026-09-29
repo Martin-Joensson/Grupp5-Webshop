@@ -78,7 +78,7 @@ interface GetProductsOptions {
   page?: number | string;
   limit?: number | string;
   expand?: string[];
-  orderBy?: ProductOrderByWithRelationInput;
+  orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[];
   filter?: ProductWhereInput;
 }
 
