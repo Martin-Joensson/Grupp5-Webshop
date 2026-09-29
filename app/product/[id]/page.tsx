@@ -1,43 +1,39 @@
 import { Button } from "@/components/Button";
+import { ImageGallery } from "@/components/ImageGallery";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductDetailsPage() {
-  const imageArray = [
-    "https://placehold.co/200x200",
-    "https://placehold.co/200x200",
-    "https://placehold.co/200x200",
-    "https://placehold.co/200x200",
-  ];
+const imageArray = [
+  {
+    src: "https://placehold.co/600x300",
+    alt: "Product front view",
+  },
+  {
+    src: "https://placehold.co/200x200",
+    alt: "Product side view",
+  },
+  {
+    src: "https://placehold.co/300x200",
+    alt: "Product back view",
+  },
+  {
+    src: "https://placehold.co/400x200",
+    alt: "Product detail",
+  },
+
+];
 
   return (
     <div>
       <h1 className="text-3xl"> Product details page </h1>
       <div className="flex flex-col md:flex-row gap-4 mb-20 p-4 justify-between">
-        {/* left panel */}
-        <div className="flex flex-col md:flex-row gap-4 w-full">
-          <Image
-            className="object-cover w-full flex-1"
-            src="https://placehold.co/600x400"
-            width="600"
-            height="400"
-            alt=""
-            unoptimized
-          />
-          <div className="flex md:flex-col gap-2 w-1/1">
-            {imageArray.map((image, index) => (
-              <Image
-                key={index}
-                className="object-cover min-w-0 md:max-w-40 border border-secondary rounded shrink  aspect-square"
-                src={image}
-                width="600"
-                height="400"
-                alt=""
-                unoptimized
-              />
-            ))}
-          </div>
-        </div>
+              {/* left panel */}
+              <div className="md:w-2/3">
+                  
+              <ImageGallery images={ imageArray } />
+              </div>
+       
         {/* Right panel */}
         <div className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
