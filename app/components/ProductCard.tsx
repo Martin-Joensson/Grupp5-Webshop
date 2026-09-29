@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTransition, useState } from "react";
 import { deleteProduct } from "@/actions";
+import { toEurosString } from "@/lib/utils";
 
 type ProductCardProps = Pick<
   Product,
@@ -78,7 +79,7 @@ export default function ProductCard({
         </span>
         (<span>{stock}</span>)
       </p>
-      <p className="text-right font-semibold">{euros.format(price)}</p>
+      <p className="text-right font-semibold">{toEurosString(price)}</p>
       <div className="flex justify-end md:justify-center gap-2 text-2xl  py-4">
         <button
           type="button"
@@ -108,8 +109,3 @@ export default function ProductCard({
     </article>
   );
 }
-
-const euros = new Intl.NumberFormat("en-IE", {
-  style: "currency",
-  currency: "EUR",
-});
