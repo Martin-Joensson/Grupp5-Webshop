@@ -7,7 +7,6 @@ import { createUrlSearchParams } from "../lib/utils";
 import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
 import { ProductWhereInput } from "@/generated/prisma/models";
 
-const defaultLimit = "6";
 export default async function AdminHomePage({
   searchParams,
 }: {
@@ -26,12 +25,8 @@ export default async function AdminHomePage({
     inStock,
   }: Stats = await getAvailabilityStats();
 
-  // we use the fetch() method to get the products from the API
-  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
-  // we also use _expand to get the relational category data
-  // we can use the other destructed variables like page, total and so on to create pagination or show info
   const {
-    page: currentPage = "1",
+    page: currentPage,
     category: categorySlug = "",
     stock: stockStatus,
     search = "",
@@ -44,7 +39,6 @@ export default async function AdminHomePage({
   );
 
   const filter: ProductWhereInput = {};
-
   if (selectedCategory !== undefined) {
     filter.categoryId = selectedCategory?.id;
   }
@@ -54,8 +48,6 @@ export default async function AdminHomePage({
   if (search !== undefined) {
     filter.title = { contains: search, mode: "insensitive" };
   }
-
-  console.log(filter);
 
   const { products, total, page, pages, limit }: ProductsResponse =
     await getProducts({
