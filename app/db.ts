@@ -1,4 +1,4 @@
-import "dotenv/config";
+/*import "dotenv/config";
 import { PrismaClient } from "./generated/prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 
@@ -9,3 +9,4 @@ const adapter = new PrismaNeon({
 export const prisma = new PrismaClient({ adapter });
 
 // Copied from https://neon.com/docs/guides/prisma
+*/
