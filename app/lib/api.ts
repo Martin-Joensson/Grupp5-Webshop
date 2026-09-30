@@ -104,20 +104,24 @@ export async function getProducts(
   const total: number = await prisma.product.count({ where: filter });
   const pages: number = Math.ceil(total / Number(limit));
 
+  // Pagination and sorting
   const query: PrismaQuery = {
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
     orderBy: orderBy,
   };
 
+  // Optionally include related records e.g. category, reviews.
   if (expand !== undefined && expand.length > 0) {
     query.include = Object.fromEntries(expand.map((entry) => [entry, true]));
   }
 
+  // Optionally filter products.
   if (filter !== undefined) {
     query.where = filter;
   }
 
+  // Fetch products.
   const dbProducts = await prisma.product.findMany(query);
   const products: PrismaProduct[] = [];
   Object.assign(products, dbProducts);
