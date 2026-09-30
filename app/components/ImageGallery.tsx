@@ -28,7 +28,6 @@ export function ImageGallery({ images }: ImageGalleryProps) {
           alt={activeImage.alt}
           fill
           priority
-          unoptimized
           className="object-cover "
           sizes="(max-width: 768px) 100vw, 60vw"
         />
@@ -65,7 +64,6 @@ export function ImageGallery({ images }: ImageGalleryProps) {
                   src={image.src}
                   alt={image.alt}
                   fill
-                  unoptimized
                   className="object-cover"
                   sizes="(max-width: 768px) 128px, 20vw"
                 />

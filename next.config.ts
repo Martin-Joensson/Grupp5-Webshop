@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         hostname: "cdn.dummyjson.com",
         pathname: "/product-images/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 
