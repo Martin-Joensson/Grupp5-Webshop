@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
+import { Product } from "@/generated/prisma/client";
 import { Category } from "@/types";
 
 interface SimpleProduct {
@@ -28,6 +29,15 @@ export async function updateProduct(id: number, product: SimpleProduct) {
     where: { id: id },
     data: product,
   });
+}
+
+export async function upsertProduct(id: number, product: Product) {
+  const upsertProduct = await prisma.product.upsert({
+    where: { id: id },
+    update: product,
+    create: product,
+  });
+  return upsertProduct;
 }
 
 export async function deleteProduct(id: number) {
