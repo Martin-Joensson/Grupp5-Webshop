@@ -90,7 +90,7 @@ export interface Review {
   productId?: number;
   rating: number;
   comment: string;
-  date: string;
+  date: Date;
   reviewerName: string;
   reviewerEmail: string;
 }
