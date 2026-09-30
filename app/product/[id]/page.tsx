@@ -4,36 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductDetailsPage() {
-const imageArray = [
-  {
-    src: "https://placehold.co/600x300",
-    alt: "Product front view",
-  },
-  {
-    src: "https://placehold.co/200x200",
-    alt: "Product side view",
-  },
-  {
-    src: "https://placehold.co/300x200",
-    alt: "Product back view",
-  },
-  {
-    src: "https://placehold.co/400x200",
-    alt: "Product detail",
-  },
-
-];
+  const imageArray = [
+    {
+      src: "https://placehold.co/600x300",
+      alt: "Product front view",
+    },
+    {
+      src: "https://placehold.co/200x200",
+      alt: "Product side view",
+    },
+    {
+      src: "https://placehold.co/300x200",
+      alt: "Product back view",
+    },
+    {
+      src: "https://placehold.co/400x200",
+      alt: "Product detail",
+    },
+  ];
 
   return (
     <div>
       <h1 className="text-3xl"> Product details page </h1>
-      <div className="flex flex-col md:flex-row gap-4 mb-20 p-4 justify-between">
-              {/* left panel */}
-              <div className="md:w-2/3">
-                  
-              <ImageGallery images={ imageArray } />
-              </div>
-       
+      <div className="max-w-270 flex mx-auto flex-col md:flex-row gap-4 mb-20 md:my-40 p-4 justify-between">
+        {/* left panel */}
+        <div className="md:w-2/3">
+          <ImageGallery images={imageArray} />
+        </div>
+
         {/* Right panel */}
         <div className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
@@ -57,21 +55,25 @@ const imageArray = [
         </div>
       </div>
 
-      <div>
-        {/* banner */}
-        <div className="w-3/4 bg-primary rounded-tr-[8rem] rounded-br-lg h-20 flex  p-4 items-center text-center text-light font-heading text-2xl">
-          <p>More information</p>
+      <div className="relative h-20">
+        {/* Banner background */}
+        <div className="absolute inset-y-0 left-0 w-3/4 bg-primary rounded-tr-[8rem] rounded-br-lg" />
+
+        {/* Content aligned with the rest of the page */}
+        <div className="relative max-w-270 mx-auto p-4 h-full flex items-center">
+          <p className="text-light font-heading text-2xl">More information</p>
         </div>
-        <div className="p-4 flex flex-col gap-10">
+
+        <div className="max-w-270 mx-auto p-4 flex flex-col gap-10">
           <p>Long description</p>
           <p>Reviews</p>
         </div>
-      </div>
 
-      {/* Temporary link below */}
-      <Link href="/" className="underline">
-        Back to home page
-      </Link>
+        {/* Temporary link below */}
+        <Link href="/" className="underline">
+          Back to home page
+        </Link>
+      </div>
     </div>
   );
 }
