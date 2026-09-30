@@ -11,7 +11,7 @@ type ProductCardProps = {
 export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <article className="group backdrop-blur-xs flex flex-col h-full gap-2">
-      <div className="relative aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
+      <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
         <Image
           src={product.thumbnail}
           alt={product.title}
