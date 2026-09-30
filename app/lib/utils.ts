@@ -31,3 +31,12 @@ export function createUrlSearchParams(searchParams: {
   });
   return urlParams;
 }
+
+export function toEurosString(cents: number): string {
+  const euros = new Intl.NumberFormat("en-IE", {
+    style: "currency",
+    currency: "EUR",
+  });
+
+  return euros.format(cents / 100);
+}
