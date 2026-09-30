@@ -1,4 +1,4 @@
-import { ImageGallery } from "@/components/ImageGallery";
+import { ImageGallery } from "@/components/customer/ImageGallery";
 import Link from "next/link";
 
 export default function ProductDetailsPage() {
