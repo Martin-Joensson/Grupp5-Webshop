@@ -1,6 +1,6 @@
 
 import type { Metadata } from "next";
-import Banner from "@/components/Banner";
+import Banner from "@/components/admin/Banner";
 
 
 

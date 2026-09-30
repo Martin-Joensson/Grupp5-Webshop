@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "./components/Button";
+import { Button } from "./components/customer/Button";
 import Arrow from "@/design/assets/arrow.svg";
 import { useRouter } from "next/navigation";
 
