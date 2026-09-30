@@ -1,7 +1,13 @@
-import { getProducts } from "@/lib/api";
+import { getProducts, getAvailabilityStats } from "@/lib/api";
 
 export default async function DbTestPage() {
-  const products = await getProducts({ limit: 8 });
+  const productsResponse = await getProducts({
+    limit: 8,
+    orderBy: [{ brand: "asc" }, { title: "desc" }],
+  });
+  const stats = await getAvailabilityStats();
+  console.log(stats);
+  const { products } = productsResponse;
 
   return (
     <div className="flex flex-col gap-2">
@@ -9,7 +15,7 @@ export default async function DbTestPage() {
       {products.map((product) => (
         <p
           key={product.id}
-        >{`${product.title} ${product.brand} ${product.price} ${product.description}`}</p>
+        >{`${product.createdAt instanceof Date} ${product.createdAt} ${product.title} ${product.brand} ${product.price} ${product.description}`}</p>
       ))}
     </div>
   );
