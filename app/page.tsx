@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
+import FilterSection from "./components/customer/FilterSection";
 import { getJsonProducts } from "./lib/api";
 
 export default async function HomePage() {
@@ -36,7 +37,13 @@ export default async function HomePage() {
 
       <Button variant="primary">Click me</Button>
 
+      {/* Temporay stuff above */}
+
+
+      <FilterSection />
+
       <ProductList products={products} />
+
       {/* Temporary links below */}
       <br />
       <Link href="/product/id" className="underline">
