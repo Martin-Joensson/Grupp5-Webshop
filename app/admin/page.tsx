@@ -1,9 +1,9 @@
-import { FilterCard } from "../components/FilterCard";
-import type { Category, ProductsResponse, Stats } from "../types";
-import { ProductList } from "@/components/ProductList";
-import { SearchBar } from "../components/SearchBar";
-import { Pagination } from "../components/Pagination";
-import { createUrlSearchParams } from "../lib/utils";
+import { FilterCard } from "@/components/admin/FilterCard";
+import type { Category, ProductsResponse, Stats } from "@/types";
+import { ProductList } from "@/components/admin/ProductList";
+import { SearchBar } from "@/components/admin/SearchBar";
+import { Pagination } from "@/components/admin/Pagination";
+import { createUrlSearchParams } from "@/lib/utils";
 import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
 import { ProductWhereInput } from "@/generated/prisma/models";
 
