@@ -1,7 +1,18 @@
 import Link from "next/link";
 import { Button } from "./components/customer/Button";
+import { ProductList } from "@/components/customer/products/ProductList";
+import { getJsonProducts } from "./lib/api";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const query = new URLSearchParams({
+    _page: String(1),
+    _limit: "6",
+    _sort: "id",
+    _order: "desc",
+    _expand: "category",
+  });
+
+  const { products } = await getJsonProducts(query);
   return (
     <div>
       <p className="bg-brand-offwhite text-brand-lightblue font-accent text-2xl">
@@ -25,6 +36,7 @@ export default function HomePage() {
 
       <Button variant="primary">Click me</Button>
 
+      <ProductList products={products} />
       {/* Temporary links below */}
       <br />
       <Link href="/product/id" className="underline">

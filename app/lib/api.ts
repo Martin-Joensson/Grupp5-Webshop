@@ -1,6 +1,8 @@
 "use server";
 
 import { prisma } from "@/db";
+
+const API_URL = "http://localhost:4000";
 import {
   ProductInclude,
   ProductOrderByWithRelationInput,
@@ -72,6 +74,12 @@ export async function deleteProduct(id: number) {
 
 export async function getProduct(id: number) {
   return await prisma.product.findUnique({ where: { id: id } });
+}
+
+export async function getJsonProducts(params: URLSearchParams) {
+  return await fetch(`${API_URL}/products/?${params.toString()}`).then((res) =>
+    res.json(),
+  );
 }
 
 interface GetProductsOptions {
