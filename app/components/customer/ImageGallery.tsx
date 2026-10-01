@@ -50,12 +50,12 @@ export function ImageGallery({ images }: ImageGalleryProps) {
                 type="button"
                 onClick={() => setActiveIndex(imageIndex)}
                 className={`
-                  relative aspect-square  w-full  overflow-hidden rounded border 
-                  transition hover:cursor-pointer
+                  relative aspect-square w-full overflow-hidden rounded border 
+                  transition hover:cursor-pointer hover:rounded-2xl
                   ${
                     activeIndex === imageIndex
-                      ? "border-accent "
-                      : "border-secondary hover:border-accent/50"
+                      ? "border-accent"
+                      : "border-secondary hover:border-accent/50 "
                   }
                 `}
               >
