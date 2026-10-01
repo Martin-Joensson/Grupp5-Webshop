@@ -46,6 +46,15 @@ export default async function HomePage({
 
       <Button variant="primary">Click me</Button>
 
+      {pages > 1 && (
+        <Pagination
+          page={page}
+          pages={pages}
+          total={total}
+          limit={limit}
+          urlParams={urlParams}
+        />
+      )}
       <ProductList products={products} />
       {pages > 1 && (
         <Pagination

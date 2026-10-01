@@ -32,6 +32,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
         className={`${buttonStyle} flex items-center justify-center bg-white${
           page === 1 ? "pointer-events-none opacity-50" : ""
         }`}
+        scroll={false}
       >
         <span className="material-symbols material-symbols-filled text-3xl h-10">
           chevron_left
@@ -44,6 +45,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
           className={`${buttonStyle} flex items-center justify-center ${
             page === 1 ? "bg-accent text-white" : "bg-white"
           }`}
+          scroll={false}
         >
           1
         </Link>
@@ -61,6 +63,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
             className={`${buttonStyle} items-center justify-center  sm:flex ${
               pageNr === page ? "bg-accent text-white flex" : "hidden bg-white"
             } `}
+            scroll={false}
           >
             {pageNr}
           </Link>
@@ -78,6 +81,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
             className={`${buttonStyle} flex items-center justify-center ${
               page === pages ? "bg-accent text-white" : "bg-white"
             }`}
+            scroll={false}
           >
             {pages}
           </Link>
@@ -90,6 +94,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
         className={`${buttonStyle} flex items-center justify-center bg-white ${
           page === pages ? " pointer-events-none opacity-50" : ""
         }`}
+        scroll={false}
       >
         <span className="material-symbols material-symbols-filled text-3xl">
           chevron_right
