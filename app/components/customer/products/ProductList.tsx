@@ -9,7 +9,14 @@ export const ProductList = ({ products }: { products: PrismaProduct[] }) => {
       <ul className="mx-auto grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 min-w-0">
         {products.map((product) => (
           <li key={product.id} className="min-w-0">
-            <ProductCard product={product} />
+            <ProductCard
+              id={product.id}
+              title={product.title}
+              thumbnail={product.thumbnail}
+              category={product.category}
+              description={product.description}
+              price={product.price}
+            />
           </li>
         ))}
       </ul>

@@ -6,18 +6,26 @@ import Arrow from "@/design/assets/arrow.svg";
 import { PrismaProduct } from "@/types";
 import { toEurosString } from "@/lib/utils";
 
-type ProductCardProps = {
-  product: Product;
-};
+type ProductCardProps = Pick<
+  PrismaProduct,
+  "id" | "title" | "thumbnail" | "category" | "description" | "price"
+>;
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({
+  id,
+  title,
+  thumbnail,
+  category,
+  description,
+  price,
+}: ProductCardProps) => {
   return (
     <article className="group backdrop-blur-xs flex flex-col h-full gap-2">
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/product/${id}`}>
         <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
           <Image
-            src={product.thumbnail}
-            alt={product.title}
+            src={thumbnail}
+            alt={title}
             fill
             className="object-contain p-4 transition-transform duration-300 group-hover:scale-105 hover:cursor-pointer"
           />
@@ -27,13 +35,13 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex flex-col gap-1">
           <p className="truncate text-lg font-bold font-heading text-dark">
-            {product.title}
+            {title}
           </p>
 
-          <p className="text-xs text-secondary">{product.category?.name}</p>
+          <p className="text-xs text-secondary">{category?.name}</p>
 
           <p className="line-clamp-3 text-xs leading-4 text-primary">
-            {product.description}
+            {description}
           </p>
         </div>
 
