@@ -1,12 +1,12 @@
-import { FilterCard } from "../components/FilterCard";
-import type { Category, ProductsResponse, Stats } from "../types";
-import { ProductList } from "@/components/ProductList";
-import { SearchBar } from "../components/SearchBar";
-import { Pagination } from "../components/Pagination";
-import { createUrlSearchParams } from "../lib/utils";
+import { FilterCard } from "@/components/admin/FilterCard";
+import type { Category, ProductsResponse, Stats } from "@/types";
+import { ProductList } from "@/components/admin/ProductList";
+import { SearchBar } from "@/components/admin/SearchBar";
+import { Pagination } from "@/components/admin/Pagination";
+import { createUrlSearchParams } from "@/lib/utils";
+import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
+import { ProductWhereInput } from "@/generated/prisma/models";
 
-const API_URL = "http://localhost:4000";
-const defaultLimit = "6";
 export default async function AdminHomePage({
   searchParams,
 }: {
@@ -14,9 +14,7 @@ export default async function AdminHomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const categories: Category[] = await fetch(`${API_URL}/categories`).then(
-    (res) => res.json(),
-  );
+  const categories: Category[] = await getCategories();
 
   const stock = ["In Stock", "Low Stock", "Out of Stock"];
 
@@ -25,16 +23,12 @@ export default async function AdminHomePage({
     lowStock,
     outOfStock,
     inStock,
-  }: Stats = await fetch(`${API_URL}/products/stats`).then((res) => res.json());
+  }: Stats = await getAvailabilityStats();
 
-  // we use the fetch() method to get the products from the API
-  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
-  // we also use _expand to get the relational category data
-  // we can use the other destructed variables like page, total and so on to create pagination or show info
   const {
-    page: currentPage = "1",
+    page: currentPage,
     category: categorySlug = "",
-    stock: stockStatus = "",
+    stock: stockStatus,
     search = "",
   } = await searchParams;
 
@@ -44,27 +38,23 @@ export default async function AdminHomePage({
     (category) => category.slug === categorySlug,
   );
 
-  const query = new URLSearchParams({
-    _page: String(currentPage),
-    _limit: defaultLimit,
-    _sort: "id",
-    _order: "desc",
-    _expand: "category",
-  });
-
-  if (selectedCategory) {
-    query.set("categoryId", String(selectedCategory.id));
+  const filter: ProductWhereInput = {};
+  if (selectedCategory !== undefined) {
+    filter.categoryId = selectedCategory?.id;
   }
-  if (stockStatus) {
-    query.set("availabilityStatus", stockStatus);
+  if (stockStatus !== undefined) {
+    filter.availabilityStatus = stockStatus;
   }
-  if (search) {
-    query.set("title_like", search);
+  if (search !== undefined) {
+    filter.title = { contains: search, mode: "insensitive" };
   }
 
-  const { products, total, page, pages, limit }: ProductsResponse = await fetch(
-    `${API_URL}/products/?${query.toString()}`,
-  ).then((res) => res.json());
+  const { products, total, page, pages, limit }: ProductsResponse =
+    await getProducts({
+      page: currentPage,
+      expand: ["category"],
+      filter: filter,
+    });
 
   return (
     <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">

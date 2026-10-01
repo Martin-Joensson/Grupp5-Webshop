@@ -3,8 +3,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Category } from "@/types";
 import { ChangeEvent, Suspense } from "react";
-import { updateFilter } from "../utils/updateFilter";
-import Search from "@/components/Search";
+import { updateFilter } from "@/utils/updateFilter";
+import Search from "./Search";
 
 type SearchProps = {
   categories: Category[];
