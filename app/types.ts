@@ -1,3 +1,5 @@
+import { Prisma } from "./generated/prisma/client";
+
 export interface Category {
   id: number;
   name: string;
@@ -102,3 +104,7 @@ export interface ProductsResponse {
   page: number;
   pages: number;
 }
+
+export type ProductWithIncludes = Prisma.ProductGetPayload<{
+  include: { category: true; reviews: true };
+}>;

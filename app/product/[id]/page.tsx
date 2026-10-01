@@ -1,7 +1,6 @@
 import { Button } from "@/components/customer/Button";
 import { ImageGallery } from "@/components/customer/ImageGallery";
-import Image from "next/image";
-import { getProducts } from "@/lib/api";
+import { getProduct } from "@/lib/api";
 import Link from "next/link";
 import NotFound from "@/not-found";
 import type { Metadata } from "next";
@@ -15,15 +14,8 @@ export async function generateMetadata({
   params,
 }: ProductDetailsPageProps): Promise<Metadata> {
   const { id } = await params;
-
-  const productsResponse = await getProducts({
-    limit: 1,
-    filter: {
-      id: Number(id),
-    },
-  });
-
-  const product = productsResponse.products[0];
+  const productId = Number(id);
+  const product = await getProduct(productId);
 
   return {
     title: product?.title ?? "Product not found",
@@ -36,15 +28,7 @@ export default async function ProductDetailsPage({
   const { id } = await params;
   const productId = Number(id);
 
-  const productsResponse = await getProducts({
-    limit: 1,
-    filter: {
-      id: productId,
-    },
-    expand: ["category"],
-  });
-
-  const product = productsResponse.products[0];
+  const product = await getProduct(productId);
 
   if (!product) {
     return <NotFound />;
@@ -78,9 +62,7 @@ export default async function ProductDetailsPage({
             <p className="text-secondary">{product.category?.name}</p>
           </div>
           <p className="font-heading text-6xl">€{product.price}</p>
-          <p className="max-w-[50ch]">
-            {product.description}
-          </p>
+          <p className="max-w-[50ch]">{product.description}</p>
           <div className="button-cluster flex gap-4 justify-end">
             <Button variant="tertiary" iconPosition="right">
               Favorite
@@ -128,7 +110,13 @@ export default async function ProductDetailsPage({
 
           <div>
             <p className="text-secondary">Reviews</p>
-            <p>{product.reviews?.toString()}</p>
+            {product.reviews.map((review) => (
+              <div key={review.id}>
+                <p>{review.rating}</p>
+                <p>{review.comment}</p>
+                <p>{review.reviewerName}</p>
+              </div>
+            ))}
           </div>
         </div>
 
