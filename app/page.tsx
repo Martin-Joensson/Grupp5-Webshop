@@ -46,13 +46,15 @@ export default async function HomePage({
       <Button variant="primary">Click me</Button>
 
       <ProductList products={products} />
-      <Pagination
-        page={page}
-        pages={pages}
-        total={total}
-        limit={limit}
-        urlParams={urlParams}
-      />
+      {pages > 1 && (
+        <Pagination
+          page={page}
+          pages={pages}
+          total={total}
+          limit={limit}
+          urlParams={urlParams}
+        />
+      )}
 
       {/* Temporary links below */}
       <br />
