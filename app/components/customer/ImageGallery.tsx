@@ -20,7 +20,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
   const activeImage = images[activeIndex];
 
   return (
-    <div className="grid w-full gap-2 md:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
+    <div className="grid min-h-80 h-full w-full gap-2 md:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
       {/* Large image */}
       <div className="relative aspect-square md:aspect-auto min-w-0 min-h-full overflow-hidden rounded border border-secondary">
         <Image
@@ -50,7 +50,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
                 type="button"
                 onClick={() => setActiveIndex(imageIndex)}
                 className={`
-                  relative aspect-square w-full overflow-hidden rounded border 
+                  relative aspect-square w-full max-w-40 overflow-hidden rounded border 
                   transition hover:cursor-pointer hover:rounded-2xl
                   ${
                     activeIndex === imageIndex

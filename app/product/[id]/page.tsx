@@ -1,32 +1,74 @@
 import { Button } from "@/components/customer/Button";
 import { ImageGallery } from "@/components/customer/ImageGallery";
 import Image from "next/image";
-
+import { getProducts } from "@/lib/api";
 import Link from "next/link";
 
-export default function ProductDetailsPage() {
+type ProductDetailsPageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function ProductDetailsPage({
+  params,
+}: ProductDetailsPageProps) {
+  const { id } = await params;
+
+  const productsResponse = await getProducts({
+    limit: 1,
+    where: {
+      id,
+    },
+  });
+
+  const product = productsResponse.products[0];
+
+  if (!product) {
+    return (
+      <div className="max-w-270 mx-auto p-4">
+        <h1 className="text-3xl">Product not found</h1>
+
+        <Link href="/" className="underline">
+          Back to home page
+        </Link>
+      </div>
+    );
+  }
+
   const imageArray = [
     {
-      src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-      alt: "Placeholder product image 1",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-      alt: "Placeholder product image 2",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-      alt: "Placeholder product image 3",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
-      alt: "Placeholder product image 4",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1523779917675-b6ed3a42a561",
-      alt: "Placeholder product image 5",
+      src: product.images,
+      alt: product.title,
     },
   ];
+
+  // const imageArray = [
+  //   {
+  //     src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+  //     alt: "Placeholder product image 1",
+  //   },
+  //   {
+  //     src: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+  //     alt: "Placeholder product image 2",
+  //   },
+  //   {
+  //     src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+  //     alt: "Placeholder product image 3",
+  //   },
+  //   {
+  //     src: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+  //     alt: "Placeholder product image 4",
+  //   },
+  //   {
+  //     src: "https://images.unsplash.com/photo-1523779917675-b6ed3a42a561",
+  //     alt: "Placeholder product image 5",
+  //   },
+  // ];
+
+  const galleryImages = product.images.map((src) => ({
+    src,
+    alt: product.title,
+  }));
+  console.log("product page: ", product);
 
   return (
     <div>
@@ -34,17 +76,18 @@ export default function ProductDetailsPage() {
       <div className="max-w-270 flex mx-auto flex-col md:flex-row gap-4 mb-20 md:my-40 p-4 justify-between">
         {/* left panel */}
         <div className="md:w-2/3">
-          <ImageGallery images={imageArray} />
+          <ImageGallery images={galleryImages} />
         </div>
 
         {/* Right panel */}
         <div className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
-            <h2>Product Name</h2>
-            <p className="text-secondary">Category</p>
+            <h2>{product.title}</h2>
+            <p className="text-secondary">{product.categoryId}</p>
           </div>
-          <p className="font-heading text-6xl">€ 123</p>
+          <p className="font-heading text-6xl">€{product.price}</p>
           <p className="max-w-[50ch]">
+            {product.description}
             Short description: The Essence Mascara Lash Princess is a popular
             mascara known for its volumizing and lengthening effects. Achieve
             dramatic lashes with this long-lasting and cruelty-free formula.
@@ -70,8 +113,14 @@ export default function ProductDetailsPage() {
         </div>
 
         <div className="max-w-270 mx-auto p-4 flex flex-col gap-10">
-          <p>Long description</p>
-          <p>Reviews</p>
+          <p>{product.description}</p>
+          <p>Height: {product.height}</p>
+          <p>Width: {product.width}</p>
+          <p>Depth: {product.depth}</p>
+          <p>Availability: {product.availabilityStatus}</p>
+          {/* <p>Discount percentage: {product.discountPercentage}% off</p> */}
+
+          <p>Reviews: {product.reviews?.toString()}</p>
         </div>
 
         {/* Temporary link below */}
