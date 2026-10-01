@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
-import FilterSection from "./components/customer/FilterSection";
+import FilterSection from "./components/customer/filter/FilterSection";
 import { getJsonProducts } from "./lib/api";
 
 export default async function HomePage() {
