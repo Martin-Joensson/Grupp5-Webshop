@@ -35,8 +35,8 @@ First, install the dependencies:
 To view the webshop page, clone the repo, install dependencies and run a local development server.
 
 ```bash
-git clone git@github.com:Martin-Joensson/projekt-agila-metoder-webshop.git
-cd projekt-agila-metoder-webshop
+git clone git@github.com:Martin-Joensson/webshop-titanium-brown-bears.git
+cd webshop-titanium-brown-bears
 npm install
 npm run dev:full
 ```
