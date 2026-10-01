@@ -1,18 +1,11 @@
 import Link from "next/link";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
-import { getJsonProducts } from "./lib/api";
+import { getProducts } from "./lib/api";
 import { Pagination } from "./components/customer/Pagination";
 import { ProductsResponse } from "./types";
 import { createUrlSearchParams } from "./lib/utils";
 
-  const query = new URLSearchParams({
-    _page: String(1),
-    _limit: "6",
-    _sort: "id",
-    _order: "desc",
-    _expand: "category",
-  });
 export default async function HomePage({
   searchParams,
 }: {
@@ -23,7 +16,12 @@ export default async function HomePage({
   const { page: currentPage } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
-  const { products } = await getJsonProducts(query);
+  const { products, total, page, pages, limit }: ProductsResponse =
+    await getProducts({
+      page: currentPage,
+      expand: ["category"],
+    });
+
   return (
     <div>
       <p className="bg-brand-offwhite text-brand-lightblue font-accent text-2xl">

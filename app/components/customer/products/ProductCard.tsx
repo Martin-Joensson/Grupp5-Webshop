@@ -2,8 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/customer/Button";
-import type { Product } from "@/types";
 import Arrow from "@/design/assets/arrow.svg";
+import { PrismaProduct } from "@/types";
+import { toEurosString } from "@/lib/utils";
 
 type ProductCardProps = {
   product: Product;
@@ -37,7 +38,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </div>
 
         <div className="mt-2 flex items-center justify-between">
-          <p className="font-heading text-price">€ {product.price}</p>
+          <p className="font-heading text-price">{toEurosString(price)}</p>
 
           <Button
             variant="primary"
