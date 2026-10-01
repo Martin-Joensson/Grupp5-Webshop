@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
-import { Product } from "@/generated/prisma/client";
+import { ProductUpsertArgs } from "@/generated/prisma/models";
 import { Category } from "@/types";
 
 interface SimpleProduct {
@@ -31,11 +31,11 @@ export async function updateProduct(id: number, product: SimpleProduct) {
   });
 }
 
-export async function upsertProduct(id: number, product: Product) {
+export async function upsertProduct(validatedFields: ProductUpsertArgs) {
   const upsertProduct = await prisma.product.upsert({
-    where: { id: id },
-    update: product,
-    create: product,
+    where: validatedFields.where,
+    update: validatedFields.update,
+    create: validatedFields.create,
   });
   return upsertProduct;
 }
