@@ -5,6 +5,9 @@ import { getProducts } from "./lib/api";
 import { Pagination } from "./components/customer/Pagination";
 import { ProductsResponse } from "./types";
 import { createUrlSearchParams } from "./lib/utils";
+import LimitDropDown from "./components/customer/LimitDropDown";
+
+const DEFAULT_LIMIT = 12;
 
 export default async function HomePage({
   searchParams,
@@ -13,13 +16,13 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const { page: currentPage } = await searchParams;
+  const { page: currentPage, limit: currentLimit } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
   const { products, total, page, pages, limit }: ProductsResponse =
     await getProducts({
       page: currentPage,
-      limit: 12,
+      limit: currentLimit,
       expand: ["category"],
     });
 
@@ -46,25 +49,31 @@ export default async function HomePage({
 
       <Button variant="primary">Click me</Button>
 
-      {pages > 1 && (
-        <Pagination
-          page={page}
-          pages={pages}
-          total={total}
-          limit={limit}
-          urlParams={urlParams}
-        />
-      )}
+      <div className="flex justify-center items-center gap-4">
+        {pages > 1 && (
+          <Pagination
+            page={page}
+            pages={pages}
+            total={total}
+            limit={limit}
+            urlParams={urlParams}
+          />
+        )}
+        <LimitDropDown currentLimit={Number(currentLimit) ?? DEFAULT_LIMIT} />
+      </div>
       <ProductList products={products} />
-      {pages > 1 && (
-        <Pagination
-          page={page}
-          pages={pages}
-          total={total}
-          limit={limit}
-          urlParams={urlParams}
-        />
-      )}
+      <div className="flex justify-center items-center gap-4">
+        {pages > 1 && (
+          <Pagination
+            page={page}
+            pages={pages}
+            total={total}
+            limit={limit}
+            urlParams={urlParams}
+          />
+        )}
+        <LimitDropDown currentLimit={Number(currentLimit) ?? DEFAULT_LIMIT} />
+      </div>
 
       {/* Temporary links below */}
       <br />
