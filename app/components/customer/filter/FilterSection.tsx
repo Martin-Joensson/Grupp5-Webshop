@@ -8,6 +8,8 @@ export default async function FilterSection()
 {
     const allCategories: Category[] = await getCategories();
 
+    const inputFieldStyle: string = "border p-2 w-full";
+
     return(
         <section className="mx-auto w-full max-w-5xl">
             <h2> Filter </h2>
@@ -19,7 +21,7 @@ export default async function FilterSection()
                 <div className="w-1/3">
                     <label htmlFor="search-input" className="sr-only" > Search for products </label>
                     <input type="search" id="search-input" name="query" placeholder="Search Products..."
-                        className="border p-2 w-full"/>
+                        className={inputFieldStyle} />
                 </div>
 
                 {/* Form group: Category select */}
@@ -31,7 +33,7 @@ export default async function FilterSection()
                 <div className="w-1/4">
                     <label htmlFor="sorting-order" className="sr-only"> Choose sorting order </label>
 
-                    <select id="sorting-order" name="sort-order" defaultValue="id-asc" className="border p-2 w-full">
+                    <select id="sorting-order" name="sort-order" defaultValue="id-asc" className={inputFieldStyle} >
                         <option value="id-asc"> Sort by... </option>
                         <option value="title-asc"> Product title (A - Z) </option>
                         <option value="rating-desc"> Ratings (high - low) </option>

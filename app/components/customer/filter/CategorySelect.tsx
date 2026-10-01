@@ -14,7 +14,7 @@ export default function CategorySelect( {categories}: {categories: Category[]} )
         <>
         <label htmlFor="category-filter" className="sr-only"> Choose product category </label>
 
-        <select id="category-filter" name="categoryId" defaultValue={category ?? ""} className="border p-2 w-full">
+        <select id="category-filter" name="categoryId" defaultValue={category ?? ""} className="border p-2 w-full"> {/* {inputFieldStyle} */}
             <option value="" > Category... </option>
 
             {
