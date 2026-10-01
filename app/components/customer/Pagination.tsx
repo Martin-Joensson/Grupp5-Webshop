@@ -22,7 +22,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
   }
 
   const buttonStyle =
-    "w-10 h-10 rounded border border-gray-300 font-bold hover:bg-neutral-500 hover:text-white";
+    "w-10 h-10 rounded border border-gray-300 font-bold hover:bg-accent hover:text-white";
 
   return (
     <nav className="bg-neutral-50 py-4 flex gap-2 text-neutral-500 justify-center items-center">
@@ -42,7 +42,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
         <Link
           href={getPageUrl(1)}
           className={`${buttonStyle} flex items-center justify-center ${
-            page === 1 ? "bg-neutral-500 text-white" : "bg-white"
+            page === 1 ? "bg-accent text-white" : "bg-white"
           }`}
         >
           1
@@ -59,9 +59,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
             key={pageNr}
             href={getPageUrl(pageNr)}
             className={`${buttonStyle} items-center justify-center  sm:flex ${
-              pageNr === page
-                ? "bg-neutral-500 text-white flex"
-                : "hidden bg-white"
+              pageNr === page ? "bg-accent text-white flex" : "hidden bg-white"
             } `}
           >
             {pageNr}
@@ -78,7 +76,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
           <Link
             href={getPageUrl(pages)}
             className={`${buttonStyle} flex items-center justify-center ${
-              page === pages ? "bg-neutral-500 text-white" : "bg-white"
+              page === pages ? "bg-accent text-white" : "bg-white"
             }`}
           >
             {pages}
