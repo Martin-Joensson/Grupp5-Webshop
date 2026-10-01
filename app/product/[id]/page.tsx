@@ -3,6 +3,7 @@ import { ImageGallery } from "@/components/customer/ImageGallery";
 import Image from "next/image";
 import { getProducts } from "@/lib/api";
 import Link from "next/link";
+import NotFound from "@/not-found";
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
@@ -12,26 +13,20 @@ export default async function ProductDetailsPage({
   params,
 }: ProductDetailsPageProps) {
   const { id } = await params;
+  const productId = Number(id);
 
   const productsResponse = await getProducts({
     limit: 1,
-    where: {
-      id,
+    filter: {
+      id: productId,
     },
+    expand: ["category"],
   });
 
   const product = productsResponse.products[0];
 
   if (!product) {
-    return (
-      <div className="max-w-270 mx-auto p-4">
-        <h1 className="text-3xl">Product not found</h1>
-
-        <Link href="/" className="underline">
-          Back to home page
-        </Link>
-      </div>
-    );
+    return <NotFound />;
   }
 
   const imageArray = [
@@ -71,7 +66,7 @@ export default async function ProductDetailsPage({
   console.log("product page: ", product);
 
   return (
-    <div>
+    <div className="bg-[url('/assets/splash3.svg')] bg-cover">
       <h1 className="text-3xl"> Product details page </h1>
       <div className="max-w-270 flex mx-auto flex-col md:flex-row gap-4 mb-20 md:my-40 p-4 justify-between">
         {/* left panel */}
@@ -83,7 +78,7 @@ export default async function ProductDetailsPage({
         <div className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
             <h2>{product.title}</h2>
-            <p className="text-secondary">{product.categoryId}</p>
+            <p className="text-secondary">{product.category?.name}</p>
           </div>
           <p className="font-heading text-6xl">€{product.price}</p>
           <p className="max-w-[50ch]">

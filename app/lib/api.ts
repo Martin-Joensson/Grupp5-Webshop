@@ -73,7 +73,12 @@ export async function deleteProduct(id: number) {
 }
 
 export async function getProduct(id: number) {
-  return await prisma.product.findUnique({ where: { id: id } });
+  return await prisma.product.findUnique({
+    where: { id },
+    include: {
+      category: true,
+    },
+  });
 }
 
 export async function getJsonProducts(params: URLSearchParams) {
