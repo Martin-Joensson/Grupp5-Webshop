@@ -4,10 +4,30 @@ import Image from "next/image";
 import { getProducts } from "@/lib/api";
 import Link from "next/link";
 import NotFound from "@/not-found";
+import type { Metadata } from "next";
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({
+  params,
+}: ProductDetailsPageProps): Promise<Metadata> {
+  const { id } = await params;
+
+  const productsResponse = await getProducts({
+    limit: 1,
+    filter: {
+      id: Number(id),
+    },
+  });
+
+  const product = productsResponse.products[0];
+
+  return {
+    title: product?.title ?? "Product not found",
+  };
+}
 
 export default async function ProductDetailsPage({
   params,
@@ -67,7 +87,6 @@ export default async function ProductDetailsPage({
 
   return (
     <div className="bg-[url('/assets/splash3.svg')] bg-cover">
-      <h1 className="text-3xl"> Product details page </h1>
       <div className="max-w-270 flex mx-auto flex-col md:flex-row gap-4 mb-20 md:my-40 p-4 justify-between">
         {/* left panel */}
         <div className="md:w-2/3">
