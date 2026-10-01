@@ -5,6 +5,7 @@ import { getProducts } from "@/lib/api";
 import Link from "next/link";
 import NotFound from "@/not-found";
 import type { Metadata } from "next";
+import { MoreInformationDrawer } from "@/components/customer/products/MoreInformationDrawer";
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
@@ -56,29 +57,6 @@ export default async function ProductDetailsPage({
     },
   ];
 
-  // const imageArray = [
-  //   {
-  //     src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
-  //     alt: "Placeholder product image 1",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-  //     alt: "Placeholder product image 2",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-  //     alt: "Placeholder product image 3",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
-  //     alt: "Placeholder product image 4",
-  //   },
-  //   {
-  //     src: "https://images.unsplash.com/photo-1523779917675-b6ed3a42a561",
-  //     alt: "Placeholder product image 5",
-  //   },
-  // ];
-
   const galleryImages = product.images.map((src) => ({
     src,
     alt: product.title,
@@ -102,9 +80,6 @@ export default async function ProductDetailsPage({
           <p className="font-heading text-6xl">€{product.price}</p>
           <p className="max-w-[50ch]">
             {product.description}
-            Short description: The Essence Mascara Lash Princess is a popular
-            mascara known for its volumizing and lengthening effects. Achieve
-            dramatic lashes with this long-lasting and cruelty-free formula.
           </p>
           <div className="button-cluster flex gap-4 justify-end">
             <Button variant="tertiary" iconPosition="right">
@@ -126,15 +101,35 @@ export default async function ProductDetailsPage({
           <p className="text-light font-heading text-2xl">More information</p>
         </div>
 
-        <div className="max-w-270 mx-auto p-4 flex flex-col gap-10">
+        <div className="max-w-270 mx-auto p-4 mt-10 flex flex-col gap-6">
           <p>{product.description}</p>
-          <p>Height: {product.height}</p>
-          <p>Width: {product.width}</p>
-          <p>Depth: {product.depth}</p>
-          <p>Availability: {product.availabilityStatus}</p>
-          {/* <p>Discount percentage: {product.discountPercentage}% off</p> */}
 
-          <p>Reviews: {product.reviews?.toString()}</p>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-secondary">Height</p>
+              <p>{product.height}</p>
+            </div>
+
+            <div>
+              <p className="text-secondary">Width</p>
+              <p>{product.width}</p>
+            </div>
+
+            <div>
+              <p className="text-secondary">Depth</p>
+              <p>{product.depth}</p>
+            </div>
+
+            <div>
+              <p className="text-secondary">Availability</p>
+              <p>{product.availabilityStatus}</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-secondary">Reviews</p>
+            <p>{product.reviews?.toString()}</p>
+          </div>
         </div>
 
         {/* Temporary link below */}
@@ -142,6 +137,15 @@ export default async function ProductDetailsPage({
           Back to home page
         </Link>
       </div>
+
+      {/* <MoreInformationDrawer
+        description={product.description}
+        height={product.height}
+        width={product.width}
+        depth={product.depth}
+        availabilityStatus={product.availabilityStatus}
+        reviews={product.reviews}
+      /> */}
     </div>
   );
 }
