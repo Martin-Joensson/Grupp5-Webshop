@@ -3,6 +3,9 @@ import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
 import FilterSection from "./components/customer/filter/FilterSection";
 import { getJsonProducts } from "./lib/api";
+import type { Category } from "@/types";
+import { getCategories } from "@/lib/api";
+import { Suspense } from "react";
 
 export default async function HomePage() {
   const query = new URLSearchParams({
@@ -14,6 +17,8 @@ export default async function HomePage() {
   });
 
   const { products } = await getJsonProducts(query);
+  const allCategories: Category[] = await getCategories();
+
   return (
     <div>
       <p className="bg-brand-offwhite text-brand-lightblue font-accent text-2xl">
@@ -39,8 +44,9 @@ export default async function HomePage() {
 
       {/* Temporay stuff above */}
 
-
-      <FilterSection />
+      <Suspense> {/* Add skeleton filter section as fallback */}
+        <FilterSection categories={allCategories} />
+      </Suspense>
 
       <ProductList products={products} />
 
