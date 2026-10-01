@@ -2,8 +2,10 @@ import Link from "next/link";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
 import { getJsonProducts } from "./lib/api";
+import { Pagination } from "./components/customer/Pagination";
+import { ProductsResponse } from "./types";
+import { createUrlSearchParams } from "./lib/utils";
 
-export default async function HomePage() {
   const query = new URLSearchParams({
     _page: String(1),
     _limit: "6",
@@ -11,6 +13,15 @@ export default async function HomePage() {
     _order: "desc",
     _expand: "category",
   });
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    [key: string]: string | undefined;
+  }>;
+}) {
+  const { page: currentPage } = await searchParams;
+  const urlParams = createUrlSearchParams(await searchParams);
 
   const { products } = await getJsonProducts(query);
   return (
@@ -37,6 +48,14 @@ export default async function HomePage() {
       <Button variant="primary">Click me</Button>
 
       <ProductList products={products} />
+      <Pagination
+        page={page}
+        pages={pages}
+        total={total}
+        limit={limit}
+        urlParams={urlParams}
+      />
+
       {/* Temporary links below */}
       <br />
       <Link href="/product/id" className="underline">
