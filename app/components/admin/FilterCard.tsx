@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { updateFilter } from "../utils/updateFilter";
+import { updateFilter } from "@/utils/updateFilter";
 
 type FilterCardProps = {
   category: string;

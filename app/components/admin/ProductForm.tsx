@@ -3,7 +3,7 @@ import { Product } from "@/types";
 import {
   CancelButton,
   ConfirmSubmitButton,
-} from "@/components/ConfirmSubmitButton";
+} from "./ConfirmSubmitButton";
 
 interface Category {
   id: number;

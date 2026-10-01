@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/customer/Button";
 import type { Product } from "@/types";
 import Arrow from "@/design/assets/arrow.svg";
 

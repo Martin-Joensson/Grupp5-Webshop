@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "./components/Button";
+import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
 import { getJsonProducts } from "./lib/api";
 
