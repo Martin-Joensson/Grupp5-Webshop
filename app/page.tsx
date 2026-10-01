@@ -19,6 +19,7 @@ export default async function HomePage({
   const { products, total, page, pages, limit }: ProductsResponse =
     await getProducts({
       page: currentPage,
+      limit: 12,
       expand: ["category"],
     });
 
