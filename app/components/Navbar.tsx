@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 import User from "@/design/assets/user.svg";
+import Line from "@/design/assets/line.svg";
 
 const navItems = [
   { label: "shop", href: "/shop" },
@@ -51,23 +52,25 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-10 w-10 flex-col  items-center justify-center  md:hidden"
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
         >
-          <span
-            className={`h-px w-6 bg-primary transition-transform ${
-              isOpen ? "translate-y-2 rotate-45" : ""
+          <Line
+            className={`transition-all text-primary duration-300 ${
+              isOpen ? "translate-x-[0px] translate-y-[13px] rotate-45" : ""
             }`}
           />
-          <span
-            className={`h-px w-6 bg-secondary transition-opacity ${
-              isOpen ? "opacity-0" : ""
+
+          <Line
+            className={` transition-all duration-300 text-secondary ${
+              isOpen ? "scale-y-0 opacity-0" : ""
             }`}
           />
-          <span
-            className={`h-px w-6 bg-accent transition-transform ${
-              isOpen ? "-translate-y-2 -rotate-45" : ""
+
+          <Line
+            className={`transition-all duration-300 text-accent ${
+              isOpen ? "-translate-x-[0px] -translate-y-[13px] -rotate-45" : ""
             }`}
           />
         </button>
@@ -93,16 +96,14 @@ export default function Navbar() {
             ))}
 
             {/* Image in mobile drawer */}
-         
-              <Link
-                href="/user"
-                className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
-              >
-                <User className="text-brand-golden h-15 w-15 overflow-hidden" />
-              <span className="text-sm">Profile</span>
-              </Link>
 
-       
+            <Link
+              href="/user"
+              className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
+            >
+              <User className="text-brand-golden h-15 w-15 overflow-hidden" />
+              <span className="text-sm">Profile</span>
+            </Link>
           </div>
         </div>
       </div>
