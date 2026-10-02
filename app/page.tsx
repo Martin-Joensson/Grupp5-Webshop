@@ -1,22 +1,35 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
 import FilterSection from "./components/customer/filter/FilterSection";
-import { getJsonProducts } from "./lib/api";
 import type { Category } from "@/types";
-import { getCategories } from "@/lib/api";
-import { Suspense } from "react";
+import { getProducts, getCategories } from "@/lib/api";
+import { Pagination } from "./components/customer/Pagination";
+import { ProductsResponse } from "./types";
+import { createUrlSearchParams } from "./lib/utils";
+import LimitDropDown from "./components/customer/LimitDropDown";
 
-export default async function HomePage() {
-  const query = new URLSearchParams({
-    _page: String(1),
-    _limit: "6",
-    _sort: "id",
-    _order: "desc",
-    _expand: "category",
-  });
+const DEFAULT_LIMIT = 12;
 
-  const { products } = await getJsonProducts(query);
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    [key: string]: string | undefined;
+  }>;
+}) {
+  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT } =
+    await searchParams;
+  const urlParams = createUrlSearchParams(await searchParams);
+
+  const { products, total, page, pages, limit }: ProductsResponse =
+    await getProducts({
+      page: currentPage,
+      limit: currentLimit,
+      expand: ["category"],
+    });
+
   const allCategories: Category[] = await getCategories();
 
   return (
@@ -48,7 +61,31 @@ export default async function HomePage() {
         <FilterSection categories={allCategories} />
       </Suspense>
 
+      <div className="flex justify-center items-center gap-4">
+        {pages > 1 && (
+          <Pagination
+            page={page}
+            pages={pages}
+            total={total}
+            limit={limit}
+            urlParams={urlParams}
+          />
+        )}
+        <LimitDropDown currentLimit={Number(currentLimit)} />
+      </div>
       <ProductList products={products} />
+      <div className="flex justify-center items-center gap-4">
+        {pages > 1 && (
+          <Pagination
+            page={page}
+            pages={pages}
+            total={total}
+            limit={limit}
+            urlParams={urlParams}
+          />
+        )}
+        <LimitDropDown currentLimit={Number(currentLimit)} />
+      </div>
 
       {/* Temporary links below */}
       <br />

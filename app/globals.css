@@ -2,8 +2,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fcfcfc;
-  --foreground: #171717;
+  --background: oklch(99.1% 0 0);
+  --foreground: oklch(20.5% 0 0);
 }
 
 @theme inline {
@@ -13,13 +13,14 @@
 
 @theme {
   /* Colors */
-  --color-brand-red: #541413;
-  --color-brand-golden: #c79844;
-  --color-brand-darkblue: #313d55;
-  --color-brand-lightblue: #556d92;
-  --color-brand-sand: hsl(26, 15%, 59%, 30%);
-  --color-brand-offwhite: #f2f1eb;
-  --color-brand-almostblack: #10151a;
+  --color-brand-red: oklch(30.1% 0.095 25.7);
+  --color-brand-golden: oklch(70.8% 0.115 79.4);
+  --color-brand-darkblue: oklch(36% 0.045 263.8);
+  --color-brand-lightblue: oklch(53.1% 0.065 258.9);
+--color-brand-sand: oklch(67.96%, 0.0289, 59.69 / 0.3);
+
+  --color-brand-offwhite: oklch(95.7% 0.008 98.9);
+  --color-brand-almostblack: oklch(19.3% 0.013 248.5);
 
   /* Semantic color naming */
 
