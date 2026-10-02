@@ -22,31 +22,45 @@ datasource db {
 
 model Product {
   id                   Int       @id @default(autoincrement())
-  title                String    @unique
+  title                String
   description          String
+  /// @zod.coerce()
   categoryId           Int
   category             Category? @relation(fields: [categoryId], references: [id])
+  /// @zod.coerce()
   price                Int
+  /// @zod.coerce()
   discountPercentage   Decimal?
+  /// @zod.coerce()
   rating               Float?
+  /// @zod.coerce()
   stock                Int?
+  /// @zod.coerce()
   tags                 String[]
   brand                String?
   sku                  String?
+  /// @zod.coerce()
   weight               Float?
+  /// @zod.coerce()
   width                Float?
+  /// @zod.coerce()
   height               Float?
+  /// @zod.coerce()
   depth                Float?
   warrantyInformation  String?
   shippingInformation  String?
   availabilityStatus   String?
+  /// @zod.coerce()
   reviews              Review[]
   returnPolicy         String?
   minimumOrderQuantity Int?
+  /// @zod.coerce()
   createdAt            DateTime  @default(now())
+  /// @zod.coerce()
   updatedAt            DateTime  @default(now())
   barcode              String?
   qrCode               String?
+  /// @zod.coerce()
   images               String[]
   thumbnail            String
 }
