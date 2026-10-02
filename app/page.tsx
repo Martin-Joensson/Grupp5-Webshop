@@ -16,7 +16,8 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const { page: currentPage, limit: currentLimit } = await searchParams;
+  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT } =
+    await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
   const { products, total, page, pages, limit }: ProductsResponse =
@@ -59,7 +60,7 @@ export default async function HomePage({
             urlParams={urlParams}
           />
         )}
-        <LimitDropDown currentLimit={Number(currentLimit) ?? DEFAULT_LIMIT} />
+        <LimitDropDown currentLimit={Number(currentLimit)} />
       </div>
       <ProductList products={products} />
       <div className="flex justify-center items-center gap-4">
@@ -72,7 +73,7 @@ export default async function HomePage({
             urlParams={urlParams}
           />
         )}
-        <LimitDropDown currentLimit={Number(currentLimit) ?? DEFAULT_LIMIT} />
+        <LimitDropDown currentLimit={Number(currentLimit)} />
       </div>
 
       {/* Temporary links below */}
