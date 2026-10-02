@@ -4,7 +4,7 @@ import { getProduct } from "@/lib/api";
 import Link from "next/link";
 import NotFound from "@/not-found";
 import type { Metadata } from "next";
-import { MoreInformationDrawer } from "@/components/customer/products/MoreInformationDrawer";
+import { toEurosString } from "@/lib/utils";
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
@@ -34,13 +34,6 @@ export default async function ProductDetailsPage({
     return <NotFound />;
   }
 
-  const imageArray = [
-    {
-      src: product.images,
-      alt: product.title,
-    },
-  ];
-
   const galleryImages = product.images.map((src) => ({
     src,
     alt: product.title,
@@ -61,7 +54,7 @@ export default async function ProductDetailsPage({
             <h2>{product.title}</h2>
             <p className="text-secondary">{product.category?.name}</p>
           </div>
-          <p className="font-heading text-6xl">€{product.price}</p>
+          <p className="font-heading text-6xl">{toEurosString(product.price)}</p>
           <p className="max-w-[50ch]">{product.description}</p>
           <div className="button-cluster flex gap-4 justify-end">
             <Button variant="tertiary" iconPosition="right">
