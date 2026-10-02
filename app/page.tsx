@@ -28,7 +28,7 @@ export default async function HomePage({
 
   return (
     <main className="min-h-screen">
-      <Background className="fixed -inset-1 top-[30%] text-soft/40 rotate-40 " />
+      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 " />
       <p className="bg-brand-offwhite text-brand-lightblue font-accent text-2xl">
         Nagare
       </p>
