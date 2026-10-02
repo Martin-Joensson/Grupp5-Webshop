@@ -39,6 +39,11 @@
   --font-accent: "Notable", sans-serif;
 }
 
+@utility glass {
+  background-color: rgb(255 255 255 / 0.25);
+  backdrop-filter: blur(0.5rem);
+}
+
 /* Commented out dark mode support for now
 @media (prefers-color-scheme: dark) {
   :root {
@@ -103,5 +108,4 @@ h4 {
   .product-table-grid {
     @apply grid grid-cols-1 md:grid-cols-[minmax(0,5fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,2fr)_minmax(0,1fr)] items-center gap-x-4 mx-4;
   }
-
 }
