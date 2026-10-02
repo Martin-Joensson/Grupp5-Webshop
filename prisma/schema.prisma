@@ -9,6 +9,12 @@ generator client {
   output   = "../app/generated/prisma"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+  // optional output = "./generated" → resolves to prisma/generated (relative to the schema file)
+  // optional config = "./zod-generator.config.json" (relative to schema file)
+}
+
 // Neon note: In Prisma 7+, do not include a url property in the datasource block. The connection is configured via prisma.config.ts and the adapter. (https://neon.com/docs/guides/prisma)
 datasource db {
   provider = "postgresql"
