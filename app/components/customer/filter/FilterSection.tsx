@@ -3,8 +3,25 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { ChangeEvent, Suspense } from "react";
 import type { Category } from "@/types";
-import { updateFilter } from "@/utils/updateFilter";
+import { updateFilterCustomer } from "@/utils/updateFilter";
 import Search from "@/components/admin/Search";
+
+
+interface SortOrderOptions {
+    id: number;
+    name: string; //what the user sees
+    slug: string; //what the system uses
+}
+
+const sortingOptions: SortOrderOptions[] = [
+    { id: 1, name: "Product title (A - Z)", slug: "title-asc" },
+    { id: 2, name: "Product title (Z - A)", slug: "title-desc" },
+    { id: 3, name: "Ratings (high - low)", slug: "rating-desc" },
+    { id: 4, name: "Price (low - high)", slug: "price-asc" },
+    { id: 5, name: "Price (high - low)", slug: "price-desc" },
+    { id: 6, name: "Highest discount %", slug: "discount-percent-desc" },
+    { id: 7, name: "Highest discount €", slug: "discount-euro-desc" },
+]
 
 
 // Component function for the entiry Filter section
@@ -26,10 +43,6 @@ export default function FilterSection( {categories}: {categories: Category[]} )
 
                 {/* Form group: Search input */}
                 <div className="w-1/3">
-                    {/* <label htmlFor="search-input" className="sr-only" > Search for products </label>
-                    <input type="search" id="search-input" name="query" placeholder="Search Products..."
-                        className={inputFieldStyle} /> */}
-
                     <Suspense>
                         <Search />
                     </Suspense>
@@ -39,9 +52,9 @@ export default function FilterSection( {categories}: {categories: Category[]} )
                 <div className="w-1/4">
                     <label htmlFor="category-filter" className="sr-only"> Choose product category </label>
 
-                    <select id="category-filter" name="categoryId" defaultValue={category ?? ""} onChange={(event) => changeFilter(event, "category")}
-                        className={inputFieldStyle}>
-                        <option value="" > Category... </option>
+                    <select id="category-filter" name="categoryId" defaultValue={category ?? ""} className={inputFieldStyle}
+                        onChange={(event) => changeFilter(event, "category")}>
+                        <option value="" > All Categories </option>
 
                         {
                             categories.map((category) => (
@@ -59,13 +72,17 @@ export default function FilterSection( {categories}: {categories: Category[]} )
                 <div className="w-1/4">
                     <label htmlFor="sorting-order" className="sr-only"> Choose sorting order </label>
 
-                    <select id="sorting-order" name="sort-order" defaultValue="id-asc" className={inputFieldStyle} >
-                        <option value="id-asc"> Sort by... </option>
-                        <option value="title-asc"> Product title (A - Z) </option>
-                        <option value="rating-desc"> Ratings (high - low) </option>
-                        <option value="price-asc"> Price (low - high) </option>
-                        <option value="price-desc"> Price (high - low) </option>
-                        <option value="discount-percent-desc"> Highest discount % </option>
+                    <select id="sorting-order" name="sort-order" defaultValue="id-asc" className={inputFieldStyle}
+                        onChange={(event) => changeFilter(event, "sort-order")} >
+
+                        <option value=""> Sort by... </option>
+                        {
+                            sortingOptions.map((option) => (
+                                <option key={option.id} value={option.slug} >
+                                    {option.name}
+                                </option>
+                            ))
+                        }
                     </select>
                 </div>
 
@@ -91,28 +108,14 @@ export default function FilterSection( {categories}: {categories: Category[]} )
 
     // Function for handling a change to the category filter field.
     // Reused function from "app/components/admin/SearchBar.tsx"
-    function changeFilter( event: ChangeEvent<HTMLSelectElement>, filter: "category" | "stock" )
+    function changeFilter( event: ChangeEvent<HTMLSelectElement>, filter: "category" | "stock"  | "sort-order" )
     {
-        const params = updateFilter(
+        const params = updateFilterCustomer(
             searchParams,
             filter,
             event.currentTarget.value,
         );
 
-        router.replace(`/?${params.toString()}`);
+        router.replace(`/?${params.toString()}`, { scroll: false });
     }
-
-    // Function for handling a change to the Only in stock input checkbox.
-    /* function changeStockFilter( event: ChangeEvent<HTMLInputElement>, filter: "category" | "stock" )
-    {
-        console.log(event);
-
-        const params = updateFilter(
-            searchParams,
-            filter,
-            event.currentTarget.value,
-        );
-
-        router.replace(`/?${params.toString()}`);
-    } */
 }
