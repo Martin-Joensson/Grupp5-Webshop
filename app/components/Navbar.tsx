@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import User from "@/assets/user.svg";
+import User from "@/design/assets/user.svg";
 
 const navItems = [
   { label: "shop", href: "/shop" },
