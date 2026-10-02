@@ -43,7 +43,7 @@ export default function Navbar() {
             href="/user"
             className="text-sm font-medium transition-opacity hover:opacity-60"
           >
-            <User className="text-brand-golden ml-2 h-10 w-10 overflow-hidden" />
+            <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
           </Link>
         </div>
 
@@ -93,16 +93,16 @@ export default function Navbar() {
             ))}
 
             {/* Image in mobile drawer */}
-            <div className="flex items-center gap-4 py-4">
+         
               <Link
                 href="/user"
-                className="text-sm font-medium transition-opacity hover:opacity-60"
+                className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
               >
-                <User className="text-brand-golden ml-2 h-10 w-10 overflow-hidden" />
+                <User className="text-brand-golden h-15 w-15 overflow-hidden" />
+              <span className="text-sm">Profile</span>
               </Link>
 
-              <span className="text-sm">Profile</span>
-            </div>
+       
           </div>
         </div>
       </div>
