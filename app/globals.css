@@ -17,8 +17,7 @@
   --color-brand-golden: oklch(70.8% 0.115 79.4);
   --color-brand-darkblue: oklch(36% 0.045 263.8);
   --color-brand-lightblue: oklch(53.1% 0.065 258.9);
---color-brand-sand: oklch(67.96%, 0.0289, 59.69 / 0.3);
-
+  --color-brand-sand: oklch(67.96% 0.0289 59.69);
   --color-brand-offwhite: oklch(95.7% 0.008 98.9);
   --color-brand-almostblack: oklch(19.3% 0.013 248.5);
 
@@ -59,26 +58,23 @@ body {
   font-family: var(--font-jost), Arial, Helvetica, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4 {
+.h1, .h2, .h3, .h4 {
   font-family: var(--font-heading);
 }
 
-h1 {
+.h1 {
   font-size: 2.6rem;
 }
 
-h2 {
+.h2 {
   font-size: 2.2rem;
 }
 
-h3 {
+.h3 {
   font-size: 1.8rem;
 }
 
-h4 {
+.h4 {
   font-size: 1.6rem;
 }
 
