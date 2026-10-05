@@ -1,7 +1,7 @@
-import { Product } from "@/types";
+import { PrismaProduct } from "@/types";
 import ProductCard from "./ProductCard";
 
-export const ProductList = ({ products }: { products: Product[] }) => {
+export const ProductList = ({ products }: { products: PrismaProduct[] }) => {
   return (
     <ul className="bg-neutral-50">
       <div className="product-table-grid font-semibold text-neutral-500 text-sm py-4">

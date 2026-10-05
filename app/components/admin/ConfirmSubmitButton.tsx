@@ -2,7 +2,7 @@
 
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Modal } from "@/components/Modal";
+import { Modal } from "./Modal";
 import Link from "next/link";
 
 export function ConfirmSubmitButton() {

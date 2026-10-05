@@ -1,3 +1,5 @@
+import { Prisma } from "./generated/prisma/client";
+
 export interface Category {
   id: number;
   name: string;
@@ -53,11 +55,56 @@ export interface Product {
   thumbnail: string;
 }
 
+export interface PrismaProduct {
+  id: number;
+  title: string;
+  description: string;
+  categoryId: number;
+  category?: Category;
+  price: number;
+  discountPercentage?: number;
+  rating?: number;
+  stock?: number;
+  tags?: string[];
+  brand?: string;
+  sku?: string;
+  weight?: number;
+  width?: number;
+  height?: number;
+  depth?: number;
+  warrantyInformation?: string;
+  shippingInformation?: string;
+  availabilityStatus?: string;
+  reviews?: Review[];
+  returnPolicy?: string;
+  minimumOrderQuantity?: number;
+  createdAt: Date;
+  updatedAt: Date;
+  barcode?: string;
+  qrCode?: string;
+  images: string[];
+  thumbnail: string;
+}
+
+export interface Review {
+  id: number;
+  product?: PrismaProduct;
+  productId?: number;
+  rating: number;
+  comment: string;
+  date: Date;
+  reviewerName: string;
+  reviewerEmail: string;
+}
+
 export interface ProductsResponse {
-  products: Product[];
-  stats: Stats;
+  products: PrismaProduct[];
   total: number;
   limit: number;
   page: number;
   pages: number;
 }
+
+export type ProductWithIncludes = Prisma.ProductGetPayload<{
+  include: { category: true; reviews: true };
+}>;
