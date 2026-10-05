@@ -19,8 +19,11 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT } =
-    await searchParams;
+  const {
+    page: currentPage,
+    limit: currentLimit = DEFAULT_LIMIT,
+    category,
+  } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
   const { products, total, page, pages, limit }: ProductsResponse =
@@ -28,6 +31,7 @@ export default async function HomePage({
       page: currentPage,
       limit: currentLimit,
       expand: ["category"],
+      filter: { category: { slug: category } },
     });
 
   const allCategories: Category[] = await getCategories();
@@ -57,7 +61,8 @@ export default async function HomePage({
 
       {/* Temporay stuff above */}
 
-      <Suspense> {/* Add skeleton filter section as fallback */}
+      <Suspense>
+        {/* Add skeleton filter section as fallback */}
         <FilterSection categories={allCategories} />
       </Suspense>
 
