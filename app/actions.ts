@@ -1,9 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { ProductUpsertOneZodSchema } from "../prisma/generated/schemas";
 import z from "zod";
 import { upsertProduct } from "./lib/api";
+import { ProductUncheckedCreateInputObjectSchema } from "../prisma/generated/schemas";
 
 const API_URL = "http://localhost:4000";
 
@@ -25,16 +25,13 @@ export async function deleteProduct(id: number) {
 
 export async function addProductAction(formData: FormData) {
   const rawData = Object.fromEntries(formData);
-  const id = rawData.productId ?? 0;
+  const id = rawData.id ? Number(rawData.id) : 0;
 
-  const validatedUpsert = ProductUpsertOneZodSchema.safeParse({
-    where: { id: id },
-    create: rawData,
-    update: rawData,
-  });
+  const validatedProduct =
+    ProductUncheckedCreateInputObjectSchema.safeParse(rawData);
 
-  if (!validatedUpsert.data) {
-    const flattened = z.flattenError(validatedUpsert.error);
+  if (!validatedProduct.data) {
+    const flattened = z.flattenError(validatedProduct.error);
 
     const state = {
       status: "error",
@@ -43,20 +40,22 @@ export async function addProductAction(formData: FormData) {
       rawData,
       timestamp: Date(),
     };
-    console.log("RETURN FAILED VALIDATION", state.message, state.errors);
     return; //return state;
   }
-  console.log("VALIDATED UPSERT", validatedUpsert);
 
   try {
-    await upsertProduct(validatedUpsert.data);
+    await upsertProduct({
+      where: { id: id },
+      create: validatedProduct.data,
+      update: validatedProduct.data,
+    });
+
     revalidatePath("/admin");
     const state = {
       status: "success",
       message: "Product created/edited successfully.",
       timestamp: Date(),
     };
-    console.log("RETURN SUCCESSFUL UPSERT", state.message);
     return; //return state;
   } catch (e) {
     const state = {
@@ -65,7 +64,6 @@ export async function addProductAction(formData: FormData) {
       rawData,
       timestamp: Date(),
     };
-    console.log("RETURN FAILED UPSERT", state.message, e);
     return; //return state;
   }
 }

@@ -1,7 +1,6 @@
 import { addProductAction } from "@/actions";
-import { Product } from "@/types";
 import { CancelButton, ConfirmSubmitButton } from "./ConfirmSubmitButton";
-import { getCategories } from "@/lib/api";
+import { getCategories, getProduct } from "@/lib/api";
 
 interface Category {
   id: number;
@@ -10,20 +9,15 @@ interface Category {
   image: string;
 }
 
-const emptyProduct: Product = {
+const emptyProduct = {
   id: 0,
   title: "",
   description: "",
   thumbnail: "",
   brand: "",
   price: 0,
+  stock: 0,
   categoryId: 0,
-  meta: {
-    createdAt: "",
-    updatedAt: "",
-    barcode: "",
-    qrCode: "",
-  },
   images: [],
 };
 
@@ -33,8 +27,9 @@ interface ProductFormProps {
 }
 
 export const ProductForm = async ({ productId }: ProductFormProps) => {
-  const product = emptyProduct;
-
+  const product = productId
+    ? ((await getProduct(productId)) ?? emptyProduct)
+    : emptyProduct;
   const categories = await getCategories();
 
   return (
@@ -48,7 +43,7 @@ export const ProductForm = async ({ productId }: ProductFormProps) => {
         className="flex flex-col gap-4 items-start max-w-2xl w-full "
       >
         {productId !== undefined && (
-          <input type="hidden" name="productId" value={productId} />
+          <input type="hidden" name="id" value={product.id} />
         )}
         <div className="flex flex-col gap-1 w-full">
           <label htmlFor="product-name">Product name:</label>
@@ -92,10 +87,11 @@ export const ProductForm = async ({ productId }: ProductFormProps) => {
               id="product-price"
               type="number"
               name="price"
-              defaultValue={product.price}
+              defaultValue={product.price / 100}
               placeholder="Enter price"
               required
               min={1}
+              step={0.01}
               className="border h-8 p-1 rounded bg-neutral-50"
             />
           </div>
@@ -106,7 +102,7 @@ export const ProductForm = async ({ productId }: ProductFormProps) => {
               id="product-stock"
               type="number"
               name="stock"
-              defaultValue={product.stock}
+              defaultValue={String(product.stock)}
               placeholder="Enter stock"
               required
               className="border  h-8 p-1 rounded bg-neutral-50"
