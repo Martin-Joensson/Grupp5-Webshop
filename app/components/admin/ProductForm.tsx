@@ -1,9 +1,7 @@
 import { addProductAction } from "@/actions";
 import { Product } from "@/types";
-import {
-  CancelButton,
-  ConfirmSubmitButton,
-} from "./ConfirmSubmitButton";
+import { CancelButton, ConfirmSubmitButton } from "./ConfirmSubmitButton";
+import { getCategories } from "@/lib/api";
 
 interface Category {
   id: number;
@@ -11,8 +9,6 @@ interface Category {
   slug: string;
   image: string;
 }
-
-const API_URL = "http://localhost:4000";
 
 const emptyProduct: Product = {
   id: 0,
@@ -37,13 +33,9 @@ interface ProductFormProps {
 }
 
 export const ProductForm = async ({ productId }: ProductFormProps) => {
-  const product = productId
-    ? await fetch(`${API_URL}/products/${productId}`).then((res) => res.json())
-    : emptyProduct;
+  const product = emptyProduct;
 
-  const categories = await fetch(`${API_URL}/categories`).then((res) =>
-    res.json(),
-  );
+  const categories = await getCategories();
 
   return (
     <article className="flex flex-col m-auto max-w-7xl w-full p-4 items-center">
