@@ -1,11 +1,11 @@
-import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
+import type { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcrypt from "bcrypt";
 
 import { prisma } from "./app/db";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
 
   session: {
@@ -13,21 +13,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   providers: [
-    Credentials({
+    CredentialsProvider({
+      name: "Credentials",
+
       credentials: {
-        email: {},
-        password: {},
+        email: {
+          label: "Email",
+          type: "email",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+        },
       },
 
       async authorize(credentials) {
-        if (!credentials) {
-          return null;
-        }
-
-        if (
-          typeof credentials.email !== "string" ||
-          typeof credentials.password !== "string"
-        ) {
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
@@ -58,4 +59,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-});
+};
