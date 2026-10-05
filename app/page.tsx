@@ -4,10 +4,10 @@ import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
 import FilterSection from "./components/customer/filter/FilterSection";
 import type { Category } from "@/types";
-import { getProducts, getCategories } from "@/lib/api";
+import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
 import { Pagination } from "./components/customer/Pagination";
 import { ProductsResponse } from "./types";
-import { createUrlSearchParams } from "./lib/utils";
+import { createUrlSearchParams, orderBy } from "./lib/utils";
 import LimitDropDown from "./components/customer/LimitDropDown";
 
 const DEFAULT_LIMIT = 12;
@@ -24,19 +24,24 @@ export default async function HomePage({
     limit: currentLimit = DEFAULT_LIMIT,
     category,
     search,
+    sort,
   } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
+  const apiQuery: GetProductsOptions = {
+    page: currentPage,
+    limit: currentLimit,
+    expand: ["category"],
+    filter: {
+      category: { slug: category },
+      title: { contains: search, mode: "insensitive" },
+    },
+  };
+  if (orderBy(sort)) {
+    apiQuery.orderBy = orderBy(sort);
+  }
 
   const { products, total, page, pages, limit }: ProductsResponse =
-    await getProducts({
-      page: currentPage,
-      limit: currentLimit,
-      expand: ["category"],
-      filter: {
-        category: { slug: category },
-        title: { contains: search, mode: "insensitive" },
-      },
-    });
+    await getProducts(apiQuery);
 
   const allCategories: Category[] = await getCategories();
 

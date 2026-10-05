@@ -82,7 +82,7 @@ export async function getJsonProducts(params: URLSearchParams) {
   );
 }
 
-interface GetProductsOptions {
+export interface GetProductsOptions {
   page?: number | string;
   limit?: number | string;
   expand?: string[];
