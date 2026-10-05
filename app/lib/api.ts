@@ -8,7 +8,13 @@ import {
   ProductOrderByWithRelationInput,
   ProductWhereInput,
 } from "@/generated/prisma/models";
-import { Category, PrismaProduct, ProductsResponse, Stats } from "@/types";
+import type {
+  Category,
+  PrismaProduct,
+  ProductsResponse,
+  ProductWithIncludes,
+  Stats,
+} from "@/types";
 
 const DEFAULT_LIMIT = 6;
 
@@ -72,8 +78,16 @@ export async function deleteProduct(id: number) {
   await prisma.product.delete({ where: { id: id } });
 }
 
-export async function getProduct(id: number) {
-  return await prisma.product.findUnique({ where: { id: id } });
+export async function getProduct(
+  id: number,
+): Promise<ProductWithIncludes | null> {
+  return await prisma.product.findUnique({
+    where: { id: id },
+    include: {
+      category: true,
+      reviews: true,
+    },
+  });
 }
 
 export async function getJsonProducts(params: URLSearchParams) {
