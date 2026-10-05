@@ -10,7 +10,7 @@ import {
 } from "@/generated/prisma/models";
 import { Category, PrismaProduct, ProductsResponse, Stats } from "@/types";
 
-/* export  */const DEFAULT_LIMIT = 12;
+const DEFAULT_LIMIT = 6;
 
 interface SimpleProduct {
   title: string;
@@ -20,12 +20,6 @@ interface SimpleProduct {
   categoryId: number;
   brand?: string;
   stock?: number;
-}
-
-interface ProductFilters {
-  searchTerm?: string;
-  category?: string;
-  stock?: string;
 }
 
 export async function createCategory(category: Omit<Category, "id">) {
@@ -96,14 +90,6 @@ interface GetProductsOptions {
   filter?: ProductWhereInput;
 }
 
-interface GetProductsOptions2 {
-  page?: number | string;
-  limit?: number | string;
-  expand?: string[];
-  orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[];
-  filter?: ProductFilters;
-}
-
 interface PrismaQuery {
   skip: number;
   take: number;
@@ -113,56 +99,15 @@ interface PrismaQuery {
 }
 
 export async function getProducts(
-  options: GetProductsOptions2 = {},
+  options: GetProductsOptions = {},
 ): Promise<ProductsResponse> {
   const {
     limit = DEFAULT_LIMIT,
     page = 1,
     orderBy = { id: "asc" },
-    expand = [],
-    filter= {},
+    expand,
+    filter,
   } = options;
-
-  const where: ProductWhereInput = {
-    ...(filter.category
-      ? {
-          category: {
-            slug: filter.category,
-          },
-        }
-      : {}),
-
-    ...(filter.searchTerm
-      ? {
-          OR: [
-            {
-              title: {
-                contains: filter.searchTerm,
-                mode: "insensitive",
-              },
-            },
-            {
-              description: {
-                contains: filter.searchTerm,
-                mode: "insensitive",
-              },
-            },
-          ],
-        }
-      : {}),
-
-    ...(filter.stock === "true"
-      ? {
-          stock: {
-            gt: 0,
-          },
-        }
-      : filter.stock === "false"
-        ? {
-            stock: 0,
-          }
-        : {}),
-  };
 
   const total: number = await prisma.product.count({ where: filter });
   const pages: number = Math.ceil(total / Number(limit));
@@ -178,7 +123,7 @@ export async function getProducts(
   if (expand !== undefined && expand.length > 0) {
     query.include = Object.fromEntries(expand.map((entry) => [entry, true]));
   }
-  
+
   // Optionally filter products.
   if (filter !== undefined) {
     query.where = filter;

@@ -18,7 +18,7 @@ export function updateFilter(
 
 export function updateFilterCustomer (
   searchParams: URLSearchParams,
-  filter: "category" | "stock" | "sortOrder",
+  filter: "category" | "stock" | "sort-order",
   value: string,
 ) {
   const params = new URLSearchParams(searchParams.toString());

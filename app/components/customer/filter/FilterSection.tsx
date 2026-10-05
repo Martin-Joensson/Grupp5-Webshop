@@ -59,7 +59,7 @@ export default function FilterSection( {categories}: {categories: Category[]} )
                         {
                             categories.map((category) => (
 
-                            <option key={category.id} value={category.id}>
+                            <option key={category.id} value={category.slug}>
                                 {category.name}
                             </option>
 
@@ -73,7 +73,7 @@ export default function FilterSection( {categories}: {categories: Category[]} )
                     <label htmlFor="sorting-order" className="sr-only"> Choose sorting order </label>
 
                     <select id="sorting-order" name="sort-order" defaultValue="id-asc" className={inputFieldStyle}
-                        onChange={(event) => changeFilter(event, "sortOrder")} >
+                        onChange={(event) => changeFilter(event, "sort-order")} >
 
                         <option value=""> Sort by... </option>
                         {
@@ -108,7 +108,7 @@ export default function FilterSection( {categories}: {categories: Category[]} )
 
     // Function for handling a change to the category filter field.
     // Reused function from "app/components/admin/SearchBar.tsx"
-    function changeFilter( event: ChangeEvent<HTMLSelectElement>, filter: "category" | "stock"  | "sortOrder" )
+    function changeFilter( event: ChangeEvent<HTMLSelectElement>, filter: "category" | "stock"  | "sort-order" )
     {
         const params = updateFilterCustomer(
             searchParams,

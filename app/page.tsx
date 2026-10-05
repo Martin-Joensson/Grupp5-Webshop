@@ -9,10 +9,8 @@ import { Pagination } from "./components/customer/Pagination";
 import { ProductsResponse } from "./types";
 import { createUrlSearchParams } from "./lib/utils";
 import LimitDropDown from "./components/customer/LimitDropDown";
-// import { DEFAULT_LIMIT } from "@/lib/api";
 
 const DEFAULT_LIMIT = 12;
-
 
 export default async function HomePage({
   searchParams,
@@ -21,7 +19,7 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT, searchTerm, category, sortOrder, stock } =
+  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT } =
     await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
@@ -30,11 +28,6 @@ export default async function HomePage({
       page: currentPage,
       limit: currentLimit,
       expand: ["category"],
-      filter: { 
-        categoryId: category || '',
-         stock: stock || '', 
-         //searchTerm: searchTerm 
-        }
     });
 
   const allCategories: Category[] = await getCategories();
@@ -64,9 +57,9 @@ export default async function HomePage({
 
       {/* Temporay stuff above */}
 
-      {/* <Suspense> {/* Add skeleton filter section as fallback
+      <Suspense> {/* Add skeleton filter section as fallback */}
         <FilterSection categories={allCategories} />
-      </Suspense> */}
+      </Suspense>
 
       <div className="flex justify-center items-center gap-4">
         {pages > 1 && (
@@ -80,7 +73,7 @@ export default async function HomePage({
         )}
         <LimitDropDown currentLimit={Number(currentLimit)} />
       </div>
-      <ProductList products={products} categories={allCategories} />
+      <ProductList products={products} />
       <div className="flex justify-center items-center gap-4">
         {pages > 1 && (
           <Pagination
