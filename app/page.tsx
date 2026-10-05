@@ -25,6 +25,7 @@ export default async function HomePage({
     category,
     search,
     sort,
+    stock,
   } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
   const apiQuery: GetProductsOptions = {
@@ -34,6 +35,7 @@ export default async function HomePage({
     filter: {
       category: { slug: category },
       title: { contains: search, mode: "insensitive" },
+      stock: { gte: stock ? 1 : 0 },
     },
   };
   if (orderBy(sort)) {
