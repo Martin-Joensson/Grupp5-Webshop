@@ -1,10 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-  ProductUncheckedCreateInputObjectSchema,
-  ProductUpsertOneZodSchema,
-} from "../prisma/generated/schemas";
+import { ProductUpsertOneZodSchema } from "../prisma/generated/schemas";
 import z from "zod";
 import { upsertProduct } from "./lib/api";
 
@@ -29,12 +26,15 @@ export async function deleteProduct(id: number) {
 export async function addProductAction(formData: FormData) {
   const rawData = Object.fromEntries(formData);
   const id = rawData.productId ?? 0;
-  const validatedProduct =
-    ProductUncheckedCreateInputObjectSchema.safeParse(rawData);
-  console.log("VALIDATED PRODUCT DATA", validatedProduct.data);
-  console.log("VALIDATED PRODUCT ERROR", validatedProduct.error);
-  if (!validatedProduct.success) {
-    const flattened = z.flattenError(validatedProduct.error);
+
+  const validatedUpsert = ProductUpsertOneZodSchema.safeParse({
+    where: { id: id },
+    create: rawData,
+    update: rawData,
+  });
+
+  if (!validatedUpsert.data) {
+    const flattened = z.flattenError(validatedUpsert.error);
 
     const state = {
       status: "error",
@@ -45,17 +45,6 @@ export async function addProductAction(formData: FormData) {
     };
     console.log("RETURN FAILED VALIDATION", state.message, state.errors);
     return; //return state;
-  }
-  console.log("ID", id);
-  const validatedUpsert = ProductUpsertOneZodSchema.safeParse({
-    where: { id: id },
-    create: validatedProduct.data,
-    update: validatedProduct.data,
-  });
-
-  if (!validatedUpsert.data) {
-    console.log("RETURN FAILED UPSERT VALIDATION", validatedUpsert.error);
-    return;
   }
   console.log("VALIDATED UPSERT", validatedUpsert);
 
