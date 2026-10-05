@@ -23,6 +23,7 @@ export default async function HomePage({
     page: currentPage,
     limit: currentLimit = DEFAULT_LIMIT,
     category,
+    search,
   } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
@@ -31,7 +32,10 @@ export default async function HomePage({
       page: currentPage,
       limit: currentLimit,
       expand: ["category"],
-      filter: { category: { slug: category } },
+      filter: {
+        category: { slug: category },
+        title: { contains: search, mode: "insensitive" },
+      },
     });
 
   const allCategories: Category[] = await getCategories();
