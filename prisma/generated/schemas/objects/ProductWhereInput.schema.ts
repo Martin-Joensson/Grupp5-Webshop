@@ -21,7 +21,7 @@ const productwhereinputSchema = z.object({
   title: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   categoryId: z.union([z.lazy(() => IntFilterObjectSchema), z.coerce.number().int()]).optional(),
-  price: z.union([z.lazy(() => IntFilterObjectSchema), z.coerce.number().int()]).optional(),
+  price: z.union([z.lazy(() => IntFilterObjectSchema), z.coerce.number().int().transform((val) => val * 100)]).optional(),
   discountPercentage: z.union([z.lazy(() => DecimalNullableFilterObjectSchema), z.union([
   z.number(),
   z.string(),

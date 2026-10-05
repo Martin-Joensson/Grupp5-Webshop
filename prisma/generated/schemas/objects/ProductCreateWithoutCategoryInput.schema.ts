@@ -8,7 +8,7 @@ import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-
 const makeSchema = () => z.object({
   title: z.string(),
   description: z.string(),
-  price: z.coerce.number().int(),
+  price: z.coerce.number().int().transform((val) => val * 100),
   discountPercentage: z.union([
   z.number(),
   z.string(),

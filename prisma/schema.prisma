@@ -27,7 +27,7 @@ model Product {
   /// @zod.coerce()
   categoryId           Int
   category             Category? @relation(fields: [categoryId], references: [id])
-  /// @zod.coerce()
+  /// @zod.coerce().transform((val) => val * 100)
   price                Int
   /// @zod.coerce()
   discountPercentage   Decimal?
