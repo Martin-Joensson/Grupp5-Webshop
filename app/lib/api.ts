@@ -5,6 +5,7 @@ import { prisma } from "@/db";
 import {
   ProductInclude,
   ProductOrderByWithRelationInput,
+  ProductUpsertArgs,
   ProductWhereInput,
 } from "@/generated/prisma/models";
 import type {
