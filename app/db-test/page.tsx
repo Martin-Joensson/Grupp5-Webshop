@@ -3,7 +3,7 @@ import { getProducts, getAvailabilityStats } from "@/lib/api";
 export default async function DbTestPage() {
   const productsResponse = await getProducts({
     limit: 8,
-    orderBy: "brand-asc",
+    orderBy: [{ brand: "asc" }, { title: "desc" }],
   });
   const stats = await getAvailabilityStats();
   console.log(stats);

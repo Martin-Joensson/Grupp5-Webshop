@@ -1,7 +1,3 @@
-import { ProductOrderByWithRelationInput } from "@/generated/prisma/models";
-
-export const DEFAULT_LIMIT = 12;
-
 // adapted from (2024) https://jsdev.space/snippets/debounce-ts/
 export function debounce<T extends unknown[], U>(
   callback: (...args: T) => U,
@@ -43,18 +39,4 @@ export function toEurosString(cents: number): string {
   });
 
   return euros.format(cents / 100);
-}
-
-const orderByMap: Record<string, ProductOrderByWithRelationInput> = {
-  "title-asc": { title: "asc" },
-  "title-desc": { title: "desc" },
-  "rating-desc": { rating: "desc" },
-  "price-asc": { price: "asc" },
-  "price-desc": { price: "desc" },
-};
-
-export function getOrderBy(
-  sortOrder?: string,
-): ProductOrderByWithRelationInput {
-  return orderByMap[sortOrder ?? ""] ?? { id: "asc" };
 }

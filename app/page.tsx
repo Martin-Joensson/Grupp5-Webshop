@@ -1,13 +1,18 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { Button } from "./components/customer/Button";
 import { ProductList } from "@/components/customer/products/ProductList";
+import FilterSection from "./components/customer/filter/FilterSection";
 import type { Category } from "@/types";
 import { getProducts, getCategories } from "@/lib/api";
 import { Pagination } from "./components/customer/Pagination";
 import { ProductsResponse } from "./types";
 import { createUrlSearchParams } from "./lib/utils";
 import LimitDropDown from "./components/customer/LimitDropDown";
-import { DEFAULT_LIMIT } from "@/lib/utils";
+// import { DEFAULT_LIMIT } from "@/lib/api";
+
+const DEFAULT_LIMIT = 12;
+
 
 export default async function HomePage({
   searchParams,
@@ -16,14 +21,8 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const {
-    page: currentPage,
-    limit: currentLimit = DEFAULT_LIMIT,
-    search,
-    category,
-    sortOrder,
-    stock,
-  } = await searchParams;
+  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT, searchTerm, category, sortOrder, stock } =
+    await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
 
   const { products, total, page, pages, limit }: ProductsResponse =
@@ -31,12 +30,11 @@ export default async function HomePage({
       page: currentPage,
       limit: currentLimit,
       expand: ["category"],
-      orderBy: sortOrder,
-      filter: {
-        category,
-        stock: Boolean(stock),
-        searchTerm: search,
-      },
+      filter: { 
+        categoryId: category || '',
+         stock: stock || '', 
+         //searchTerm: searchTerm 
+        }
     });
 
   const allCategories: Category[] = await getCategories();
@@ -63,6 +61,12 @@ export default async function HomePage({
       <Button variant="primary">Click me</Button>
 
       <Button variant="primary">Click me</Button>
+
+      {/* Temporay stuff above */}
+
+      {/* <Suspense> {/* Add skeleton filter section as fallback
+        <FilterSection categories={allCategories} />
+      </Suspense> */}
 
       <div className="flex justify-center items-center gap-4">
         {pages > 1 && (
