@@ -5,7 +5,7 @@ import { ProductCreateimagesInputObjectSchema as ProductCreateimagesInputObjectS
 
 import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
 const makeSchema = () => z.object({
-  id: z.number().int().optional(),
+  id: z.coerce.number().int().optional(),
   title: z.string(),
   description: z.string(),
   price: z.coerce.number().int().transform((val) => val * 100),

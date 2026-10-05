@@ -6,7 +6,7 @@ import { ReviewUncheckedCreateNestedManyWithoutProductInputObjectSchema as Revie
 
 import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
 const makeSchema = () => z.object({
-  id: z.number().int().optional(),
+  id: z.coerce.number().int().optional(),
   title: z.string(),
   description: z.string(),
   categoryId: z.coerce.number().int(),

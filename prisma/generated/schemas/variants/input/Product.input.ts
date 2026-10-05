@@ -1,7 +1,7 @@
 import * as z from 'zod';
 // prettier-ignore
 export const ProductInputSchema = z.object({
-    id: z.number().int(),
+    id: z.coerce.number().int(),
     title: z.string(),
     description: z.string(),
     categoryId: z.coerce.number().int(),

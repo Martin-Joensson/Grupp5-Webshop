@@ -14,7 +14,7 @@ const productscalarwherewithaggregatesinputSchema = z.object({
   AND: z.union([z.lazy(() => ProductScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProductScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
   OR: z.lazy(() => ProductScalarWhereWithAggregatesInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => ProductScalarWhereWithAggregatesInputObjectSchema), z.lazy(() => ProductScalarWhereWithAggregatesInputObjectSchema).array()]).optional(),
-  id: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number().int()]).optional(),
+  id: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.coerce.number().int()]).optional(),
   title: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   categoryId: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.coerce.number().int()]).optional(),

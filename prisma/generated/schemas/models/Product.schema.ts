@@ -2,7 +2,7 @@ import * as z from 'zod';
 import { Prisma } from '../../../../app/generated/prisma/browser';
 
 export const ProductSchema = z.object({
-  id: z.number().int(),
+  id: z.coerce.number().int(),
   title: z.string(),
   description: z.string(),
   categoryId: z.coerce.number().int(),

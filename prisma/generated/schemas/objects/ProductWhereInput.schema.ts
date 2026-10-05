@@ -17,7 +17,7 @@ const productwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => ProductWhereInputObjectSchema), z.lazy(() => ProductWhereInputObjectSchema).array()]).optional(),
   OR: z.lazy(() => ProductWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => ProductWhereInputObjectSchema), z.lazy(() => ProductWhereInputObjectSchema).array()]).optional(),
-  id: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
+  id: z.union([z.lazy(() => IntFilterObjectSchema), z.coerce.number().int()]).optional(),
   title: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   categoryId: z.union([z.lazy(() => IntFilterObjectSchema), z.coerce.number().int()]).optional(),
