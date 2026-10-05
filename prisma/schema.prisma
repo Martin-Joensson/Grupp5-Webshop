@@ -1,25 +1,17 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-// learn more about data modeling in the docs: https://www.prisma.io/docs/orm/data-modeling
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
 }
 
-// Neon note: In Prisma 7+, do not include a url property in the datasource block. The connection is configured via prisma.config.ts and the adapter. (https://neon.com/docs/guides/prisma)
 datasource db {
   provider = "postgresql"
 }
 
 model Product {
-  id                   Int       @id @default(autoincrement())
+  id                   Int      @id @default(autoincrement())
   title                String
   description          String
   categoryId           Int
-  category             Category? @relation(fields: [categoryId], references: [id])
   price                Int
   discountPercentage   Decimal?
   rating               Float?
@@ -34,15 +26,16 @@ model Product {
   warrantyInformation  String?
   shippingInformation  String?
   availabilityStatus   String?
-  reviews              Review[]
   returnPolicy         String?
   minimumOrderQuantity Int?
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now())
   barcode              String?
   qrCode               String?
   images               String[]
   thumbnail            String
+  category             Category @relation(fields: [categoryId], references: [id])
+  reviews              Review[]
 }
 
 model Category {
@@ -55,11 +48,60 @@ model Category {
 
 model Review {
   id            Int      @id @default(autoincrement())
-  product       Product? @relation(fields: [productId], references: [id])
   productId     Int?
   rating        Int
   comment       String
   date          DateTime
   reviewerName  String
   reviewerEmail String
+  product       Product? @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  USER
+  ADMIN
 }
