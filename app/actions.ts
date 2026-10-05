@@ -28,6 +28,7 @@ export async function deleteProduct(id: number) {
 
 export async function addProductAction(formData: FormData) {
   const rawData = Object.fromEntries(formData);
+  const id = rawData.productId ?? 0;
   const validatedProduct =
     ProductUncheckedCreateInputObjectSchema.safeParse(rawData);
   console.log("VALIDATED PRODUCT DATA", validatedProduct.data);
@@ -45,7 +46,7 @@ export async function addProductAction(formData: FormData) {
     console.log("RETURN FAILED VALIDATION", state.message, state.errors);
     return; //return state;
   }
-
+  console.log("ID", id);
   const validatedUpsert = ProductUpsertOneZodSchema.safeParse({
     where: { id: id },
     create: validatedProduct.data,
@@ -56,6 +57,7 @@ export async function addProductAction(formData: FormData) {
     console.log("RETURN FAILED UPSERT VALIDATION", validatedUpsert.error);
     return;
   }
+  console.log("VALIDATED UPSERT", validatedUpsert);
 
   try {
     await upsertProduct(validatedUpsert.data);
@@ -67,14 +69,14 @@ export async function addProductAction(formData: FormData) {
     };
     console.log("RETURN SUCCESSFUL UPSERT", state.message);
     return; //return state;
-  } catch {
+  } catch (e) {
     const state = {
       status: "error",
       message: "There was a problem submitting your request. Please try later.",
       rawData,
       timestamp: Date(),
     };
-    console.log("RETURN FAILED UPSERT", state.message);
+    console.log("RETURN FAILED UPSERT", state.message, e);
     return; //return state;
   }
 }
