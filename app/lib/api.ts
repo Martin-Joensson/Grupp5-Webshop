@@ -1,5 +1,5 @@
 "use server";
-
+import { DEFAULT_LIMIT, getOrderBy } from "./utils";
 import { prisma } from "@/db";
 
 const API_URL = "http://localhost:4000";
@@ -9,8 +9,6 @@ import {
   ProductWhereInput,
 } from "@/generated/prisma/models";
 import { Category, PrismaProduct, ProductsResponse, Stats } from "@/types";
-
-/* export  */const DEFAULT_LIMIT = 12;
 
 interface SimpleProduct {
   title: string;
@@ -25,7 +23,7 @@ interface SimpleProduct {
 interface ProductFilters {
   searchTerm?: string;
   category?: string;
-  stock?: string;
+  stock?: boolean;
 }
 
 export async function createCategory(category: Omit<Category, "id">) {
@@ -96,11 +94,11 @@ interface GetProductsOptions {
   filter?: ProductWhereInput;
 }
 
-interface GetProductsOptions2 {
+interface GetProductsOptionsV2 {
   page?: number | string;
   limit?: number | string;
   expand?: string[];
-  orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[];
+  orderBy?: string;
   filter?: ProductFilters;
 }
 
@@ -113,75 +111,60 @@ interface PrismaQuery {
 }
 
 export async function getProducts(
-  options: GetProductsOptions2 = {},
+  options: GetProductsOptionsV2 = {},
 ): Promise<ProductsResponse> {
   const {
     limit = DEFAULT_LIMIT,
     page = 1,
-    orderBy = { id: "asc" },
+    orderBy,
     expand = [],
-    filter= {},
+    filter = {},
   } = options;
 
-  const where: ProductWhereInput = {
-    ...(filter.category
-      ? {
-          category: {
-            slug: filter.category,
-          },
-        }
-      : {}),
+  const sort = getOrderBy(orderBy);
+  const queryFilters: ProductWhereInput = {};
 
-    ...(filter.searchTerm
-      ? {
-          OR: [
-            {
-              title: {
-                contains: filter.searchTerm,
-                mode: "insensitive",
-              },
-            },
-            {
-              description: {
-                contains: filter.searchTerm,
-                mode: "insensitive",
-              },
-            },
-          ],
-        }
-      : {}),
+  if (filter.category) {
+    queryFilters.categoryId = Number(filter.category);
+  }
 
-    ...(filter.stock === "true"
-      ? {
-          stock: {
-            gt: 0,
-          },
-        }
-      : filter.stock === "false"
-        ? {
-            stock: 0,
-          }
-        : {}),
-  };
+  if (filter.searchTerm) {
+    queryFilters.OR = [
+      {
+        title: {
+          contains: filter.searchTerm,
+          mode: "insensitive",
+        },
+      },
+      {
+        description: {
+          contains: filter.searchTerm,
+          mode: "insensitive",
+        },
+      },
+    ];
+  }
 
-  const total: number = await prisma.product.count({ where: filter });
+  if (filter.stock) {
+    queryFilters.stock = {
+      gt: 0,
+    };
+  }
+
+  const total: number = await prisma.product.count({ where: queryFilters });
   const pages: number = Math.ceil(total / Number(limit));
 
   // Pagination and sorting
   const query: PrismaQuery = {
     skip: (Number(page) - 1) * Number(limit),
     take: Number(limit),
-    orderBy: orderBy,
+    orderBy: sort,
+    where: queryFilters,
   };
 
   // Optionally include related records e.g. category, reviews.
   if (expand !== undefined && expand.length > 0) {
     query.include = Object.fromEntries(expand.map((entry) => [entry, true]));
-  }
-  
-  // Optionally filter products.
-  if (filter !== undefined) {
-    query.where = filter;
   }
 
   // Fetch products.
