@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/../auth";
 import { redirect } from "next/navigation";
-import { signOut } from "next-auth/react";
 import LogoutButton from "./LogoutButton";
 
 export default async function ProfilePage() {
