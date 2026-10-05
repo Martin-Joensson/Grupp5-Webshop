@@ -1,15 +1,16 @@
-import Link from "next/link";
+
 import { Suspense } from "react";
-import { Button } from "./components/customer/Button";
-import { ProductList } from "@/components/customer/products/ProductList";
-import FilterSection from "./components/customer/filter/FilterSection";
-import type { Category } from "@/types";
-import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
-import { Pagination } from "./components/customer/Pagination";
 import Background from "@/design/assets/splash2.svg";
-import { ProductsResponse } from "./types";
+
+import type { Category, ProductsResponse } from "@/types";
+import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
 import { createUrlSearchParams, orderBy } from "./lib/utils";
+
+import { ProductList } from "@/components/customer/products/ProductList";
+import { Pagination } from "./components/customer/Pagination";
 import LimitDropDown from "./components/customer/LimitDropDown";
+import FilterSection from "./components/customer/filter/FilterSection";
+
 
 const DEFAULT_LIMIT = 12;
 
