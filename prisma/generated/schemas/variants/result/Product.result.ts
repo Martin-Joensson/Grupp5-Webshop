@@ -6,7 +6,7 @@ export const ProductResultSchema = z.object({
     description: z.string(),
     categoryId: z.coerce.number().int(),
     category: z.unknown().nullable(),
-    price: z.coerce.number().int().transform((val) => val * 100),
+    price: z.coerce.number().int(),
     discountPercentage: z.number().nullable(),
     rating: z.coerce.number().nullable(),
     stock: z.coerce.number().int().nullable(),

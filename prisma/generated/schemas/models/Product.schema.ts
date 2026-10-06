@@ -6,7 +6,7 @@ export const ProductSchema = z.object({
   title: z.string(),
   description: z.string(),
   categoryId: z.coerce.number().int(),
-  price: z.coerce.number().int().transform((val) => val * 100),
+  price: z.coerce.number().int(),
   discountPercentage: z.custom<InstanceType<typeof Prisma.Decimal>>((v) => Prisma.Decimal.isDecimal(v), {
   message: "Field 'discountPercentage' must be a Decimal. Location: ['Models', 'Product']",
 }).nullish(),

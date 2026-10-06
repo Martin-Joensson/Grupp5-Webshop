@@ -10,7 +10,7 @@ const makeSchema = () => z.object({
   title: z.string(),
   description: z.string(),
   categoryId: z.coerce.number().int(),
-  price: z.coerce.number().int().transform((val) => val * 100),
+  price: z.coerce.number().int(),
   discountPercentage: z.union([
   z.number(),
   z.string(),

@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import z from "zod";
 import { upsertProduct } from "./lib/api";
-import { ProductUncheckedCreateInputObjectSchema } from "../prisma/generated/schemas";
+import { ProductUncheckedCreateInputObjectZodSchema } from "../prisma/generated/schemas";
 
 const API_URL = "http://localhost:4000";
 
@@ -23,12 +23,18 @@ export async function deleteProduct(id: number) {
   revalidatePath("/admin");
 }
 
+const ProductUpsertSchema = ProductUncheckedCreateInputObjectZodSchema.extend({
+  price: z.preprocess((val) => {
+    if (val === undefined || val === null) return val;
+    return Math.round(Number(val) * 100);
+  }, z.number().int()),
+});
+
 export async function addProductAction(formData: FormData) {
   const rawData = Object.fromEntries(formData);
   const id = rawData.id ? Number(rawData.id) : 0;
 
-  const validatedProduct =
-    ProductUncheckedCreateInputObjectSchema.safeParse(rawData);
+  const validatedProduct = ProductUpsertSchema.safeParse(rawData);
 
   if (!validatedProduct.data) {
     const flattened = z.flattenError(validatedProduct.error);

@@ -15,7 +15,7 @@ const makeSchema = () => z.object({
   id: z.union([z.coerce.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   description: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  price: z.union([z.coerce.number().int().transform((val) => val * 100), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  price: z.union([z.coerce.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   discountPercentage: z.union([z.union([
   z.number(),
   z.string(),

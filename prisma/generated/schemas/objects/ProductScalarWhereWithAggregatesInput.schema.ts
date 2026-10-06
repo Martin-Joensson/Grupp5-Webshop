@@ -18,7 +18,7 @@ const productscalarwherewithaggregatesinputSchema = z.object({
   title: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   description: z.union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()]).optional(),
   categoryId: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.coerce.number().int()]).optional(),
-  price: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.coerce.number().int().transform((val) => val * 100)]).optional(),
+  price: z.union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.coerce.number().int()]).optional(),
   discountPercentage: z.union([z.lazy(() => DecimalNullableWithAggregatesFilterObjectSchema), z.union([
   z.number(),
   z.string(),

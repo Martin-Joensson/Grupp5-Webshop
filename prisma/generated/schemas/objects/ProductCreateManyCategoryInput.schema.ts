@@ -8,7 +8,7 @@ const makeSchema = () => z.object({
   id: z.coerce.number().int().optional(),
   title: z.string(),
   description: z.string(),
-  price: z.coerce.number().int().transform((val) => val * 100),
+  price: z.coerce.number().int(),
   discountPercentage: z.union([
   z.number(),
   z.string(),
