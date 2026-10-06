@@ -5,7 +5,6 @@ export const ProductModelSchema = z.object({
     title: z.string(),
     description: z.string(),
     categoryId: z.coerce.number().int(),
-    category: z.unknown().nullable(),
     price: z.coerce.number().int(),
     discountPercentage: z.number().nullable(),
     rating: z.coerce.number().nullable(),
@@ -20,7 +19,6 @@ export const ProductModelSchema = z.object({
     warrantyInformation: z.string().nullable(),
     shippingInformation: z.string().nullable(),
     availabilityStatus: z.string().nullable(),
-    reviews: z.array(z.unknown()),
     returnPolicy: z.string().nullable(),
     minimumOrderQuantity: z.number().int().nullable(),
     createdAt: z.date(),
@@ -28,7 +26,9 @@ export const ProductModelSchema = z.object({
     barcode: z.string().nullable(),
     qrCode: z.string().nullable(),
     images: z.array(z.string()),
-    thumbnail: z.string()
+    thumbnail: z.string(),
+    category: z.unknown(),
+    reviews: z.array(z.unknown())
 }).strict();
 
 export type ProductPureType = z.infer<typeof ProductModelSchema>;

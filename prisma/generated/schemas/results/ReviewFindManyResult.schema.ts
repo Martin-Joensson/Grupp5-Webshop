@@ -3,13 +3,13 @@ import { ProductSchema } from '../models/Product.schema';
 export const ReviewFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.number().int(),
-  product: ProductSchema.optional(),
   productId: z.number().int().nullable().optional(),
   rating: z.number().int(),
   comment: z.string(),
   date: z.date(),
   reviewerName: z.string(),
-  reviewerEmail: z.string()
+  reviewerEmail: z.string(),
+  product: ProductSchema.optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

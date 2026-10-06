@@ -38,7 +38,7 @@ const makeSchema = () => z.object({
   qrCode: z.string().optional().nullable(),
   images: z.union([z.lazy(() => ProductCreateimagesInputObjectSchema), z.string().array()]).optional(),
   thumbnail: z.string(),
-  category: z.lazy(() => CategoryCreateNestedOneWithoutProductsInputObjectSchema).optional(),
+  category: z.lazy(() => CategoryCreateNestedOneWithoutProductsInputObjectSchema),
   reviews: z.lazy(() => ReviewCreateNestedManyWithoutProductInputObjectSchema).optional()
 }).strict();
 export const ProductCreateInputObjectSchema: z.ZodType<Prisma.ProductCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductCreateInput>;

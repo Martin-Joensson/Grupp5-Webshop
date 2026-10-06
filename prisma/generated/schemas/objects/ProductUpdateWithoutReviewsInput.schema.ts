@@ -9,7 +9,7 @@ import { ProductUpdatetagsInputObjectSchema as ProductUpdatetagsInputObjectSchem
 import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { ProductUpdateimagesInputObjectSchema as ProductUpdateimagesInputObjectSchema } from './ProductUpdateimagesInput.schema';
-import { CategoryUpdateOneWithoutProductsNestedInputObjectSchema as CategoryUpdateOneWithoutProductsNestedInputObjectSchema } from './CategoryUpdateOneWithoutProductsNestedInput.schema'
+import { CategoryUpdateOneRequiredWithoutProductsNestedInputObjectSchema as CategoryUpdateOneRequiredWithoutProductsNestedInputObjectSchema } from './CategoryUpdateOneRequiredWithoutProductsNestedInput.schema'
 
 import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
 const makeSchema = () => z.object({
@@ -44,7 +44,7 @@ const makeSchema = () => z.object({
   qrCode: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   images: z.union([z.lazy(() => ProductUpdateimagesInputObjectSchema), z.string().array()]).optional(),
   thumbnail: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  category: z.lazy(() => CategoryUpdateOneWithoutProductsNestedInputObjectSchema).optional()
+  category: z.lazy(() => CategoryUpdateOneRequiredWithoutProductsNestedInputObjectSchema).optional()
 }).strict();
 export const ProductUpdateWithoutReviewsInputObjectSchema: z.ZodType<Prisma.ProductUpdateWithoutReviewsInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductUpdateWithoutReviewsInput>;
 export const ProductUpdateWithoutReviewsInputObjectZodSchema = makeSchema();

@@ -7,7 +7,6 @@ export const ProductFindManyResultSchema = z.object({
   title: z.string(),
   description: z.string(),
   categoryId: z.number().int(),
-  category: CategorySchema.optional(),
   price: z.number().int(),
   discountPercentage: z.union([z.number(), z.string().regex(/^-?\d+(\.\d+)?$/), z.custom((v) => v !== null && typeof v === 'object' && 'd' in v && 'e' in v && 's' in v && typeof (v as { toFixed?: unknown }).toFixed === 'function', { message: 'Expected a Prisma.Decimal' })]).nullable().optional(),
   rating: z.number().nullable().optional(),
@@ -22,7 +21,6 @@ export const ProductFindManyResultSchema = z.object({
   warrantyInformation: z.string().nullable().optional(),
   shippingInformation: z.string().nullable().optional(),
   availabilityStatus: z.string().nullable().optional(),
-  reviews: z.array(ReviewSchema).optional(),
   returnPolicy: z.string().nullable().optional(),
   minimumOrderQuantity: z.number().int().nullable().optional(),
   createdAt: z.date(),
@@ -30,7 +28,9 @@ export const ProductFindManyResultSchema = z.object({
   barcode: z.string().nullable().optional(),
   qrCode: z.string().nullable().optional(),
   images: z.array(z.string()),
-  thumbnail: z.string()
+  thumbnail: z.string(),
+  category: CategorySchema.optional(),
+  reviews: z.array(ReviewSchema).optional()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

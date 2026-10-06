@@ -9,7 +9,6 @@ const makeSchema = () => z.object({
   title: z.boolean().optional(),
   description: z.boolean().optional(),
   categoryId: z.boolean().optional(),
-  category: z.union([z.boolean(), z.lazy(() => CategoryArgsObjectSchema)]).optional(),
   price: z.boolean().optional(),
   discountPercentage: z.boolean().optional(),
   rating: z.boolean().optional(),
@@ -24,7 +23,6 @@ const makeSchema = () => z.object({
   warrantyInformation: z.boolean().optional(),
   shippingInformation: z.boolean().optional(),
   availabilityStatus: z.boolean().optional(),
-  reviews: z.union([z.boolean(), z.lazy(() => ReviewFindManySchema)]).optional(),
   returnPolicy: z.boolean().optional(),
   minimumOrderQuantity: z.boolean().optional(),
   createdAt: z.boolean().optional(),
@@ -33,6 +31,8 @@ const makeSchema = () => z.object({
   qrCode: z.boolean().optional(),
   images: z.boolean().optional(),
   thumbnail: z.boolean().optional(),
+  category: z.union([z.boolean(), z.lazy(() => CategoryArgsObjectSchema)]).optional(),
+  reviews: z.union([z.boolean(), z.lazy(() => ReviewFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => ProductCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const ProductSelectObjectSchema: z.ZodType<Prisma.ProductSelect> = makeSchema() as unknown as z.ZodType<Prisma.ProductSelect>;

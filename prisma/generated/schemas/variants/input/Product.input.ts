@@ -5,7 +5,6 @@ export const ProductInputSchema = z.object({
     title: z.string(),
     description: z.string(),
     categoryId: z.coerce.number().int(),
-    category: z.unknown().optional().nullable(),
     price: z.coerce.number().int(),
     discountPercentage: z.number().optional().nullable(),
     rating: z.coerce.number().optional().nullable(),
@@ -20,7 +19,6 @@ export const ProductInputSchema = z.object({
     warrantyInformation: z.string().optional().nullable(),
     shippingInformation: z.string().optional().nullable(),
     availabilityStatus: z.string().optional().nullable(),
-    reviews: z.array(z.unknown()),
     returnPolicy: z.string().optional().nullable(),
     minimumOrderQuantity: z.number().int().optional().nullable(),
     createdAt: z.coerce.date(),
@@ -28,7 +26,9 @@ export const ProductInputSchema = z.object({
     barcode: z.string().optional().nullable(),
     qrCode: z.string().optional().nullable(),
     images: z.array(z.string()),
-    thumbnail: z.string()
+    thumbnail: z.string(),
+    category: z.unknown(),
+    reviews: z.array(z.unknown())
 }).strict();
 
 export type ProductInputType = z.infer<typeof ProductInputSchema>;

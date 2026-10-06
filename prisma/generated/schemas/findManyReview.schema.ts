@@ -12,24 +12,24 @@ import { ProductArgsObjectSchema as ProductArgsObjectSchema } from './objects/Pr
 
 export const ReviewFindManySelectSchema: z.ZodType<Prisma.ReviewSelect> = z.object({
     id: z.boolean().optional(),
-    product: z.union([z.boolean(), z.lazy(() => ProductArgsObjectSchema)]).optional(),
     productId: z.boolean().optional(),
     rating: z.boolean().optional(),
     comment: z.boolean().optional(),
     date: z.boolean().optional(),
     reviewerName: z.boolean().optional(),
-    reviewerEmail: z.boolean().optional()
+    reviewerEmail: z.boolean().optional(),
+    product: z.union([z.boolean(), z.lazy(() => ProductArgsObjectSchema)]).optional()
   }).strict() as unknown as z.ZodType<Prisma.ReviewSelect>;
 
 export const ReviewFindManySelectZodSchema = z.object({
     id: z.boolean().optional(),
-    product: z.union([z.boolean(), z.lazy(() => ProductArgsObjectSchema)]).optional(),
     productId: z.boolean().optional(),
     rating: z.boolean().optional(),
     comment: z.boolean().optional(),
     date: z.boolean().optional(),
     reviewerName: z.boolean().optional(),
-    reviewerEmail: z.boolean().optional()
+    reviewerEmail: z.boolean().optional(),
+    product: z.union([z.boolean(), z.lazy(() => ProductArgsObjectSchema)]).optional()
   }).strict();
 
 export const ReviewFindManySchema: z.ZodType<Prisma.ReviewFindManyArgs> = z.object({ select: ReviewFindManySelectSchema.optional(), include: z.lazy(() => ReviewIncludeObjectSchema.optional()), orderBy: z.union([ReviewOrderByWithRelationInputObjectSchema, ReviewOrderByWithRelationInputObjectSchema.array()]).optional(), where: ReviewWhereInputObjectSchema.optional(), cursor: ReviewWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ReviewScalarFieldEnumSchema, ReviewScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ReviewFindManyArgs>;

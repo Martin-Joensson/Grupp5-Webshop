@@ -1,0 +1,13 @@
+import * as z from 'zod';
+import type { Prisma } from '../../../../app/generated/prisma/browser';
+import { SortOrderSchema } from '../enums/SortOrder.schema';
+import { UserOrderByWithRelationInputObjectSchema as UserOrderByWithRelationInputObjectSchema } from './UserOrderByWithRelationInput.schema'
+
+const makeSchema = () => z.object({
+  sessionToken: SortOrderSchema.optional(),
+  userId: SortOrderSchema.optional(),
+  expires: SortOrderSchema.optional(),
+  user: z.lazy(() => UserOrderByWithRelationInputObjectSchema).optional()
+}).strict();
+export const SessionOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.SessionOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.SessionOrderByWithRelationInput>;
+export const SessionOrderByWithRelationInputObjectZodSchema = makeSchema();
