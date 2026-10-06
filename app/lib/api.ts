@@ -10,7 +10,6 @@ import {
 } from "@/generated/prisma/models";
 import type {
   Category,
-  PrismaProduct,
   ProductsResponse,
   ProductWithIncludes,
   Stats,
@@ -155,7 +154,7 @@ export async function getProducts(
 
   // Fetch products.
   const dbProducts = await prisma.product.findMany(query);
-  const products: PrismaProduct[] = [];
+  const products: ProductWithIncludes[] = [];
   Object.assign(products, dbProducts);
 
   return {
