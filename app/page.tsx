@@ -9,7 +9,7 @@ import { createUrlSearchParams, orderBy } from "./lib/utils";
 import { ProductList } from "@/components/customer/products/ProductList";
 import { Pagination } from "./components/customer/Pagination";
 import LimitDropDown from "./components/customer/LimitDropDown";
-import FilterSection from "./components/customer/filter/FilterSection";
+import FilterSection from "@/components/customer/FilterSection";
 
 
 const DEFAULT_LIMIT = 12;
