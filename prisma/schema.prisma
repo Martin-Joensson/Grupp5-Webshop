@@ -3,35 +3,59 @@ generator client {
   output   = "../app/generated/prisma"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+  // optional output = "./generated" → resolves to prisma/generated (relative to the schema file)
+  // optional config = "./zod-generator.config.json" (relative to schema file)
+}
+
+// Neon note: In Prisma 7+, do not include a url property in the datasource block. The connection is configured via prisma.config.ts and the adapter. (https://neon.com/docs/guides/prisma)
 datasource db {
   provider = "postgresql"
 }
 
 model Product {
-  id                   Int      @id @default(autoincrement())
+  /// @zod.coerce()
+  id                   Int       @id @default(autoincrement())
   title                String
   description          String
+  /// @zod.coerce()
   categoryId           Int
+  category             Category? @relation(fields: [categoryId], references: [id])
+  /// @zod.coerce()
   price                Int
+  /// @zod.coerce()
   discountPercentage   Decimal?
+  /// @zod.coerce()
   rating               Float?
+  /// @zod.coerce()
   stock                Int?
+  /// @zod.coerce()
   tags                 String[]
   brand                String?
   sku                  String?
+  /// @zod.coerce()
   weight               Float?
+  /// @zod.coerce()
   width                Float?
+  /// @zod.coerce()
   height               Float?
+  /// @zod.coerce()
   depth                Float?
   warrantyInformation  String?
   shippingInformation  String?
   availabilityStatus   String?
+  /// @zod.coerce()
+  reviews              Review[]
   returnPolicy         String?
   minimumOrderQuantity Int?
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @default(now())
+  /// @zod.coerce()
+  createdAt            DateTime  @default(now())
+  /// @zod.coerce()
+  updatedAt            DateTime  @default(now())
   barcode              String?
   qrCode               String?
+  /// @zod.coerce()
   images               String[]
   thumbnail            String
   category             Category @relation(fields: [categoryId], references: [id])
