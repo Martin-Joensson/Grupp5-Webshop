@@ -1,19 +1,14 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { deleteProduct } from "./lib/api";
 
-const API_URL = "http://localhost:4000";
-
-export async function deleteProduct(id: number) {
-  const request = new Request(`${API_URL}/products/${id}`, {
-    method: "DELETE",
-  });
-
-  const response = await fetch(request);
-
-  if (!response.ok) {
+export async function deleteProductAction(id: number) {
+  try {
+    await deleteProduct(id);
+  } catch {
     return {
-      message: `The product could not be deleted due to the following error: ${response.status} ${response.statusText}`,
+      message: `The product could not be deleted.`,
     };
   }
 
@@ -78,4 +73,3 @@ export async function addProductAction(formdata: FormData) {
 
   revalidatePath("/admin");
 }
-
