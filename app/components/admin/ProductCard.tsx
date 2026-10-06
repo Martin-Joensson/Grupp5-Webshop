@@ -4,7 +4,7 @@ import { Modal } from "./Modal";
 import Link from "next/link";
 import Image from "next/image";
 import { useTransition, useState } from "react";
-import { deleteProduct } from "@/actions";
+import { deleteProductAction } from "@/actions";
 import { toEurosString } from "@/lib/utils";
 
 type ProductCardProps = Pick<
@@ -48,7 +48,7 @@ export default function ProductCard({
 
   const handleConfirmDelete = () => {
     startTransition(async () => {
-      const result = await deleteProduct(id);
+      const result = await deleteProductAction(id);
       setIsOpen(false);
       if (result?.message) {
         console.error(result.message);
