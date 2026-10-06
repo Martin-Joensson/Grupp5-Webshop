@@ -17,14 +17,14 @@ export default function FilterSection( { categories, }: { categories: Category[]
   const stockParam = searchParams.get("stock");
   const router = useRouter();
 
-  const inputFieldStyle: string = "w-full px-3 py-2 border border-gray-300 rounded-md";
+  const inputFieldStyle: string = "w-full px-3 py-2 border border-gray-300 rounded-md bg-white";
 
   return (
-    <section className="mx-auto w-full max-w-5xl" aria-labelledby="filter-section-heading">
-      <h2 id="filter-section-heading"> Filter </h2>
+    <section className="mx-auto w-full" aria-labelledby="filter-section-heading">
+      <h2 id="filter-section-heading" className="h3"> Filter </h2>
 
       {/* Input field wrapper */}
-      <form className="mb-3 py-3 flex justify-between items-center gap-3">
+      <form className="mb-3 py-3 flex justify-between items-center gap-3" onSubmit={(event) => event.preventDefault()}>
 
         {/* Form group: Search input */}
         <div className="w-1/3">
@@ -81,7 +81,7 @@ export default function FilterSection( { categories, }: { categories: Category[]
       </form>
     </section>
   );
-  // End of TSX return and main part fo FilterSection component
+  // End of TSX return and main part off FilterSection component
 
 
   // Function for handling a change to the category filter field.
