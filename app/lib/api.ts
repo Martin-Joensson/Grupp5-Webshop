@@ -14,16 +14,6 @@ import type { ProductsResponse, ProductWithIncludes, Stats } from "@/types";
 const DEFAULT_LIMIT = 6;
 const API_URL = "http://localhost:4000";
 
-interface SimpleProduct {
-  title: string;
-  price: number;
-  description: string;
-  thumbnail: string;
-  categoryId: number;
-  brand?: string;
-  stock?: number;
-}
-
 export async function createCategory(category: Omit<Category, "id">) {
   await prisma.category.create({ data: category });
 }
@@ -55,19 +45,6 @@ export async function getAvailabilityStats(): Promise<Stats> {
   stats.total = total;
 
   return stats;
-}
-
-export async function createProduct(product: SimpleProduct) {
-  await prisma.product.create({
-    data: product,
-  });
-}
-
-export async function updateProduct(id: number, product: SimpleProduct) {
-  await prisma.product.update({
-    where: { id: id },
-    data: product,
-  });
 }
 
 export async function upsertProduct(validatedFields: ProductUpsertArgs) {
