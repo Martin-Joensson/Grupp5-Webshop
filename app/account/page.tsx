@@ -94,19 +94,19 @@ export default async function MyAccountPage()
                 <h1 id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
                 <div className={`${borderStyling} w-max mx-0 px-12 pb-5 pt-3 xl:mx-auto`} >
-                    <h3 className="h3 text-secondary text-center"> {session.user.name} </h3>
+                    <h2 className="h3 text-secondary text-center"> {session.user.name} </h2>
 
                     <p className="text-secondary"> {session.user.email} </p>
 
                     {   // Shows ADMIN tag if user is an admin
                         session.user.role == "ADMIN" &&
-                        <p className="mx-auto text-lg text-accent font-bold"> {session.user.role} </p>
+                        <span className="block mx-auto text-lg text-accent font-bold" aria-label="Logged in as an admin"> {session.user.role} </span>
                     } {
                         session.user.role == "ADMIN" &&
                         <Link href="/admin" className="text-md font-medium text-secondary underline  transition-opacity hover:opacity-60" > Go to admin page </Link>
                     }
 
-                    <Image src={session.user.image || "/file.svg"} alt="User profile image" width={150} height={150} className="mx-auto my-6" />
+                    <Image src={session.user.image || "/file.svg"} alt="User profile picture" width={150} height={150} className="mx-auto my-6" />
 
                     <LogoutButton />
                 </div>
@@ -180,7 +180,7 @@ function FavProductCard( {product}: {product: ProductWithIncludes} )
 }
 
 
-// A productcard variant for the users previus purchases in their purchase history.
+// A productcard variant for the users previous purchases in their purchase history.
 function PrevPurchaseCard( {purchase}: {purchase: Purchase} )
 {
     const { id, title, description, category, thumbnail } = purchase.product;
