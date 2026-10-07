@@ -15,3 +15,21 @@ export function updateFilter(
 
   return params;
 }
+
+export function updateFilterCustomer (
+  searchParams: URLSearchParams,
+  filter: "category" | "stock" | "sort",
+  value: string,
+) {
+  const params = new URLSearchParams(searchParams.toString());
+
+  if (value) {
+    params.set(filter, value);
+  } else {
+    params.delete(filter);
+  }
+
+  params.delete("page");
+
+  return params;
+}

@@ -1,10 +1,16 @@
-import { ProductList } from "@/components/customer/products/ProductList";
-import { getProducts } from "./lib/api";
-import { Pagination } from "./components/customer/Pagination";
+
+import { Suspense } from "react";
 import Background from "@/design/assets/splash2.svg";
-import { ProductsResponse } from "./types";
-import { createUrlSearchParams } from "./lib/utils";
+
+import type { Category, ProductsResponse } from "@/types";
+import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
+import { createUrlSearchParams, orderBy } from "./lib/utils";
+
+import { ProductList } from "@/components/customer/products/ProductList";
+import { Pagination } from "./components/customer/Pagination";
 import LimitDropDown from "./components/customer/LimitDropDown";
+import FilterSection from "@/components/customer/FilterSection";
+
 
 const DEFAULT_LIMIT = 12;
 
@@ -15,16 +21,33 @@ export default async function HomePage({
     [key: string]: string | undefined;
   }>;
 }) {
-  const { page: currentPage, limit: currentLimit = DEFAULT_LIMIT } =
-    await searchParams;
+  const {
+    page: currentPage,
+    limit: currentLimit = DEFAULT_LIMIT,
+    category,
+    search,
+    sort,
+    stock,
+  } = await searchParams;
   const urlParams = createUrlSearchParams(await searchParams);
+  const apiQuery: GetProductsOptions = {
+    page: currentPage,
+    limit: currentLimit,
+    expand: ["category"],
+    filter: {
+      category: { slug: category },
+      title: { contains: search, mode: "insensitive" },
+      stock: { gte: stock ? 1 : 0 },
+    },
+  };
+  if (orderBy(sort)) {
+    apiQuery.orderBy = orderBy(sort);
+  }
 
   const { products, total, page, pages, limit }: ProductsResponse =
-    await getProducts({
-      page: currentPage,
-      limit: currentLimit,
-      expand: ["category"],
-    });
+    await getProducts(apiQuery);
+
+  const allCategories: Category[] = await getCategories();
 
   return (
     <main className="min-h-screen">
@@ -34,6 +57,11 @@ export default async function HomePage({
       </p>
       <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6">
         <h1 className="h1 text-primary self-center"> Nagare Webshop </h1>
+
+        <Suspense>
+          {/* Add skeleton filter section as fallback */}
+          <FilterSection categories={allCategories} />
+        </Suspense>
 
         <div className="flex justify-center items-center gap-4">
           {pages > 1 && (
