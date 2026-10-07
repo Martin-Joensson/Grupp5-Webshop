@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/db";
+import { Category } from "@/generated/prisma/client";
 
 import {
   ProductInclude,
@@ -8,12 +9,7 @@ import {
   ProductUpsertArgs,
   ProductWhereInput,
 } from "@/generated/prisma/models";
-import type {
-  Category,
-  ProductsResponse,
-  ProductWithIncludes,
-  Stats,
-} from "@/types";
+import type { ProductsResponse, ProductWithIncludes, Stats } from "@/types";
 
 const DEFAULT_LIMIT = 6;
 const API_URL = "http://localhost:4000";
@@ -32,7 +28,7 @@ export async function createCategory(category: Omit<Category, "id">) {
   await prisma.category.create({ data: category });
 }
 
-export async function getCategories() {
+export async function getCategories(): Promise<Category[]> {
   return await prisma.category.findMany();
 }
 
