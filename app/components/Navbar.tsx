@@ -6,14 +6,20 @@ import Link from "next/link";
 import User from "@/design/assets/user.svg";
 import Line from "@/design/assets/line.svg";
 
+import AccountLink from "./customer/AccountLink";
+
 const navItems = [
   { label: "shop", href: "/shop" },
   { label: "story", href: "/story" },
-  { label: "account", href: "/profile" },
+  // { label: "account", href: "/profile" },
 ];
+
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+
 
   return (
     <header className="w-full border-b border-soft bg-light">
@@ -39,6 +45,7 @@ export default function Navbar() {
             </Link>
           ))}
 
+          <AccountLink />
           {/* Placeholder image */}
           <Link
             href="/user"
