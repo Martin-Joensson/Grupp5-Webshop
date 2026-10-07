@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Product} from "@/types";
 import { toEurosString } from "@/lib/utils";
 
-import Arrow from "@/design/assets/arrow.svg";
+import User from "@/design/assets/user.svg";
 import Heart from "@/design/assets/heart.svg";
 import { Button } from "@/components/customer/Button";
 
@@ -27,76 +27,76 @@ interface Purchase {
 }
 
 // Temporary and static product data.
-    const product1: Product = {
-        id: 126,
-        title: "Oppo F19 Pro Plus",
-        description: "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities...",
-        categoryId: 14,
-        category: {
-            id: 14,
-            name: "Smartphones",
-            slug: "smartphones",
-            image: "https://placehold.co/600x400"
-        },
-        price: 39999,
-        discountPercentage: 18.64,
-        meta: {
-            createdAt: "2025-04-30T09:41:02.054Z",
-            updatedAt: "2025-04-30T09:41:02.054Z"
-        },
-        images: [
-            "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/1.webp",
-            "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/2.webp",
-            "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/3.webp"
-        ],
-        thumbnail: "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp"
-    };
+const product1: Product = {
+    id: 126,
+    title: "Oppo F19 Pro Plus",
+    description: "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities...",
+    categoryId: 14,
+    category: {
+        id: 14,
+        name: "Smartphones",
+        slug: "smartphones",
+        image: "https://placehold.co/600x400"
+    },
+    price: 39999,
+    discountPercentage: 18.64,
+    meta: {
+        createdAt: "2025-04-30T09:41:02.054Z",
+        updatedAt: "2025-04-30T09:41:02.054Z"
+    },
+    images: [
+        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/1.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/2.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/3.webp"
+    ],
+    thumbnail: "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp"
+};
 
-    const product2: Product = {
-        id: 145,
-        title: "Cricket Wicket",
-        description: "The Cricket Wicket is a set of three stumps and two bails, forming a wicket used in the sport of cricket...",
-        categoryId: 15,
-        category: {
-            id: 15,
-            name: "Sports Accessories",
-            slug: "sports-accessories",
-            image: "https://placehold.co/600x400"
-        },
-        price: 2999,
-        discountPercentage: 16.93,
-        meta: {
-            createdAt: "2025-04-30T09:41:02.054Z",
-            updatedAt: "2025-04-30T09:41:02.054Z"
-        },
-        images: [
-            "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/1.webp"
-        ],
-        thumbnail: "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/thumbnail.webp"
-    };
+const product2: Product = {
+    id: 145,
+    title: "Cricket Wicket",
+    description: "The Cricket Wicket is a set of three stumps and two bails, forming a wicket used in the sport of cricket...",
+    categoryId: 15,
+    category: {
+        id: 15,
+        name: "Sports Accessories",
+        slug: "sports-accessories",
+        image: "https://placehold.co/600x400"
+    },
+    price: 2999,
+    discountPercentage: 16.93,
+    meta: {
+        createdAt: "2025-04-30T09:41:02.054Z",
+        updatedAt: "2025-04-30T09:41:02.054Z"
+    },
+    images: [
+        "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/1.webp"
+    ],
+    thumbnail: "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/thumbnail.webp"
+};
 
-    const product3: Product = {
-        id: 42,
-        title: "Water",
-        description: "Pure and refreshing bottled water, essential for staying hydrated throughout the day.",
-        categoryId: 4,
-        category: {
-            id: 4,
-            name: "Groceries",
-            slug: "groceries",
-            image: "https://placehold.co/600x400"
-        },
-        price: 99,
-        discountPercentage: 14.92,
-        meta: {
-            createdAt: "2025-04-30T09:41:02.053Z",
-            updatedAt: "2025-04-30T09:41:02.053Z"
-        },
-        images: [
-            "https://cdn.dummyjson.com/product-images/groceries/water/1.webp"
-        ],
-        thumbnail: "https://cdn.dummyjson.com/product-images/groceries/water/thumbnail.webp"
-    };
+const product3: Product = {
+    id: 42,
+    title: "Water",
+    description: "Pure and refreshing bottled water, essential for staying hydrated throughout the day.",
+    categoryId: 4,
+    category: {
+        id: 4,
+        name: "Groceries",
+        slug: "groceries",
+        image: "https://placehold.co/600x400"
+    },
+    price: 99,
+    discountPercentage: 14.92,
+    meta: {
+        createdAt: "2025-04-30T09:41:02.053Z",
+        updatedAt: "2025-04-30T09:41:02.053Z"
+    },
+    images: [
+        "https://cdn.dummyjson.com/product-images/groceries/water/1.webp"
+    ],
+    thumbnail: "https://cdn.dummyjson.com/product-images/groceries/water/thumbnail.webp"
+};
 
 
 const user1: StaticUser = {
@@ -128,20 +128,22 @@ export default function MyAccountPage()
         <main className="grid grid-cols-3 gap-6   max-w-7xl mx-auto px-6">
 
             {/* Section with info about the users account */}
-            <section aria-labelledby="my-account-heading" className={sectionStyling}>
-                <h1 id="my-account-heading" className="h2 text-primary self-center"> My account </h1>
+            <section aria-labelledby="my-account-heading" className={`${sectionStyling} text-center`}>
+                <h1 id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
-                <h3 className="h3"> {user.userName} </h3>
+                <div >
+                    <h3 className="h3 text-secondary text-center"> {user.userName} </h3>
 
-                <Image src={user.profilePic || "/file.svg"} alt="" width={150} height={150} />
+                    <Image src={user.profilePic || "/file.svg"} alt="" width={150} height={150} className="mx-auto my-6" />
 
-                <Button variant="secondary" icon={<Arrow />} iconPosition="right"> Log out </Button>
+                    <Button variant="secondary" icon={<User />} iconPosition="right" className="self-center"> Log out </Button>
+                </div>
             </section>
 
 
             {/* Section with the users saved favorite products */}
             <section aria-labelledby="favorites-heading" className={sectionStyling}>
-                <h2 id="favorites-heading" className="h2 text-primary self-center"> Favorites </h2>
+                <h2 id="favorites-heading" className="h2 text-primary"> Favorites </h2>
 
                 <ul className="grid gap-4">
                 {   user.favorites && user.favorites.map( (favProduct) => (
@@ -156,7 +158,7 @@ export default function MyAccountPage()
 
             {/* Section with the users purchase history */}
             <section aria-labelledby="purchase-history-heading" className={sectionStyling}>
-                <h2 id="purchase-history-heading" className="h2 text-primary self-center"> Purchase history </h2>
+                <h2 id="purchase-history-heading" className="h2 text-primary"> Purchase history </h2>
 
                 <ol>
                 {
