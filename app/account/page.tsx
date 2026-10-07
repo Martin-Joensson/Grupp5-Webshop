@@ -2,7 +2,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { Product} from "@/types";
+import { ProductWithIncludes } from "@/types";
+import { getProduct } from "@/lib/api";
 import { toEurosString } from "@/lib/utils";
 
 import Heart from "@/design/assets/heart.svg";
@@ -18,7 +19,7 @@ interface StaticUser {
     id: number;
     userName: string;
     profilePic?: string;
-    favorites?: Product[];
+    favorites?: ProductWithIncludes[];
     purchaseHistory?: Purchase[];
 }
 // Purchase interface to be used in purchase history.
@@ -26,92 +27,33 @@ interface Purchase {
     id: number;
     date: string;
     priceWhenBought: number;
-    product: Product;
+    product: ProductWithIncludes;
 }
 
 // Temporary and static product data.
-const product1: Product = {
-    id: 126,
-    title: "Oppo F19 Pro Plus",
-    description: "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities...",
-    categoryId: 14,
-    category: {
-        id: 14,
-        name: "Smartphones",
-        slug: "smartphones",
-        image: "https://placehold.co/600x400"
-    },
-    price: 39999,
-    discountPercentage: 18.64,
-    meta: {
-        createdAt: "2025-04-30T09:41:02.054Z",
-        updatedAt: "2025-04-30T09:41:02.054Z"
-    },
-    images: [
-        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/1.webp",
-        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/2.webp",
-        "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/3.webp"
-    ],
-    thumbnail: "https://cdn.dummyjson.com/product-images/smartphones/oppo-a57/thumbnail.webp"
-};
+const ids = [126, 145, 42];
+const productsInCart: ProductWithIncludes[] = [];
 
-const product2: Product = {
-    id: 145,
-    title: "Cricket Wicket",
-    description: "The Cricket Wicket is a set of three stumps and two bails, forming a wicket used in the sport of cricket...",
-    categoryId: 15,
-    category: {
-        id: 15,
-        name: "Sports Accessories",
-        slug: "sports-accessories",
-        image: "https://placehold.co/600x400"
-    },
-    price: 2999,
-    discountPercentage: 16.93,
-    meta: {
-        createdAt: "2025-04-30T09:41:02.054Z",
-        updatedAt: "2025-04-30T09:41:02.054Z"
-    },
-    images: [
-        "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/1.webp"
-    ],
-    thumbnail: "https://cdn.dummyjson.com/product-images/sports-accessories/cricket-wicket/thumbnail.webp"
-};
+for (const id of ids)
+{
+    const product = await getProduct(id);
 
-const product3: Product = {
-    id: 42,
-    title: "Water",
-    description: "Pure and refreshing bottled water, essential for staying hydrated throughout the day.",
-    categoryId: 4,
-    category: {
-        id: 4,
-        name: "Groceries",
-        slug: "groceries",
-        image: "https://placehold.co/600x400"
-    },
-    price: 99,
-    discountPercentage: 14.92,
-    meta: {
-        createdAt: "2025-04-30T09:41:02.053Z",
-        updatedAt: "2025-04-30T09:41:02.053Z"
-    },
-    images: [
-        "https://cdn.dummyjson.com/product-images/groceries/water/1.webp"
-    ],
-    thumbnail: "https://cdn.dummyjson.com/product-images/groceries/water/thumbnail.webp"
-};
+    if (product) {
+        productsInCart.push(product);
+    }
+}
 
 
 const user1: StaticUser = {
     id: 1,
     userName: "Kalle",
-    favorites: [ product1, product3 ],
+    favorites: [ productsInCart[0], productsInCart[2] ],
     purchaseHistory: [
         {
             id: 1,
             date: "2026-9-24",
             priceWhenBought: 5999, //in cents, not full euros
-            product: product2
+            product: productsInCart[1]
         }
     ]
 }
@@ -195,7 +137,7 @@ export default async function MyAccountPage()
 
 
 // A productcard variant for the users favorite product.
-function FavProductCard( {product}: {product: Product} )
+function FavProductCard( {product}: {product: ProductWithIncludes} )
 {
     const { id, title, description, category, price, thumbnail } = product;
 
