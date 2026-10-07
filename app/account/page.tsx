@@ -5,9 +5,12 @@ import Image from "next/image";
 import { Product} from "@/types";
 import { toEurosString } from "@/lib/utils";
 
-import User from "@/design/assets/user.svg";
 import Heart from "@/design/assets/heart.svg";
 import { Button } from "@/components/customer/Button";
+import LogoutButton from "@/profile/LogoutButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth";
+import { redirect } from "next/navigation";
 
 
 
@@ -102,7 +105,6 @@ const product3: Product = {
 const user1: StaticUser = {
     id: 1,
     userName: "Kalle",
-    // profilePic: "",
     favorites: [ product1, product3 ],
     purchaseHistory: [
         {
@@ -120,8 +122,15 @@ const sectionStyling: string = "min-w-96";
 const cardStyling: string = "border border-gray-300 rounded-2xl";
 
 
-export default function MyAccountPage()
+// Page with your account. If not logged in, user is redirected to login page. Account page path: `/account`
+export default async function MyAccountPage()
 {
+    const session = await getServerSession(authOptions);
+    
+      if (!session) {
+        redirect("/login");
+      }
+
     const user: StaticUser = user1;
 
     return(
@@ -131,12 +140,22 @@ export default function MyAccountPage()
             <section aria-labelledby="my-account-heading" className={`${sectionStyling} text-center`}>
                 <h1 id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
-                <div >
-                    <h3 className="h3 text-secondary text-center"> {user.userName} </h3>
+                <div className={`${cardStyling} w-max mx-auto px-12 pb-5 pt-3`} >
+                    <h3 className="h3 text-secondary text-center"> {session.user.name} </h3>
 
-                    <Image src={user.profilePic || "/file.svg"} alt="" width={150} height={150} className="mx-auto my-6" />
+                    <p className="text-secondary"> {session.user.email} </p>
 
-                    <Button variant="secondary" icon={<User />} iconPosition="right" className="self-center"> Log out </Button>
+                    {   // Shows ADMIN tag if user is an admin
+                        session.user.role == "ADMIN" &&
+                        <p className="mx-auto text-lg text-accent font-bold"> {session.user.role} </p>
+                    } {
+                        session.user.role == "ADMIN" &&
+                        <Link href="/admin" className="text-md font-medium text-secondary underline  transition-opacity hover:opacity-60" > Go to admin page </Link>
+                    }
+
+                    <Image src={session.user.image || "/file.svg"} alt="User profile image" width={150} height={150} className="mx-auto my-6" />
+
+                    <LogoutButton />
                 </div>
             </section>
 
@@ -194,7 +213,7 @@ function FavProductCard( {product}: {product: Product} )
 
             <div className="flex justify-between items-center">
                 <p className="font-heading text-xl text-price"> {toEurosString(price)} </p>
-                {/* <button className="bg-tertiary text-white" > Unfavorite </button> */}
+
                 <Button variant="tertiary" iconPosition="right"  icon={<Heart/>}>
                     Unfavorite
                 </Button>
