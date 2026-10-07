@@ -14,12 +14,8 @@ const navItems = [
   // { label: "account", href: "/profile" },
 ];
 
-
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-
 
   return (
     <header className="w-full border-b border-soft bg-light">
@@ -44,8 +40,9 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
-
-          <AccountLink />
+          <div className="text-sm font-medium transition-opacity hover:opacity-60">
+            <AccountLink />
+          </div>
           {/* Placeholder image */}
           <Link
             href="/cart"
@@ -103,7 +100,9 @@ export default function Navbar() {
             ))}
 
             {/* Image in mobile drawer */}
-
+            <div className="border-b border-soft py-4 text-lg">
+              <AccountLink />
+            </div>
             <Link
               href="/cart"
               className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"

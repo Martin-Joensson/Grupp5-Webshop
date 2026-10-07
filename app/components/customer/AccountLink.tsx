@@ -12,7 +12,6 @@ export default function AccountLink() {
   return (
     <Link
       href={href}
-      className="text-sm font-medium transition-opacity hover:opacity-60"
     >
       {label}
     </Link>
