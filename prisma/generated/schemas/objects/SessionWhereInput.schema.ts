@@ -1,0 +1,15 @@
+import * as z from 'zod';
+import type { Prisma } from '../../../../app/generated/prisma/browser';
+import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
+import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
+
+const sessionwhereinputSchema = z.object({
+  AND: z.union([z.lazy(() => SessionWhereInputObjectSchema), z.lazy(() => SessionWhereInputObjectSchema).array()]).optional(),
+  OR: z.lazy(() => SessionWhereInputObjectSchema).array().optional(),
+  NOT: z.union([z.lazy(() => SessionWhereInputObjectSchema), z.lazy(() => SessionWhereInputObjectSchema).array()]).optional(),
+  sessionToken: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  userId: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  expires: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()
+}).strict();
+export const SessionWhereInputObjectSchema: z.ZodType<Prisma.SessionWhereInput> = sessionwhereinputSchema as unknown as z.ZodType<Prisma.SessionWhereInput>;
+export const SessionWhereInputObjectZodSchema = sessionwhereinputSchema;

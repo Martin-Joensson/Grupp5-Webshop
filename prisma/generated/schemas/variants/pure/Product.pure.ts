@@ -1,26 +1,24 @@
 import * as z from 'zod';
 // prettier-ignore
 export const ProductModelSchema = z.object({
-    id: z.number().int(),
+    id: z.coerce.number().int(),
     title: z.string(),
     description: z.string(),
-    categoryId: z.number().int(),
-    category: z.unknown().nullable(),
-    price: z.number().int(),
+    categoryId: z.coerce.number().int(),
+    price: z.coerce.number().int(),
     discountPercentage: z.number().nullable(),
-    rating: z.number().nullable(),
-    stock: z.number().int().nullable(),
+    rating: z.coerce.number().nullable(),
+    stock: z.coerce.number().int().nullable(),
     tags: z.array(z.string()),
     brand: z.string().nullable(),
     sku: z.string().nullable(),
-    weight: z.number().nullable(),
-    width: z.number().nullable(),
-    height: z.number().nullable(),
-    depth: z.number().nullable(),
+    weight: z.coerce.number().nullable(),
+    width: z.coerce.number().nullable(),
+    height: z.coerce.number().nullable(),
+    depth: z.coerce.number().nullable(),
     warrantyInformation: z.string().nullable(),
     shippingInformation: z.string().nullable(),
     availabilityStatus: z.string().nullable(),
-    reviews: z.array(z.unknown()),
     returnPolicy: z.string().nullable(),
     minimumOrderQuantity: z.number().int().nullable(),
     createdAt: z.date(),
@@ -28,7 +26,9 @@ export const ProductModelSchema = z.object({
     barcode: z.string().nullable(),
     qrCode: z.string().nullable(),
     images: z.array(z.string()),
-    thumbnail: z.string()
+    thumbnail: z.string(),
+    category: z.unknown(),
+    reviews: z.array(z.unknown())
 }).strict();
 
 export type ProductPureType = z.infer<typeof ProductModelSchema>;

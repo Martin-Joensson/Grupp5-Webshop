@@ -3,12 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/customer/Button";
 import Arrow from "@/design/assets/arrow.svg";
-import { PrismaProduct } from "@/types";
+import { ProductWithIncludes } from "@/types";
 import { toEurosString } from "@/lib/utils";
 import { useCartStore } from "@/store/cartStore";
 
 type ProductCardProps = Pick<
-  PrismaProduct,
+  ProductWithIncludes,
   "id" | "title" | "thumbnail" | "category" | "description" | "price"
 >;
 

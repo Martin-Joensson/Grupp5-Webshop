@@ -1,38 +1,23 @@
 "use server";
 
 import { prisma } from "@/db";
+import { Category } from "@/generated/prisma/client";
 
-const API_URL = "http://localhost:4000";
 import {
   ProductInclude,
   ProductOrderByWithRelationInput,
+  ProductUpsertArgs,
   ProductWhereInput,
 } from "@/generated/prisma/models";
-import type {
-  Category,
-  PrismaProduct,
-  ProductsResponse,
-  ProductWithIncludes,
-  Stats,
-} from "@/types";
+import type { ProductsResponse, ProductWithIncludes, Stats } from "@/types";
 
 const DEFAULT_LIMIT = 6;
-
-interface SimpleProduct {
-  title: string;
-  price: number;
-  description: string;
-  thumbnail: string;
-  categoryId: number;
-  brand?: string;
-  stock?: number;
-}
 
 export async function createCategory(category: Omit<Category, "id">) {
   await prisma.category.create({ data: category });
 }
 
-export async function getCategories() {
+export async function getCategories(): Promise<Category[]> {
   return await prisma.category.findMany();
 }
 
@@ -61,17 +46,13 @@ export async function getAvailabilityStats(): Promise<Stats> {
   return stats;
 }
 
-export async function createProduct(product: SimpleProduct) {
-  await prisma.product.create({
-    data: product,
+export async function upsertProduct(validatedFields: ProductUpsertArgs) {
+  const upsertProduct = await prisma.product.upsert({
+    where: validatedFields.where,
+    update: validatedFields.update,
+    create: validatedFields.create,
   });
-}
-
-export async function updateProduct(id: number, product: SimpleProduct) {
-  await prisma.product.update({
-    where: { id: id },
-    data: product,
-  });
+  return upsertProduct;
 }
 
 export async function deleteProduct(id: number) {
@@ -90,13 +71,7 @@ export async function getProduct(
   });
 }
 
-export async function getJsonProducts(params: URLSearchParams) {
-  return await fetch(`${API_URL}/products/?${params.toString()}`).then((res) =>
-    res.json(),
-  );
-}
-
-interface GetProductsOptions {
+export interface GetProductsOptions {
   page?: number | string;
   limit?: number | string;
   expand?: string[];
@@ -145,7 +120,7 @@ export async function getProducts(
 
   // Fetch products.
   const dbProducts = await prisma.product.findMany(query);
-  const products: PrismaProduct[] = [];
+  const products: ProductWithIncludes[] = [];
   Object.assign(products, dbProducts);
 
   return {

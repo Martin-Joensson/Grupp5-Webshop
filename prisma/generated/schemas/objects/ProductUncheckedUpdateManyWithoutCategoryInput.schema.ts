@@ -10,12 +10,40 @@ import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringF
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { ProductUpdateimagesInputObjectSchema as ProductUpdateimagesInputObjectSchema } from './ProductUpdateimagesInput.schema'
 
-import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
+
+const DecimalJSLikeSchema: z.ZodType<Prisma.DecimalJsLike> = z.object({
+  d: z.array(z.number()),
+  e: z.number(),
+  s: z.number(),
+  // Zod v3/v4 compatible callable check
+  toFixed: z.custom<Prisma.DecimalJsLike['toFixed']>((v) => typeof v === 'function'),
+});
+
+// Accept canonical decimal strings (+/-, optional fraction, optional exponent), or Infinity/NaN.
+const DECIMAL_STRING_REGEX = /^(?:[+-]?(?:[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?|Infinity)|NaN)$/;
+
+const isValidDecimalInput = (
+  v?: null | string | number | Prisma.DecimalJsLike,
+): v is string | number | Prisma.DecimalJsLike => {
+  if (v === undefined || v === null) return false;
+  return (
+    // Cross-runtime-copy safe check (browser and server runtimes bundle separate Decimal classes)
+    Prisma.Decimal.isDecimal(v) ||
+    (typeof v === 'object' &&
+      'd' in v &&
+      'e' in v &&
+      's' in v &&
+      'toFixed' in v) ||
+    (typeof v === 'string' && DECIMAL_STRING_REGEX.test(v)) ||
+    typeof v === 'number'
+  );
+};
+
 const makeSchema = () => z.object({
-  id: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  id: z.union([z.coerce.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   description: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  price: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  price: z.union([z.coerce.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   discountPercentage: z.union([z.union([
   z.number(),
   z.string(),
@@ -24,15 +52,15 @@ const makeSchema = () => z.object({
 ]).refine((v) => isValidDecimalInput(v), {
   message: "Field 'discountPercentage' must be a Decimal",
 }), z.lazy(() => NullableDecimalFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  rating: z.union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  stock: z.union([z.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  rating: z.union([z.coerce.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  stock: z.union([z.coerce.number().int(), z.lazy(() => NullableIntFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   tags: z.union([z.lazy(() => ProductUpdatetagsInputObjectSchema), z.string().array()]).optional(),
   brand: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   sku: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  weight: z.union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  width: z.union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  height: z.union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  depth: z.union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  weight: z.union([z.coerce.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  width: z.union([z.coerce.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  height: z.union([z.coerce.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
+  depth: z.union([z.coerce.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   warrantyInformation: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   shippingInformation: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   availabilityStatus: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
