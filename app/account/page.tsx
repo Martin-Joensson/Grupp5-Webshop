@@ -31,7 +31,7 @@ interface Purchase {
 }
 
 // Temporary and static product data.
-const ids = [126, 145, 42];
+const ids = [126, 145, 42, 11, 99];
 const productsInCart: ProductWithIncludes[] = [];
 
 for (const id of ids)
@@ -54,21 +54,32 @@ const user1: StaticUser = {
             date: "2026-9-24",
             priceWhenBought: 5999, //in cents, not full euros
             product: productsInCart[1]
-        }
+        }, {
+            id: 2,
+            date: "2026-9-24",
+            priceWhenBought: 1114, //in cents, not full euros
+            product: productsInCart[4]
+        }, {
+            id: 3,
+            date: "2026-9-24",
+            priceWhenBought: 147, //in cents, not full euros
+            product: productsInCart[3]
+        },
     ]
 }
 
 
 // Tailwind styling variables
 const sectionStyling: string = "min-w-96";
-const cardStyling: string = "border border-gray-300 rounded-2xl";
+const borderStyling: string = "border border-gray-300 rounded-2xl";
+const listStyling: string = "flex flex-wrap gap-4";
 
 
 // Page with your account. If not logged in, user is redirected to login page. Account page path: `/account`
 export default async function MyAccountPage()
 {
     const session = await getServerSession(authOptions);
-    
+
       if (!session) {
         redirect("/login");
       }
@@ -76,13 +87,13 @@ export default async function MyAccountPage()
     const user: StaticUser = user1;
 
     return(
-        <main className="grid grid-cols-3 gap-6   max-w-7xl mx-auto px-6">
+        <main className="flex flex-wrap gap-6   max-w-7xl mx-auto px-6">
 
             {/* Section with info about the users account */}
-            <section aria-labelledby="my-account-heading" className={`${sectionStyling} text-center`}>
+            <section aria-labelledby="my-account-heading" className={`${sectionStyling} xl:text-center`}>
                 <h1 id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
-                <div className={`${cardStyling} w-max mx-auto px-12 pb-5 pt-3`} >
+                <div className={`${borderStyling} w-max mx-0 px-12 pb-5 pt-3 xl:mx-auto`} >
                     <h3 className="h3 text-secondary text-center"> {session.user.name} </h3>
 
                     <p className="text-secondary"> {session.user.email} </p>
@@ -106,9 +117,9 @@ export default async function MyAccountPage()
             <section aria-labelledby="favorites-heading" className={sectionStyling}>
                 <h2 id="favorites-heading" className="h2 text-primary"> Favorites </h2>
 
-                <ul className="grid gap-4">
+                <ul className={listStyling} >
                 {   user.favorites && user.favorites.map( (favProduct) => (
-                        <li className={`${cardStyling}`} key={favProduct.id}>
+                        <li className={`${borderStyling}`} key={favProduct.id}>
                             <FavProductCard product={favProduct} />
                         </li>
                     ) )
@@ -121,10 +132,10 @@ export default async function MyAccountPage()
             <section aria-labelledby="purchase-history-heading" className={sectionStyling}>
                 <h2 id="purchase-history-heading" className="h2 text-primary"> Purchase history </h2>
 
-                <ol>
+                <ol className={listStyling} >
                 {
                     user.purchaseHistory && user.purchaseHistory.map( (prevPurchase) => (
-                        <li className={`${cardStyling}`} key={prevPurchase.id} >
+                        <li className={`${borderStyling}`} key={prevPurchase.id} >
                             <PrevPurchaseCard purchase={prevPurchase} />
                         </li>
                     ) )
@@ -136,6 +147,10 @@ export default async function MyAccountPage()
 }
 
 
+
+const cardStyling: string = "grid gap-2 glass p-2 rounded-2xl max-w-96";
+
+
 // A productcard variant for the users favorite product.
 function FavProductCard( {product}: {product: ProductWithIncludes} )
 {
@@ -143,7 +158,7 @@ function FavProductCard( {product}: {product: ProductWithIncludes} )
 
 
     return(
-        <article className="grid gap-2 glass p-2 rounded-2xl" aria-labelledby={`fav-prod-title-${id}`}>
+        <article className={cardStyling} aria-labelledby={`fav-prod-title-${id}`}>
             <Image src={thumbnail} alt="" width={300} height={300} className="justify-self-center" />
 
             <Link href={`/product/${id}`} className="hover:underline hover:text-primary">
@@ -171,7 +186,7 @@ function PrevPurchaseCard( {purchase}: {purchase: Purchase} )
     const { id, title, description, category, thumbnail } = purchase.product;
 
     return(
-        <article className="grid gap-2 glass p-2 rounded-2xl" aria-labelledby={`prev-purchase-title-${id}`} >
+        <article className={cardStyling} aria-labelledby={`prev-purchase-title-${id}`} >
             <Image src={thumbnail} alt="" width={300} height={300} className="justify-self-center" />
 
             <Link href={`/product/${id}`} className="hover:underline hover:text-primary">
