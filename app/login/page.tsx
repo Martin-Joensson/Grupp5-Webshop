@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
+import { Button } from "@/components/customer/Button";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
@@ -26,27 +28,43 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/";
+    window.location.href = "/profile";
   }
 
   return (
-    <main>
-      <h1>Login</h1>
+    <main className="max-w-270 mx-auto my-27">
+      <h1 className="font-heading my-4">Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input name="email" type="email" placeholder="Email" required />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <input
+          className="border px-4 py-2 rounded border-secondary"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
 
         <input
+          className="border px-4 py-2 rounded border-secondary"
           name="password"
           type="password"
           placeholder="Password"
           required
         />
 
-        <button type="submit">Login</button>
+        <Button className="my-4" type="submit">
+          Login
+        </Button>
 
         {error && <p>{error}</p>}
       </form>
+      <Link
+        href="/register"
+        className=" text-primary underline"
+        aria-label="Register Account"
+      >
+        Register account 
+      </Link>
     </main>
   );
 }
