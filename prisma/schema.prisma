@@ -16,12 +16,11 @@ datasource db {
 
 model Product {
   /// @zod.coerce()
-  id                   Int       @id @default(autoincrement())
+  id                   Int      @id @default(autoincrement())
   title                String
   description          String
   /// @zod.coerce()
   categoryId           Int
-  category             Category? @relation(fields: [categoryId], references: [id])
   /// @zod.coerce()
   price                Int
   /// @zod.coerce()
@@ -46,13 +45,12 @@ model Product {
   shippingInformation  String?
   availabilityStatus   String?
   /// @zod.coerce()
-  reviews              Review[]
   returnPolicy         String?
   minimumOrderQuantity Int?
   /// @zod.coerce()
-  createdAt            DateTime  @default(now())
+  createdAt            DateTime @default(now())
   /// @zod.coerce()
-  updatedAt            DateTime  @default(now())
+  updatedAt            DateTime @default(now())
   barcode              String?
   qrCode               String?
   /// @zod.coerce()
