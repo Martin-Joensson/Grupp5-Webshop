@@ -3,22 +3,18 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-import User from "@/design/assets/user.svg";
-
 export default function AccountLink() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  if (status === "loading") {
-      return "loading...";
-  }
+  const href = session ? "/profile" : "/login";
+  const label = session ? "account" : "login";
 
   return (
     <Link
-      href={session ? "/profile" : "/login"}
+      href={href}
       className="text-sm font-medium transition-opacity hover:opacity-60"
     >
-      
-      {session ? "account" : "login"}
+      {label}
     </Link>
   );
 }

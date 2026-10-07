@@ -20,7 +20,7 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      callbackUrl: "/",
     });
 
     if (result?.error) {
@@ -28,7 +28,6 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/profile";
   }
 
   return (
