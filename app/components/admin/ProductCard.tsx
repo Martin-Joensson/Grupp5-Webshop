@@ -1,14 +1,14 @@
 "use client";
-import type { Product } from "@/types";
 import { Modal } from "./Modal";
 import Link from "next/link";
 import Image from "next/image";
 import { useTransition, useState } from "react";
 import { deleteProductAction } from "@/actions";
 import { toEurosString } from "@/lib/utils";
+import { ProductWithIncludes } from "@/types";
 
 type ProductCardProps = Pick<
-  Product,
+  ProductWithIncludes,
   | "id"
   | "title"
   | "sku"

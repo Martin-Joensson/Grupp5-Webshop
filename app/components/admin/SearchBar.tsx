@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import type { Category } from "@/types";
 import { ChangeEvent, Suspense } from "react";
 import { updateFilter } from "@/utils/updateFilter";
 import Search from "./Search";
+import { Category } from "@/generated/prisma/browser";
 
 type SearchProps = {
   categories: Category[];
