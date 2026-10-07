@@ -9,7 +9,7 @@ import Line from "@/design/assets/line.svg";
 import AccountLink from "./customer/AccountLink";
 
 const navItems = [
-  { label: "shop", href: "/shop" },
+  { label: "shop", href: "/" },
   { label: "story", href: "/story" },
   // { label: "account", href: "/profile" },
 ];
@@ -48,7 +48,7 @@ export default function Navbar() {
           <AccountLink />
           {/* Placeholder image */}
           <Link
-            href="/user"
+            href="/cart"
             className="text-sm font-medium transition-opacity hover:opacity-60"
           >
             <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
@@ -105,7 +105,7 @@ export default function Navbar() {
             {/* Image in mobile drawer */}
 
             <Link
-              href="/user"
+              href="/cart"
               className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
             >
               <User className="text-brand-golden h-15 w-15 overflow-hidden" />
