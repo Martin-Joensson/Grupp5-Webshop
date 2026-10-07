@@ -16,10 +16,9 @@ touch .env
 Follow the instructions for [step 2](https://neon.com/docs/guides/prisma#step-2-get-your-connection-strings) to get the connection strings from Neon and add them to the `.env` file.
 **Do not share or publish the connection strings. Git should not be tracking the `.env` file.**
 
-To generate Prisma client and push to Neon database (these need to be done if and whenever the Prisma schema is changed)
+To generate Prisma client 
 ```bash
 npx prisma generate
-npx prisma db push
 ```
 
 
