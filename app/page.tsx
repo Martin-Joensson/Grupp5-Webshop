@@ -1,8 +1,7 @@
-
 import { Suspense } from "react";
 import Background from "@/design/assets/splash2.svg";
 
-import type { Category, ProductsResponse } from "@/types";
+import type { ProductsResponse } from "@/types";
 import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
 import { createUrlSearchParams, orderBy } from "./lib/utils";
 
@@ -10,7 +9,7 @@ import { ProductList } from "@/components/customer/products/ProductList";
 import { Pagination } from "./components/customer/Pagination";
 import LimitDropDown from "./components/customer/LimitDropDown";
 import FilterSection from "@/components/customer/FilterSection";
-
+import { Category } from "./generated/prisma/browser";
 
 const DEFAULT_LIMIT = 12;
 
