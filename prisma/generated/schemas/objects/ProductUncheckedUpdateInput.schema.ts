@@ -8,10 +8,37 @@ import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUp
 import { ProductUpdatetagsInputObjectSchema as ProductUpdatetagsInputObjectSchema } from './ProductUpdatetagsInput.schema';
 import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
-import { ProductUpdateimagesInputObjectSchema as ProductUpdateimagesInputObjectSchema } from './ProductUpdateimagesInput.schema';
-import { ReviewUncheckedUpdateManyWithoutProductNestedInputObjectSchema as ReviewUncheckedUpdateManyWithoutProductNestedInputObjectSchema } from './ReviewUncheckedUpdateManyWithoutProductNestedInput.schema'
+import { ProductUpdateimagesInputObjectSchema as ProductUpdateimagesInputObjectSchema } from './ProductUpdateimagesInput.schema'
 
-import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
+
+const DecimalJSLikeSchema: z.ZodType<Prisma.DecimalJsLike> = z.object({
+  d: z.array(z.number()),
+  e: z.number(),
+  s: z.number(),
+  // Zod v3/v4 compatible callable check
+  toFixed: z.custom<Prisma.DecimalJsLike['toFixed']>((v) => typeof v === 'function'),
+});
+
+// Accept canonical decimal strings (+/-, optional fraction, optional exponent), or Infinity/NaN.
+const DECIMAL_STRING_REGEX = /^(?:[+-]?(?:[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?|Infinity)|NaN)$/;
+
+const isValidDecimalInput = (
+  v?: null | string | number | Prisma.DecimalJsLike,
+): v is string | number | Prisma.DecimalJsLike => {
+  if (v === undefined || v === null) return false;
+  return (
+    // Cross-runtime-copy safe check (browser and server runtimes bundle separate Decimal classes)
+    Prisma.Decimal.isDecimal(v) ||
+    (typeof v === 'object' &&
+      'd' in v &&
+      'e' in v &&
+      's' in v &&
+      'toFixed' in v) ||
+    (typeof v === 'string' && DECIMAL_STRING_REGEX.test(v)) ||
+    typeof v === 'number'
+  );
+};
+
 const makeSchema = () => z.object({
   id: z.union([z.coerce.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
   title: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -45,8 +72,7 @@ const makeSchema = () => z.object({
   barcode: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   qrCode: z.union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   images: z.union([z.lazy(() => ProductUpdateimagesInputObjectSchema), z.string().array()]).optional(),
-  thumbnail: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
-  reviews: z.lazy(() => ReviewUncheckedUpdateManyWithoutProductNestedInputObjectSchema).optional()
+  thumbnail: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional()
 }).strict();
 export const ProductUncheckedUpdateInputObjectSchema: z.ZodType<Prisma.ProductUncheckedUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductUncheckedUpdateInput>;
 export const ProductUncheckedUpdateInputObjectZodSchema = makeSchema();

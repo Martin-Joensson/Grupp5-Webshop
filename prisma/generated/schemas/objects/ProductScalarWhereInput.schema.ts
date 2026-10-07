@@ -9,7 +9,35 @@ import { StringNullableListFilterObjectSchema as StringNullableListFilterObjectS
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 
-import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
+
+const DecimalJSLikeSchema: z.ZodType<Prisma.DecimalJsLike> = z.object({
+  d: z.array(z.number()),
+  e: z.number(),
+  s: z.number(),
+  // Zod v3/v4 compatible callable check
+  toFixed: z.custom<Prisma.DecimalJsLike['toFixed']>((v) => typeof v === 'function'),
+});
+
+// Accept canonical decimal strings (+/-, optional fraction, optional exponent), or Infinity/NaN.
+const DECIMAL_STRING_REGEX = /^(?:[+-]?(?:[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?|Infinity)|NaN)$/;
+
+const isValidDecimalInput = (
+  v?: null | string | number | Prisma.DecimalJsLike,
+): v is string | number | Prisma.DecimalJsLike => {
+  if (v === undefined || v === null) return false;
+  return (
+    // Cross-runtime-copy safe check (browser and server runtimes bundle separate Decimal classes)
+    Prisma.Decimal.isDecimal(v) ||
+    (typeof v === 'object' &&
+      'd' in v &&
+      'e' in v &&
+      's' in v &&
+      'toFixed' in v) ||
+    (typeof v === 'string' && DECIMAL_STRING_REGEX.test(v)) ||
+    typeof v === 'number'
+  );
+};
+
 const productscalarwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => ProductScalarWhereInputObjectSchema), z.lazy(() => ProductScalarWhereInputObjectSchema).array()]).optional(),
   OR: z.lazy(() => ProductScalarWhereInputObjectSchema).array().optional(),

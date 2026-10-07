@@ -1,7 +1,6 @@
 import * as z from 'zod';
 // prettier-ignore
 export const ProductInputSchema = z.object({
-    id: z.coerce.number().int(),
     title: z.string(),
     description: z.string(),
     categoryId: z.coerce.number().int(),
@@ -21,8 +20,6 @@ export const ProductInputSchema = z.object({
     availabilityStatus: z.string().optional().nullable(),
     returnPolicy: z.string().optional().nullable(),
     minimumOrderQuantity: z.number().int().optional().nullable(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
     barcode: z.string().optional().nullable(),
     qrCode: z.string().optional().nullable(),
     images: z.array(z.string()),

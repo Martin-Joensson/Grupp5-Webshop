@@ -5,4 +5,3 @@
 
 export * from './pure';
 export * from './input';
-export * from './result';

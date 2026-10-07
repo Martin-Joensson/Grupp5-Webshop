@@ -1,13 +1,9 @@
 import type { Prisma } from '../../../app/generated/prisma/browser';
 import * as z from 'zod';
-import { ProductIncludeObjectSchema as ProductIncludeObjectSchema } from './objects/ProductInclude.schema';
 import { ProductOrderByWithRelationInputObjectSchema as ProductOrderByWithRelationInputObjectSchema } from './objects/ProductOrderByWithRelationInput.schema';
 import { ProductWhereInputObjectSchema as ProductWhereInputObjectSchema } from './objects/ProductWhereInput.schema';
 import { ProductWhereUniqueInputObjectSchema as ProductWhereUniqueInputObjectSchema } from './objects/ProductWhereUniqueInput.schema';
 import { ProductScalarFieldEnumSchema } from './enums/ProductScalarFieldEnum.schema';
-import { CategoryArgsObjectSchema as CategoryArgsObjectSchema } from './objects/CategoryArgs.schema';
-import { ReviewFindManySchema } from './findManyReview.schema';
-import { ProductCountOutputTypeArgsObjectSchema as ProductCountOutputTypeArgsObjectSchema } from './objects/ProductCountOutputTypeArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -39,9 +35,9 @@ export const ProductFindFirstSelectSchema: z.ZodType<Prisma.ProductSelect> = z.o
     qrCode: z.boolean().optional(),
     images: z.boolean().optional(),
     thumbnail: z.boolean().optional(),
-    category: z.union([z.boolean(), z.lazy(() => CategoryArgsObjectSchema)]).optional(),
-    reviews: z.union([z.boolean(), z.lazy(() => ReviewFindManySchema)]).optional(),
-    _count: z.union([z.boolean(), z.lazy(() => ProductCountOutputTypeArgsObjectSchema)]).optional()
+    category: z.boolean().optional(),
+    reviews: z.boolean().optional(),
+    _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.ProductSelect>;
 
 export const ProductFindFirstSelectZodSchema = z.object({
@@ -71,11 +67,11 @@ export const ProductFindFirstSelectZodSchema = z.object({
     qrCode: z.boolean().optional(),
     images: z.boolean().optional(),
     thumbnail: z.boolean().optional(),
-    category: z.union([z.boolean(), z.lazy(() => CategoryArgsObjectSchema)]).optional(),
-    reviews: z.union([z.boolean(), z.lazy(() => ReviewFindManySchema)]).optional(),
-    _count: z.union([z.boolean(), z.lazy(() => ProductCountOutputTypeArgsObjectSchema)]).optional()
+    category: z.boolean().optional(),
+    reviews: z.boolean().optional(),
+    _count: z.boolean().optional()
   }).strict();
 
-export const ProductFindFirstSchema: z.ZodType<Prisma.ProductFindFirstArgs> = z.object({ select: ProductFindFirstSelectSchema.optional(), include: z.lazy(() => ProductIncludeObjectSchema.optional()), orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProductFindFirstArgs>;
+export const ProductFindFirstSchema: z.ZodType<Prisma.ProductFindFirstArgs> = z.object({ select: ProductFindFirstSelectSchema.optional(),  orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ProductFindFirstArgs>;
 
-export const ProductFindFirstZodSchema = z.object({ select: ProductFindFirstSelectSchema.optional(), include: z.lazy(() => ProductIncludeObjectSchema.optional()), orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict();
+export const ProductFindFirstZodSchema = z.object({ select: ProductFindFirstSelectSchema.optional(),  orderBy: z.union([ProductOrderByWithRelationInputObjectSchema, ProductOrderByWithRelationInputObjectSchema.array()]).optional(), where: ProductWhereInputObjectSchema.optional(), cursor: ProductWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ProductScalarFieldEnumSchema, ProductScalarFieldEnumSchema.array()]).optional() }).strict();

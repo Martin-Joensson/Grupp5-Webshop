@@ -1,8 +1,7 @@
 import type { Prisma } from '../../../app/generated/prisma/browser';
 import * as z from 'zod';
-import { VerificationTokenSelectObjectSchema as VerificationTokenSelectObjectSchema } from './objects/VerificationTokenSelect.schema';
 import { VerificationTokenWhereUniqueInputObjectSchema as VerificationTokenWhereUniqueInputObjectSchema } from './objects/VerificationTokenWhereUniqueInput.schema';
 
-export const VerificationTokenDeleteOneSchema: z.ZodType<Prisma.VerificationTokenDeleteArgs> = z.object({ select: VerificationTokenSelectObjectSchema.optional(),  where: VerificationTokenWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.VerificationTokenDeleteArgs>;
+export const VerificationTokenDeleteOneSchema: z.ZodType<Prisma.VerificationTokenDeleteArgs> = z.object({   where: VerificationTokenWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.VerificationTokenDeleteArgs>;
 
-export const VerificationTokenDeleteOneZodSchema = z.object({ select: VerificationTokenSelectObjectSchema.optional(),  where: VerificationTokenWhereUniqueInputObjectSchema }).strict();
+export const VerificationTokenDeleteOneZodSchema = z.object({   where: VerificationTokenWhereUniqueInputObjectSchema }).strict();

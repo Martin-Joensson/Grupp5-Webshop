@@ -7,12 +7,37 @@ import { FloatNullableFilterObjectSchema as FloatNullableFilterObjectSchema } fr
 import { IntNullableFilterObjectSchema as IntNullableFilterObjectSchema } from './IntNullableFilter.schema';
 import { StringNullableListFilterObjectSchema as StringNullableListFilterObjectSchema } from './StringNullableListFilter.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
-import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema';
-import { CategoryScalarRelationFilterObjectSchema as CategoryScalarRelationFilterObjectSchema } from './CategoryScalarRelationFilter.schema';
-import { CategoryWhereInputObjectSchema as CategoryWhereInputObjectSchema } from './CategoryWhereInput.schema';
-import { ReviewListRelationFilterObjectSchema as ReviewListRelationFilterObjectSchema } from './ReviewListRelationFilter.schema'
+import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 
-import { DecimalJSLikeSchema, isValidDecimalInput } from '../../helpers/decimal-helpers';
+
+const DecimalJSLikeSchema: z.ZodType<Prisma.DecimalJsLike> = z.object({
+  d: z.array(z.number()),
+  e: z.number(),
+  s: z.number(),
+  // Zod v3/v4 compatible callable check
+  toFixed: z.custom<Prisma.DecimalJsLike['toFixed']>((v) => typeof v === 'function'),
+});
+
+// Accept canonical decimal strings (+/-, optional fraction, optional exponent), or Infinity/NaN.
+const DECIMAL_STRING_REGEX = /^(?:[+-]?(?:[0-9]+(?:\.[0-9]+)?(?:[eE][+\-]?[0-9]+)?|Infinity)|NaN)$/;
+
+const isValidDecimalInput = (
+  v?: null | string | number | Prisma.DecimalJsLike,
+): v is string | number | Prisma.DecimalJsLike => {
+  if (v === undefined || v === null) return false;
+  return (
+    // Cross-runtime-copy safe check (browser and server runtimes bundle separate Decimal classes)
+    Prisma.Decimal.isDecimal(v) ||
+    (typeof v === 'object' &&
+      'd' in v &&
+      'e' in v &&
+      's' in v &&
+      'toFixed' in v) ||
+    (typeof v === 'string' && DECIMAL_STRING_REGEX.test(v)) ||
+    typeof v === 'number'
+  );
+};
+
 const productwhereinputSchema = z.object({
   AND: z.union([z.lazy(() => ProductWhereInputObjectSchema), z.lazy(() => ProductWhereInputObjectSchema).array()]).optional(),
   OR: z.lazy(() => ProductWhereInputObjectSchema).array().optional(),
@@ -49,9 +74,7 @@ const productwhereinputSchema = z.object({
   barcode: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   qrCode: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   images: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
-  thumbnail: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
-  category: z.union([z.lazy(() => CategoryScalarRelationFilterObjectSchema), z.lazy(() => CategoryWhereInputObjectSchema)]).optional(),
-  reviews: z.lazy(() => ReviewListRelationFilterObjectSchema).optional()
+  thumbnail: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional()
 }).strict();
 export const ProductWhereInputObjectSchema: z.ZodType<Prisma.ProductWhereInput> = productwhereinputSchema as unknown as z.ZodType<Prisma.ProductWhereInput>;
 export const ProductWhereInputObjectZodSchema = productwhereinputSchema;

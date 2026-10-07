@@ -1,7 +1,6 @@
 import * as z from 'zod';
 // prettier-ignore
 export const ReviewInputSchema = z.object({
-    id: z.number().int(),
     productId: z.number().int().optional().nullable(),
     rating: z.number().int(),
     comment: z.string(),

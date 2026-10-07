@@ -1,11 +1,9 @@
 import type { Prisma } from '../../../app/generated/prisma/browser';
 import * as z from 'zod';
-import { AccountIncludeObjectSchema as AccountIncludeObjectSchema } from './objects/AccountInclude.schema';
 import { AccountOrderByWithRelationInputObjectSchema as AccountOrderByWithRelationInputObjectSchema } from './objects/AccountOrderByWithRelationInput.schema';
 import { AccountWhereInputObjectSchema as AccountWhereInputObjectSchema } from './objects/AccountWhereInput.schema';
 import { AccountWhereUniqueInputObjectSchema as AccountWhereUniqueInputObjectSchema } from './objects/AccountWhereUniqueInput.schema';
 import { AccountScalarFieldEnumSchema } from './enums/AccountScalarFieldEnum.schema';
-import { UserArgsObjectSchema as UserArgsObjectSchema } from './objects/UserArgs.schema';
 
 // Select schema needs to be in file to prevent circular imports
 //------------------------------------------------------
@@ -22,7 +20,7 @@ export const AccountFindFirstSelectSchema: z.ZodType<Prisma.AccountSelect> = z.o
     scope: z.boolean().optional(),
     id_token: z.boolean().optional(),
     session_state: z.boolean().optional(),
-    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional()
+    user: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.AccountSelect>;
 
 export const AccountFindFirstSelectZodSchema = z.object({
@@ -37,9 +35,9 @@ export const AccountFindFirstSelectZodSchema = z.object({
     scope: z.boolean().optional(),
     id_token: z.boolean().optional(),
     session_state: z.boolean().optional(),
-    user: z.union([z.boolean(), z.lazy(() => UserArgsObjectSchema)]).optional()
+    user: z.boolean().optional()
   }).strict();
 
-export const AccountFindFirstSchema: z.ZodType<Prisma.AccountFindFirstArgs> = z.object({ select: AccountFindFirstSelectSchema.optional(), include: z.lazy(() => AccountIncludeObjectSchema.optional()), orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([AccountScalarFieldEnumSchema, AccountScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.AccountFindFirstArgs>;
+export const AccountFindFirstSchema: z.ZodType<Prisma.AccountFindFirstArgs> = z.object({ select: AccountFindFirstSelectSchema.optional(),  orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([AccountScalarFieldEnumSchema, AccountScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.AccountFindFirstArgs>;
 
-export const AccountFindFirstZodSchema = z.object({ select: AccountFindFirstSelectSchema.optional(), include: z.lazy(() => AccountIncludeObjectSchema.optional()), orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([AccountScalarFieldEnumSchema, AccountScalarFieldEnumSchema.array()]).optional() }).strict();
+export const AccountFindFirstZodSchema = z.object({ select: AccountFindFirstSelectSchema.optional(),  orderBy: z.union([AccountOrderByWithRelationInputObjectSchema, AccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: AccountWhereInputObjectSchema.optional(), cursor: AccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([AccountScalarFieldEnumSchema, AccountScalarFieldEnumSchema.array()]).optional() }).strict();
