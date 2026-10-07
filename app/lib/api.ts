@@ -17,7 +17,6 @@ import type {
 } from "@/types";
 
 const DEFAULT_LIMIT = 6;
-const API_URL = "http://localhost:4000";
 
 interface SimpleProduct {
   title: string;
@@ -98,12 +97,6 @@ export async function getProduct(
       reviews: true,
     },
   });
-}
-
-export async function getJsonProducts(params: URLSearchParams) {
-  return await fetch(`${API_URL}/products/?${params.toString()}`).then((res) =>
-    res.json(),
-  );
 }
 
 export interface GetProductsOptions {
