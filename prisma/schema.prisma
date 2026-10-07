@@ -1,12 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-// learn more about data modeling in the docs: https://www.prisma.io/docs/orm/data-modeling
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
+  // optional output = "./generated" → resolves to prisma/generated (relative to the schema file)
+  // optional config = "./zod-generator.config.json" (relative to schema file)
 }
 
 // Neon note: In Prisma 7+, do not include a url property in the datasource block. The connection is configured via prisma.config.ts and the adapter. (https://neon.com/docs/guides/prisma)
@@ -15,34 +15,49 @@ datasource db {
 }
 
 model Product {
-  id                   Int       @id @default(autoincrement())
+  /// @zod.coerce()
+  id                   Int      @id @default(autoincrement())
   title                String
   description          String
+  /// @zod.coerce()
   categoryId           Int
-  category             Category? @relation(fields: [categoryId], references: [id])
+  /// @zod.coerce()
   price                Int
+  /// @zod.coerce()
   discountPercentage   Decimal?
+  /// @zod.coerce()
   rating               Float?
+  /// @zod.coerce()
   stock                Int?
+  /// @zod.coerce()
   tags                 String[]
   brand                String?
   sku                  String?
+  /// @zod.coerce()
   weight               Float?
+  /// @zod.coerce()
   width                Float?
+  /// @zod.coerce()
   height               Float?
+  /// @zod.coerce()
   depth                Float?
   warrantyInformation  String?
   shippingInformation  String?
   availabilityStatus   String?
-  reviews              Review[]
+  /// @zod.coerce()
   returnPolicy         String?
   minimumOrderQuantity Int?
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @default(now())
+  /// @zod.coerce()
+  createdAt            DateTime @default(now())
+  /// @zod.coerce()
+  updatedAt            DateTime @default(now())
   barcode              String?
   qrCode               String?
+  /// @zod.coerce()
   images               String[]
   thumbnail            String
+  category             Category @relation(fields: [categoryId], references: [id])
+  reviews              Review[]
 }
 
 model Category {
@@ -55,11 +70,60 @@ model Category {
 
 model Review {
   id            Int      @id @default(autoincrement())
-  product       Product? @relation(fields: [productId], references: [id])
   productId     Int?
   rating        Int
   comment       String
   date          DateTime
   reviewerName  String
   reviewerEmail String
+  product       Product? @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  USER
+  ADMIN
 }

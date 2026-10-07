@@ -2,10 +2,10 @@
 
 import { prisma } from "@/db";
 
-const API_URL = "http://localhost:4000";
 import {
   ProductInclude,
   ProductOrderByWithRelationInput,
+  ProductUpsertArgs,
   ProductWhereInput,
 } from "@/generated/prisma/models";
 import type {
@@ -17,6 +17,7 @@ import type {
 } from "@/types";
 
 const DEFAULT_LIMIT = 6;
+const API_URL = "http://localhost:4000";
 
 interface SimpleProduct {
   title: string;
@@ -74,6 +75,15 @@ export async function updateProduct(id: number, product: SimpleProduct) {
   });
 }
 
+export async function upsertProduct(validatedFields: ProductUpsertArgs) {
+  const upsertProduct = await prisma.product.upsert({
+    where: validatedFields.where,
+    update: validatedFields.update,
+    create: validatedFields.create,
+  });
+  return upsertProduct;
+}
+
 export async function deleteProduct(id: number) {
   await prisma.product.delete({ where: { id: id } });
 }
@@ -96,7 +106,7 @@ export async function getJsonProducts(params: URLSearchParams) {
   );
 }
 
-interface GetProductsOptions {
+export interface GetProductsOptions {
   page?: number | string;
   limit?: number | string;
   expand?: string[];
