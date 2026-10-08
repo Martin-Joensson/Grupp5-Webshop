@@ -66,7 +66,6 @@ const productscalarwhereinputSchema = z.object({
   depth: z.union([z.lazy(() => FloatNullableFilterObjectSchema), z.number()]).optional().nullable(),
   warrantyInformation: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   shippingInformation: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
-  availabilityStatus: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   returnPolicy: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   minimumOrderQuantity: z.union([z.lazy(() => IntNullableFilterObjectSchema), z.number().int()]).optional().nullable(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
@@ -74,7 +73,8 @@ const productscalarwhereinputSchema = z.object({
   barcode: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   qrCode: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   images: z.lazy(() => StringNullableListFilterObjectSchema).optional(),
-  thumbnail: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional()
+  thumbnail: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  availabilityStatus: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable()
 }).strict();
 export const ProductScalarWhereInputObjectSchema: z.ZodType<Prisma.ProductScalarWhereInput> = productscalarwhereinputSchema as unknown as z.ZodType<Prisma.ProductScalarWhereInput>;
 export const ProductScalarWhereInputObjectZodSchema = productscalarwhereinputSchema;

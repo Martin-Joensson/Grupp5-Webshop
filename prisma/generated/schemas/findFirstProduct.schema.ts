@@ -26,7 +26,6 @@ export const ProductFindFirstSelectSchema: z.ZodType<Prisma.ProductSelect> = z.o
     depth: z.boolean().optional(),
     warrantyInformation: z.boolean().optional(),
     shippingInformation: z.boolean().optional(),
-    availabilityStatus: z.boolean().optional(),
     returnPolicy: z.boolean().optional(),
     minimumOrderQuantity: z.boolean().optional(),
     createdAt: z.boolean().optional(),
@@ -35,6 +34,7 @@ export const ProductFindFirstSelectSchema: z.ZodType<Prisma.ProductSelect> = z.o
     qrCode: z.boolean().optional(),
     images: z.boolean().optional(),
     thumbnail: z.boolean().optional(),
+    availabilityStatus: z.boolean().optional(),
     category: z.boolean().optional(),
     reviews: z.boolean().optional(),
     _count: z.boolean().optional()
@@ -58,7 +58,6 @@ export const ProductFindFirstSelectZodSchema = z.object({
     depth: z.boolean().optional(),
     warrantyInformation: z.boolean().optional(),
     shippingInformation: z.boolean().optional(),
-    availabilityStatus: z.boolean().optional(),
     returnPolicy: z.boolean().optional(),
     minimumOrderQuantity: z.boolean().optional(),
     createdAt: z.boolean().optional(),
@@ -67,6 +66,7 @@ export const ProductFindFirstSelectZodSchema = z.object({
     qrCode: z.boolean().optional(),
     images: z.boolean().optional(),
     thumbnail: z.boolean().optional(),
+    availabilityStatus: z.boolean().optional(),
     category: z.boolean().optional(),
     reviews: z.boolean().optional(),
     _count: z.boolean().optional()

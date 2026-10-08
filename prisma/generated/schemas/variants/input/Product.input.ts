@@ -17,13 +17,13 @@ export const ProductInputSchema = z.object({
     depth: z.coerce.number().optional().nullable(),
     warrantyInformation: z.string().optional().nullable(),
     shippingInformation: z.string().optional().nullable(),
-    availabilityStatus: z.string().optional().nullable(),
     returnPolicy: z.string().optional().nullable(),
     minimumOrderQuantity: z.number().int().optional().nullable(),
     barcode: z.string().optional().nullable(),
     qrCode: z.string().optional().nullable(),
     images: z.array(z.string()),
     thumbnail: z.string(),
+    availabilityStatus: z.string().optional().nullable(),
     category: z.unknown(),
     reviews: z.array(z.unknown())
 }).strict();

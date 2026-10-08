@@ -23,7 +23,6 @@ const makeSchema = () => z.object({
   depth: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   warrantyInformation: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   shippingInformation: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  availabilityStatus: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   returnPolicy: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   minimumOrderQuantity: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   createdAt: SortOrderSchema.optional(),
@@ -32,6 +31,7 @@ const makeSchema = () => z.object({
   qrCode: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   images: SortOrderSchema.optional(),
   thumbnail: SortOrderSchema.optional(),
+  availabilityStatus: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   category: z.lazy(() => CategoryOrderByWithRelationInputObjectSchema).optional(),
   reviews: z.lazy(() => ReviewOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
