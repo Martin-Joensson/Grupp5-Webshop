@@ -70,7 +70,7 @@ export default async function HomePage({
               urlParams={urlParams}
             />
           )}
-          <LimitDropDown currentLimit={Number(currentLimit)} />
+          <LimitDropDown currentLimit={Number(currentLimit)} limitId={0} />
         </div>
         <ProductList products={products} />
         <div className="flex justify-center items-center gap-4">
@@ -83,7 +83,7 @@ export default async function HomePage({
               urlParams={urlParams}
             />
           )}
-          <LimitDropDown currentLimit={Number(currentLimit)} />
+          <LimitDropDown currentLimit={Number(currentLimit)} limitId={1} />
         </div>
       </div>
     </main>
