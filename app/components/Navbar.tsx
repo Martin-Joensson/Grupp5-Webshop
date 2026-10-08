@@ -7,10 +7,12 @@ import CartCount from "./customer/cart/CartCount";
 import User from "@/design/assets/user.svg";
 import Line from "@/design/assets/line.svg";
 
+import AccountLink from "./customer/AccountLink";
+
 const navItems = [
-  { label: "shop", href: "/shop" },
+  { label: "shop", href: "/" },
   { label: "story", href: "/story" },
-  { label: "account", href: "/account" },
+  // { label: "account", href: "/profile" },
 ];
 
 export default function Navbar() {
@@ -39,10 +41,13 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+          <div className="text-sm font-medium transition-opacity hover:opacity-60">
+            <AccountLink />
+          </div>
           <CartCount />
           {/* Placeholder image */}
           <Link
-            href="/user"
+            href="/cart"
             className="text-sm font-medium transition-opacity hover:opacity-60"
           >
             <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
@@ -100,13 +105,15 @@ export default function Navbar() {
             </div>
 
             {/* Image in mobile drawer */}
-
+            <div className="border-b border-soft py-4 text-lg">
+              <AccountLink />
+            </div>
             <Link
-              href="/user"
+              href="/cart"
               className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
             >
               <User className="text-brand-golden h-15 w-15 overflow-hidden" />
-              <span className="text-sm">Profile</span>
+              <span className="text-sm">Cart</span>
             </Link>
           </div>
         </div>

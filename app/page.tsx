@@ -52,9 +52,7 @@ export default async function HomePage({
   return (
     <main className="min-h-screen">
       <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 " />
-      <p className="bg-brand-offwhite text-brand-lightblue font-accent text-2xl">
-        Nagare
-      </p>
+  
       <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6">
         <h1 className="h1 text-primary self-center"> Nagare Webshop </h1>
 
