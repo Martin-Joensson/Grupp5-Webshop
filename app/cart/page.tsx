@@ -1,131 +1,109 @@
+"use client";
 import Link from "next/link";
-import Image from "next/image";
-import { getProduct } from "@/lib/api";
-import { ProductWithIncludes } from "@/types";
+import { Button } from "@/components/customer/Button";
+import Arrow from "@/design/assets/arrow.svg";
+import { useRouter } from "next/navigation";
+import CartItem from "@/components/customer/cart/CartItem";
+import { useCartStore } from "@/store/cartStore";
+import { toEurosString } from "@/lib/utils";
+import Background from "@/design/assets/splash1.svg";
 
-export default async function CartPage() {
-  const ids = [126, 145, 42];
-  const productsInCart: ProductWithIncludes[] = [];
-  for (const id of ids) {
-    const product = await getProduct(id);
-    if (product) {
-      productsInCart.push(product);
-    }
+export default function CartPage() {
+  const items = useCartStore((state) => state.items);
+  const hasHydrated = useCartStore((state) => state.hasHydrated);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const setQuantity = useCartStore((state) => state.setQuantity);
+  const router = useRouter();
+
+  const ButtonPanel = () => {
+    return (
+      <div className="my-8 flex justify-center gap-2">
+        <Button
+          variant="outline"
+          size="md"
+          icon={<Arrow />}
+          iconPosition="right"
+          onClick={() => router.back()}
+        >
+          Back
+        </Button>
+
+        <Button
+          variant="primary"
+          size="md"
+          icon={<Arrow />}
+          iconPosition="right"
+          onClick={() => console.log("to checkout clicked")}
+        >
+          Checkout
+        </Button>
+      </div>
+    );
+  };
+
+  if (!hasHydrated) {
+    return (
+      <main className="mx-auto flex min-h-96 max-w-7xl items-center justify-center px-6">
+        <p className="text-primary">Loading cart...</p>
+      </main>
+    );
+  }
+
+  const subtotal = items.reduce(
+    (total, item) => total + item.product.price * item.quantity,
+    0,
+  );
+
+  const total = subtotal;
+
+  if (items.length === 0) {
+    return (
+      <main className="mx-auto flex min-h-96 max-w-7xl flex-col items-center justify-center gap-6 px-6">
+        <h1 className="text-3xl text-dark">My cart</h1>
+        <p className="text-primary">Your cart is empty.</p>
+        <Link href="/" className="rounded-md bg-yellow-600 p-2 text-white">
+          Back to products
+        </Link>
+      </main>
+    );
   }
 
   return (
-    <main className="max-w-7xl w-full mx-auto">
-      {/* Summary of the cart with total and subtotal pricing and buttons for going to checkout or back to product catalog. */}
-      <section aria-label="Cart summary" className="mx-auto">
-        <div className="text-5xl text-cyan-950 font-black text-center my-8">
-          <p> Total: € 471 </p>
-          <p> Subtotal: € 471 </p>
+    <main className="mx-auto w-full max-w-7xl px-6">
+      <Background className="fixed -z-10 -inset-1 top-[30%] left-[20%] text-soft/40 " />
+      <section aria-label="Cart summary" className="mx-auto text-center">
+        <div className="my-8 text-4xl">
+          <p className="font-accent text-primary">{toEurosString(total)}</p>
         </div>
-
-        <div className="flex gap-4 justify-center my-8">
-          <Link href="/" className="text-white bg-yellow-600 p-2 rounded-md">
-            Back
-          </Link>
-          <button
-            type="button"
-            className="text-white bg-yellow-600 p-2 rounded-md"
-          >
-            Checkout
-          </button>
-        </div>
+        {ButtonPanel()}
       </section>
 
-      {/* Creates a list-item with an CartItem for each product in the shopping cart. */}
       <section aria-labelledby="cart-list-heading">
         <h1
           id="cart-list-heading"
-          className="text-cyan-950 text-3xl font-black text-center my-4"
+          className="my-4 text-center text-3xl text-dark font-heading"
         >
-          My cart
+          My Cart
         </h1>
-
         <ul
-          aria-label={`Shopping cart list with ${productsInCart.length} product(s)`}
+          aria-label={`Shopping cart list with ${items.length} product(s)`}
           className="flex flex-col gap-6"
         >
-          {productsInCart.map((cartProduct) => (
-            <li
-              key={cartProduct.id}
-              aria-labelledby={`product-title-${cartProduct.id}`}
-            >
-              <CartItem product={cartProduct} />
+          {items.map((item) => (
+            <li key={item.product.id}>
+              <CartItem
+                item={item}
+                onQuantityChange={setQuantity}
+                onRemove={removeItem}
+              />
             </li>
           ))}
+          <li className="text-right px-8 text-2xl text-primary font-heading">
+            Total: {toEurosString(total)}
+          </li>
         </ul>
+        {ButtonPanel()}
       </section>
     </main>
-  );
-}
-
-// A component for products in the cart to be placed in a <li> in the <ul> that makes up the shopping cart.
-function CartItem({ product }: { product: ProductWithIncludes }) {
-  const quantity: number = 2;
-
-  return (
-    <article
-      aria-labelledby={`product-title-${product.id}`}
-      className="bg-white p-4 w-full flex gap-4 justify-between"
-    >
-      {/* Image and title of product */}
-      <div className="flex items-center gap-4 w-72">
-        <Image
-          src={product.thumbnail}
-          alt=""
-          width={300}
-          height={300}
-          className="max-w-20 border"
-        />
-        <h2
-          id={`product-title-${product.id}`}
-          className="text-cyan-950 font-black text-center"
-        >
-          {product.title}
-        </h2>
-      </div>
-
-      {/* The products discount */}
-      <div className="flex items-center">
-        <p>{product.discountPercentage?.toString()}% off</p>
-      </div>
-
-      <div className="flex gap-10 items-center">
-        {/* Quantity input field */}
-        <div className="grid">
-          <label
-            htmlFor={`quantity-${product.id}`}
-            className="block text-center mbs-auto mbe-2"
-          >
-            Quantity (minimum 1)
-          </label>
-          <input
-            type="number"
-            id={`quantity-${product.id}`}
-            name="quantity"
-            min="1"
-            defaultValue={quantity}
-            className="block border p-2"
-          />
-        </div>
-
-        {/* Pricing per product and total for all of this product */}
-        <div>
-          <p> Per product: €{product.price} </p>
-          <p> For all products: €{product.price * quantity} </p>
-        </div>
-
-        {/* Remove from cart button */}
-        <button
-          type="button"
-          className="bg-black text-white p-4 h-10 w-10 rounded-xl flex items-center"
-        >
-          x
-        </button>
-      </div>
-    </article>
   );
 }

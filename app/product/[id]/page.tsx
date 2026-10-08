@@ -3,6 +3,7 @@ import { ImageGallery } from "@/components/customer/ImageGallery";
 import { getProduct } from "@/lib/api";
 import Link from "next/link";
 import NotFound from "@/not-found";
+import { AddToCartButton } from "@/components/customer/AddToCartButton";
 import type { Metadata } from "next";
 import { toEurosString } from "@/lib/utils";
 
@@ -38,7 +39,6 @@ export default async function ProductDetailsPage({
     src,
     alt: product.title,
   }));
-  console.log("product page: ", product);
 
   return (
     <div className="bg-[url('/assets/splash3.svg')] bg-cover">
@@ -54,15 +54,20 @@ export default async function ProductDetailsPage({
             <h2>{product.title}</h2>
             <p className="text-secondary">{product.category?.name}</p>
           </div>
-          <p className="font-heading text-6xl">{toEurosString(product.price)}</p>
+          <p className="font-heading text-6xl">
+            {toEurosString(product.price)}
+          </p>
           <p className="max-w-[50ch]">{product.description}</p>
           <div className="button-cluster flex gap-4 justify-end">
             <Button variant="tertiary" iconPosition="right">
               Favorite
             </Button>
-            <Button variant="primary" iconPosition="right">
-              Add to Cart
-            </Button>
+            <AddToCartButton
+              id={product.id}
+              title={product.title}
+              thumbnail={product.thumbnail}
+              price={product.price}
+            />
           </div>
         </div>
       </div>
