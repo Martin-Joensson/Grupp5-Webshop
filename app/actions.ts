@@ -24,46 +24,21 @@ const ProductUpsertSchema = ProductUncheckedCreateInputObjectZodSchema.extend({
   }, z.number().int()),
 });
 
-export async function addProductAction(formData: FormData) {
+export async function addProductAction(formData: FormData)
+{
   const rawData = Object.fromEntries(formData);
   const id = rawData.id ? Number(rawData.id) : 0;
 
   const validatedProduct = ProductUpsertSchema.safeParse(rawData);
 
-  if (!validatedProduct.data) {
-    const flattened = z.flattenError(validatedProduct.error);
-
-    const state = {
-      status: "error",
-      message: "Please fix errors in form.",
-      errors: flattened.fieldErrors,
-      rawData,
-      timestamp: Date(),
-    };
-    return; //return state;
-  }
-
-  try {
+  if (validatedProduct.data)
+  {
     await upsertProduct({
       where: { id: id },
       create: validatedProduct.data,
       update: validatedProduct.data,
     });
 
-    revalidatePath("/admin");
-    const state = {
-      status: "success",
-      message: "Product created/edited successfully.",
-      timestamp: Date(),
-    };
-    return; //return state;
-  } catch (e) {
-    const state = {
-      status: "error",
-      message: "There was a problem submitting your request. Please try later.",
-      rawData,
-      timestamp: Date(),
-    };
-    return; //return state;
+    return;
   }
 }
