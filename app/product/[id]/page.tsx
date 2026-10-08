@@ -51,12 +51,12 @@ export default async function ProductDetailsPage({
         {/* Right panel */}
         <div className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
-            <h2>{product.title}</h2>
+            <h1 className="h2 text-primary self-center">{product.title}</h1>
             <p className="text-secondary">{product.category?.name}</p>
           </div>
-          <p className="font-heading text-6xl">
+          <span className="block font-heading text-6xl">
             {toEurosString(product.price)}
-          </p>
+          </span>
           <p className="max-w-[50ch]">{product.description}</p>
           <div className="button-cluster flex gap-4 justify-end">
             <Button variant="tertiary" iconPosition="right">
@@ -78,7 +78,7 @@ export default async function ProductDetailsPage({
 
         {/* Content aligned with the rest of the page */}
         <div className="relative max-w-270 mx-auto p-4 h-full flex items-center">
-          <p className="text-light font-heading text-2xl">More information</p>
+          <h2 className="text-light font-heading text-2xl">More information</h2>
         </div>
 
         <div className="max-w-270 mx-auto p-4 mt-10 flex flex-col gap-6">
