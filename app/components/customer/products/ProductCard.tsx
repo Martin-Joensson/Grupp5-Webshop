@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/customer/Button";
 import Arrow from "@/design/assets/arrow.svg";
-import { PrismaProduct } from "@/types";
+import { ProductWithIncludes } from "@/types";
 import { toEurosString } from "@/lib/utils";
+import { useCartStore } from "@/store/cartStore";
 
 type ProductCardProps = Pick<
-  PrismaProduct,
+  ProductWithIncludes,
   "id" | "title" | "thumbnail" | "category" | "description" | "price"
 >;
 
@@ -19,6 +20,7 @@ export const ProductCard = ({
   description,
   price,
 }: ProductCardProps) => {
+  const addItem = useCartStore((state) => state.addItem);
   return (
     <article className="group backdrop-blur-xs flex flex-col h-full gap-2">
       <Link href={`/product/${id}`}>
@@ -53,7 +55,15 @@ export const ProductCard = ({
             size="sm"
             icon={<Arrow />}
             iconPosition="right"
-            onClick={() => console.log("button clicked")}
+            aria-label={`Add ${title} to cart`}
+            onClick={() =>
+              addItem({
+                id,
+                title,
+                thumbnail,
+                price,
+              })
+            }
           />
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CartCount from "./customer/cart/CartCount";
 
 import User from "@/design/assets/user.svg";
 import Line from "@/design/assets/line.svg";
@@ -43,6 +44,7 @@ export default function Navbar() {
           <div className="text-sm font-medium transition-opacity hover:opacity-60">
             <AccountLink />
           </div>
+          <CartCount />
           {/* Placeholder image */}
           <Link
             href="/cart"
@@ -62,7 +64,7 @@ export default function Navbar() {
         >
           <Line
             className={`transition-all text-primary duration-300 ${
-              isOpen ? "translate-x-[0px] translate-y-[13px] rotate-45" : ""
+              isOpen ? "translate-x-0 translate-y-3.25 rotate-45" : ""
             }`}
           />
 
@@ -74,7 +76,7 @@ export default function Navbar() {
 
           <Line
             className={`transition-all duration-300 text-accent ${
-              isOpen ? "-translate-x-[0px] -translate-y-[13px] -rotate-45" : ""
+              isOpen ? "translate-x-0 -translate-y-3.25 -rotate-45" : ""
             }`}
           />
         </button>
@@ -87,17 +89,20 @@ export default function Navbar() {
         }`}
       >
         <div className="px-6 py-6">
-          <div className="flex flex-col">
+          <div className="flex flex-col text-lg">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="border-b border-soft py-4 text-lg"
+                className="border-b border-soft py-4 "
               >
                 {item.label}
               </Link>
             ))}
+            <div className="border-b border-soft py-4">
+              <CartCount />
+            </div>
 
             {/* Image in mobile drawer */}
             <div className="border-b border-soft py-4 text-lg">

@@ -8,10 +8,10 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <main className="flex flex-col bg-[url('/assets/splash3.svg')] bg-cover w-full mx-auto items-center gap-6 text-center">
+    <main className="flex flex-col bg-[url('/assets/splash3.svg')] bg-cover w-full mx-auto items-center gap-6 text-center min-h-screen">
       <div className="p-4 flex flex-col gap-11 text-primary">
-        <h1>404 Not Found</h1>
-        <h2 className="leading-tight">
+        <h1 className="h1">404 Not Found</h1>
+        <h2 className="leading-tight h2">
           Lost in NAGARE
           <br />
           <span
