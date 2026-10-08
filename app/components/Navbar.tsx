@@ -49,6 +49,7 @@ export default function Navbar() {
           <Link
             href="/cart"
             className="text-sm font-medium transition-opacity hover:opacity-60"
+            aria-label="Link to cart page"
           >
             <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
           </Link>

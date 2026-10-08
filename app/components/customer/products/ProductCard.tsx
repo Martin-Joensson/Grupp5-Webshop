@@ -27,7 +27,7 @@ export const ProductCard = ({
         <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
           <Image
             src={thumbnail}
-            alt={title}
+            alt={`Product details page for ${title}`}
             fill
             className="object-contain p-4 transition-transform duration-300 group-hover:scale-105 hover:cursor-pointer"
           />
@@ -36,11 +36,11 @@ export const ProductCard = ({
 
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex flex-col gap-1">
-          <p className="truncate text-lg font-bold font-heading text-dark">
+          <h3 id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark">
             {title}
-          </p>
+          </h3>
 
-          <p className="text-xs text-secondary">{category?.name}</p>
+          <p aria-label={`Product category: ${category?.name}`} className="text-xs text-secondary">{category?.name}</p>
 
           <p className="line-clamp-3 text-xs leading-4 text-primary">
             {description}

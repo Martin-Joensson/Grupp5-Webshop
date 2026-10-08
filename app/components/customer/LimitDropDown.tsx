@@ -26,9 +26,9 @@ export default function LimitDropDown({ currentLimit, limitId }: LimitDropDownPr
 
 
   return (
-    <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-4">
-      <label htmlFor={`page-limit-${limitId}`} className="sr-only">
-        Number of products per page:
+    <div aria-labelledby={`limit-dropdown-label${limitId}`} className="w-full sm:w-auto flex flex-col sm:flex-row gap-4">
+      <label id={`limit-dropdown-label${limitId}`} htmlFor={`page-limit-${limitId}`} className="sr-only">
+        Number of products per page {currentLimit}
       </label>
       <select
         id={`page-limit-${limitId}`}
