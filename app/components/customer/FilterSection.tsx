@@ -28,8 +28,7 @@ export default function FilterSection({
       aria-labelledby="filter-section-heading"
     >
       <h2 id="filter-section-heading" className="h3">
-        {" "}
-        Filter{" "}
+        Filter
       </h2>
 
       {/* Input field wrapper */}
@@ -47,8 +46,7 @@ export default function FilterSection({
         {/* Form group: Category select */}
         <div className="w-1/4">
           <label htmlFor="category-filter" className="sr-only">
-            {" "}
-            Choose product category{" "}
+            Choose product category
           </label>
 
           <select
@@ -71,8 +69,7 @@ export default function FilterSection({
         {/* Form group: Sort order select */}
         <div className="w-1/4">
           <label htmlFor="sorting-order" className="sr-only">
-            {" "}
-            Choose sorting order{" "}
+            Choose sorting order
           </label>
 
           <select
@@ -94,8 +91,7 @@ export default function FilterSection({
         {/* Form group: Only in stock checkbox */}
         <div>
           <label htmlFor="stock-filter" className="sr-only">
-            {" "}
-            Choose by stock{" "}
+            Choose by stock
           </label>
 
           <select
@@ -128,4 +124,3 @@ export default function FilterSection({
     router.replace(`/?${params.toString()}`, { scroll: false });
   }
 }
-
