@@ -82,17 +82,21 @@ or remove Under the hood section above.
 - [ ] $$$
 
 ## :open_file_folder: Project structure
-Putting the whole `app` tree here so we can see what we are working with. There are some unused pages to remove and maybe other changes. Then once that is done we can generate another tree and trim off the less relevant branches.
-I think we should also probably include `auth.ts` and `prisma/schema.prima`. Anything else that should be here from outside of `app`?
+<!-- Didn't want to do to much here in case we want to make changes to the file structure. 
+I started from an auto generated `tree > tree.txt` and am thinking to do that again when we are happy the file structure won't change.
+Things I have done:
+- reordered more thematically (e.g. page routes together)
+- removed obvious things to remove (still pretty long :/ )
+
+Thinking to add comments to key files (or all files) when ready.
+-->
 ```
 .
 ├── README.md
+├── auth.ts
+├── prisma/schema.prisma
+│
 └── app
-    ├── account
-    │   └── page.tsx
-    ├── actions
-    │   └── auth.ts
-    ├── actions.ts
     ├── admin
     │   ├── add-product
     │   │   └── page.tsx
@@ -101,12 +105,34 @@ I think we should also probably include `auth.ts` and `prisma/schema.prima`. Any
     │   │       └── page.tsx
     │   ├── layout.tsx
     │   └── page.tsx
+    │
+    ├── account
+    │   └── page.tsx
+    ├── cart
+    │   └── page.tsx
+    ├── db-test
+    │   └── page.tsx
+    ├── login
+    │   └── page.tsx
+    ├── not-found.tsx
+    ├── page.tsx
+    ├── product
+    │   └── [id]
+    │       └── page.tsx
+    ├── profile
+    │   ├── LogoutButton.tsx
+    │   └── page.tsx
+    ├── register
+    │   └── page.tsx
+    │
+    ├── actions
+    │   └── auth.ts
+    ├── actions.ts
     ├── api
     │   └── auth
     │       └── [...nextauth]
     │           └── route.ts
-    ├── cart
-    │   └── page.tsx
+    │
     ├── components
     │   ├── admin
     │   │   ├── Banner.tsx
@@ -135,9 +161,7 @@ I think we should also probably include `auth.ts` and `prisma/schema.prima`. Any
     │   │       └── ProductList.tsx
     │   ├── Navbar.tsx
     │   └── Providers.tsx
-    ├── db-test
-    │   └── page.tsx
-    ├── db.ts
+    │
     ├── design
     │   ├── assets
     │   │   ├── arrow.svg
@@ -149,44 +173,11 @@ I think we should also probably include `auth.ts` and `prisma/schema.prima`. Any
     │   │   ├── swoop.svg
     │   │   └── user.svg
     │   └── page.tsx
-    ├── generated
-    │   └── prisma
-    │       ├── browser.ts
-    │       ├── client.ts
-    │       ├── commonInputTypes.ts
-    │       ├── enums.ts
-    │       ├── internal
-    │       │   ├── class.ts
-    │       │   ├── prismaNamespaceBrowser.ts
-    │       │   └── prismaNamespace.ts
-    │       ├── models
-    │       │   ├── Account.ts
-    │       │   ├── Category.ts
-    │       │   ├── Product.ts
-    │       │   ├── Review.ts
-    │       │   ├── Session.ts
-    │       │   ├── User.ts
-    │       │   └── VerificationToken.ts
-    │       └── models.ts
-    ├── generate-icon.tsx
-    ├── globals.css
-    ├── icon.png
+    │
     ├── layout.tsx
     ├── lib
     │   ├── api.ts
     │   └── utils.ts
-    ├── login
-    │   └── page.tsx
-    ├── not-found.tsx
-    ├── page.tsx
-    ├── product
-    │   └── [id]
-    │       └── page.tsx
-    ├── profile
-    │   ├── LogoutButton.tsx
-    │   └── page.tsx
-    ├── register
-    │   └── page.tsx
     ├── store
     │   └── cartStore.ts
     ├── types
