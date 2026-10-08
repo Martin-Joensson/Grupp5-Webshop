@@ -18,7 +18,6 @@ export const ProductModelSchema = z.object({
     depth: z.coerce.number().nullable(),
     warrantyInformation: z.string().nullable(),
     shippingInformation: z.string().nullable(),
-    availabilityStatus: z.string().nullable(),
     returnPolicy: z.string().nullable(),
     minimumOrderQuantity: z.number().int().nullable(),
     createdAt: z.date(),
@@ -27,6 +26,7 @@ export const ProductModelSchema = z.object({
     qrCode: z.string().nullable(),
     images: z.array(z.string()),
     thumbnail: z.string(),
+    availabilityStatus: z.string().nullable(),
     category: z.unknown(),
     reviews: z.array(z.unknown())
 }).strict();
