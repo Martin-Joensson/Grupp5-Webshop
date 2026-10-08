@@ -26,7 +26,11 @@ Caption
 ---
 
 ## :wheel: Under the hood
-<!-- Maybe too much duplication with Technologies below. Previously I have used this section to be a bit more detailed and lift out specific elements, and then kept the technologies as a simple list. -->
+<!-- Currently too much duplication with Technologies below. Previously I have used this section to be a bit more detailed and lift out specific elements, and then kept the technologies as a simple list. May make more sense to remove this section. -->
+- Persistent shopping cart with Zustand
+- Authentication with NextAuth
+- Data storage with Neon PostgreSQL database + Prisma ORM
+- Data validation with Zod
 
 
 ## :arrow_down_small: Installation
@@ -40,18 +44,42 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## :sewing_needle: Technologies
+<!-- I think either simplify this to a simple bullet list e.g.
+- Next.js
+- React
+- Typescript
+- Tailwind
+- Neon
+- NextAuth
+- Prisma
+- Zod
+- Zustand
+
+or remove Under the hood section above.
+-->
 | Technology     | Used for                           |
 | -------------- | ---------------------------------- |
 | Next.js        | User interface & Server Components |
+| React          |                                    |
 | TypeScript     | Type safety                        |
 | Tailwind       | Styling                            |
 | Neon           | PostgreSQL Database                |
 | NextAuth       | Authentication                     |
 | Prisma         | ORM                                |
 | Zod            | Data validation                    |
-| Zustand        | Styling                            |
+| Zustand        | Shopping Cart                      |
 
-## Project Status
+## :white_check_mark: Project progress
+<!-- TODO: add more here put in sensible order -->
+- [x] Data migration from JSON server to database
+- [x] Login as admin required to access admin page
+- [x] Customer can search, filter and sort products in product catalog
+- [x] Customer can view detailed information about a product
+- [x] Customer can add and remove products from their cart
+- [ ] Admin can apply discounts to products
+- [ ] Customer can review products
+- [ ] Customer can add products to favourites
+- [ ] $$$
 
 ## :open_file_folder: Project structure
 Putting the whole `app` tree here so we can see what we are working with. There are some unused pages to remove and maybe other changes. Then once that is done we can generate another tree and trim off the less relevant branches.
