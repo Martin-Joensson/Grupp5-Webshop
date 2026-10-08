@@ -14,14 +14,13 @@ export const ProductSchema = z.object({
   stock: z.coerce.number().int().nullish(),
   tags: z.array(z.string()),
   brand: z.string().nullish(),
-  sku: z.string().nullish(),
+  sku: z.string().default("CAT-BRD-TTL-000").nullish(),
   weight: z.coerce.number().nullish(),
   width: z.coerce.number().nullish(),
   height: z.coerce.number().nullish(),
   depth: z.coerce.number().nullish(),
   warrantyInformation: z.string().nullish(),
   shippingInformation: z.string().nullish(),
-  availabilityStatus: z.string().nullish(),
   returnPolicy: z.string().nullish(),
   minimumOrderQuantity: z.number().int().nullish(),
   createdAt: z.date(),
@@ -30,6 +29,7 @@ export const ProductSchema = z.object({
   qrCode: z.string().nullish(),
   images: z.array(z.string()),
   thumbnail: z.string(),
+  availabilityStatus: z.string().nullish(),
 });
 
 export type ProductType = z.infer<typeof ProductSchema>;

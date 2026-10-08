@@ -57,7 +57,6 @@ const makeSchema = () => z.object({
   depth: z.coerce.number().optional().nullable(),
   warrantyInformation: z.string().optional().nullable(),
   shippingInformation: z.string().optional().nullable(),
-  availabilityStatus: z.string().optional().nullable(),
   returnPolicy: z.string().optional().nullable(),
   minimumOrderQuantity: z.number().int().optional().nullable(),
   createdAt: z.coerce.date().optional(),
@@ -65,7 +64,8 @@ const makeSchema = () => z.object({
   barcode: z.string().optional().nullable(),
   qrCode: z.string().optional().nullable(),
   images: z.union([z.lazy(() => ProductCreateimagesInputObjectSchema), z.string().array()]).optional(),
-  thumbnail: z.string()
+  thumbnail: z.string(),
+  availabilityStatus: z.string().optional().nullable()
 }).strict();
 export const ProductCreateManyInputObjectSchema: z.ZodType<Prisma.ProductCreateManyInput> = makeSchema() as unknown as z.ZodType<Prisma.ProductCreateManyInput>;
 export const ProductCreateManyInputObjectZodSchema = makeSchema();

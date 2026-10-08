@@ -119,7 +119,6 @@ export const ProductForm = async ({ productId }: ProductFormProps) => {
               name="brand"
               defaultValue={product.brand ?? ""}
               placeholder="Enter brand"
-              required
               className="border h-8 p-1 rounded bg-neutral-50"
             />
           </div>
