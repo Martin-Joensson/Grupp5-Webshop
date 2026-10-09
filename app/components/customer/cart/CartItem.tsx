@@ -21,7 +21,7 @@ export default function CartItem({
 
   return (
     <article aria-labelledby={`cart-item-heading${product.id}`} className="flex w-full flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center gap-4 md:w-72 hover:underline">
+      <div className="flex items-center gap-4 md:w-72">
         <Image
           src={product.thumbnail}
           alt=""
