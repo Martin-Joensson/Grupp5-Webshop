@@ -10,7 +10,10 @@ import { useCartStore } from "@/store/cartStore";
 type ProductCardProps = Pick<
   ProductWithIncludes,
   "id" | "title" | "thumbnail" | "category" | "description" | "price"
->;
+> & {
+  datePurchased?: string;
+  purchasedPrice?: number;
+};
 
 export const ProductCard = ({
   id,
@@ -19,8 +22,12 @@ export const ProductCard = ({
   category,
   description,
   price,
+  datePurchased,
+  purchasedPrice,
 }: ProductCardProps) => {
   const addItem = useCartStore((state) => state.addItem);
+
+  console.log(datePurchased, purchasedPrice);
   return (
     <article className="group glass flex flex-col h-full gap-2 rounded ">
       <Link href={`/product/${id}`}>
@@ -49,12 +56,23 @@ export const ProductCard = ({
           </p>
         </div>
 
+        {datePurchased ? (
+          <div className="flex justify-between">
+            <p>Bought before: {datePurchased}</p>
+
+            {purchasedPrice !== undefined && (
+              <p className="text-secondary">{toEurosString(purchasedPrice)}</p>
+            )}
+          </div>
+        ) : null}
+
         <div className="mt-2 flex items-center justify-between">
           <p className="font-heading text-price">{toEurosString(price)}</p>
 
           <Button
             variant="primary"
             size="sm"
+            iconSize="md"
             icon={<Arrow />}
             iconPosition="right"
             aria-label={`Add ${title} to cart`}
