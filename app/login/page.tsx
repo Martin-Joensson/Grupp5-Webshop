@@ -32,12 +32,16 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="max-w-270 mx-auto my-27">
-      <Background className="fixed -z-10 -inset-1 top-[20%] text-soft/40 rotate-140 " />
+    <main aria-label="Login page" className="max-w-270 mx-auto my-27">
+      <Background className="fixed -z-10 -inset-1 top-[20%] text-soft/40 rotate-140 " aria-hidden="true" />
+
       <h1 className="font-heading my-4">Login</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form aria-label="Login" onSubmit={handleSubmit} className="flex flex-col gap-2">
+
+        <label htmlFor="email-input" className="sr-only"> Email address </label>
         <input
+          id="email-input"
           className=" glass border px-4 py-2 rounded border-secondary"
           name="email"
           type="email"
@@ -45,7 +49,9 @@ export default function LoginPage() {
           required
         />
 
+        <label htmlFor="password-input" className="sr-only"> Account password </label>
         <input
+          id="password-input"
           className="glass border px-4 py-2 rounded border-secondary"
           name="password"
           type="password"
@@ -59,6 +65,7 @@ export default function LoginPage() {
 
         {error && <p>{error}</p>}
       </form>
+
       <Link
         href="/register"
         className=" text-primary underline"
