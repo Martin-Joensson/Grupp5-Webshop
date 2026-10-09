@@ -22,7 +22,7 @@ export default function CartItem({
 
   return (
     <article aria-labelledby={`cart-item-heading${product.id}`} className="flex w-full flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center gap-4 md:w-72 hover:underline" aria-label={`Product page for ${product.title}`} >
+      <div className="flex items-center gap-4 md:w-72 hover:underline">
         <Image
           src={product.thumbnail}
           alt=""
@@ -85,7 +85,7 @@ export default function CartItem({
           variant="tertiary"
           size="sm"
           onClick={() => onRemove(product.id)}
-          aria-label="Remove Item"
+          title="Remove from cart"
         >
           X
         </Button>

@@ -52,7 +52,7 @@ export default async function ProductDetailsPage({
         <div aria-label="General information" className="flex flex-1 flex-col justify-between items-end text-right">
           <div>
             <h1 id="product-details-heading" className="h2 text-primary self-center">{product.title}</h1>
-            <p aria-label={`Product category: ${product.category?.name}`} className="text-secondary">{product.category?.name}</p>
+            <p aria-label="Product category" className="text-secondary">{product.category?.name}</p>
           </div>
           <span className="block font-heading text-6xl">
             {toEurosString(product.price)}
@@ -87,22 +87,22 @@ export default async function ProductDetailsPage({
           <div aria-label="Product dimensions and stock availability" className="grid grid-cols-2 gap-4">
             <div>
               <h3 className="text-secondary" aria-hidden >Height</h3>
-              <p aria-label={`Height: ${product.height}`}>{product.height}</p>
+              <p aria-label="Height">{product.height}</p>
             </div>
 
             <div>
               <h3 className="text-secondary" aria-hidden >Width</h3>
-              <p aria-label={`Width: ${product.width}`}>{product.width}</p>
+              <p aria-label="Width">{product.width}</p>
             </div>
 
             <div>
               <h3 className="text-secondary" aria-hidden >Depth</h3>
-              <p aria-label={`Depth: ${product.depth}`}>{product.depth}</p>
+              <p aria-label="Depth">{product.depth}</p>
             </div>
 
             <div>
               <h3 className="text-secondary" aria-hidden >Availability</h3>
-              <p aria-label={`Stock availability: ${product.availabilityStatus}`}>{product.availabilityStatus}</p>
+              <p aria-label="Stock availability">{product.availabilityStatus}</p>
             </div>
           </div>
 

@@ -67,7 +67,7 @@ export const ProductCard = ({
             size="sm"
             icon={<Arrow />}
             iconPosition="right"
-            aria-label={`Add ${title} to cart`}
+            title="Add to cart"
             onClick={() =>
               addItem({
                 id,

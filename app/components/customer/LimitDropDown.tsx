@@ -37,6 +37,7 @@ export default function LimitDropDown({ currentLimit, limitId }: LimitDropDownPr
         onChange={(e) => {
           changeLimit(e.target.value);
         }}
+        title="Number of products per page"
       >
         {LIMIT_OPTIONS.map((limit) => (
           <option key={limit} value={limit}>

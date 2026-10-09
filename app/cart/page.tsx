@@ -108,7 +108,7 @@ export default function CartPage() {
               />
             </li>
           ))}
-          <span aria-label={`Total price: ${totalString}`} className="block text-right px-8 text-2xl text-primary font-heading">
+          <span className="block text-right px-8 text-2xl text-primary font-heading">
             Total: {totalString}
           </span>
         </ul>

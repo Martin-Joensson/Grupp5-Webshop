@@ -69,7 +69,6 @@ export default function LoginPage() {
       <Link
         href="/register"
         className=" text-primary underline"
-        aria-label="Register Account"
       >
         Register account
       </Link>
