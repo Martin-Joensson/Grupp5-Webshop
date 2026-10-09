@@ -25,7 +25,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
       <div className="relative glass aspect-square md:aspect-auto min-w-0 min-h-full overflow-hidden rounded border border-secondary">
         <Image
           src={activeImage.src}
-          alt={activeImage.alt}
+          alt=""
           fill
           priority
           className="object-cover "
@@ -61,7 +61,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               >
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt={`Change to image ${imageIndex + 1}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 128px, 20vw"

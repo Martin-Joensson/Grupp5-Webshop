@@ -20,17 +20,17 @@ export default function CartItem({
   const minimumQuantity = product.minimumOrderQuantity ?? 1;
 
   return (
-    <article className="flex w-full flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
+    <article aria-labelledby={`cart-item-heading${product.id}`} className="flex w-full flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
       <div className="flex items-center gap-4 md:w-72">
         <Image
           src={product.thumbnail}
-          alt={product.title}
+          alt=""
           width={80}
           height={80}
           className="object-contain border-2 border-primary rounded-xl"
         />
 
-        <h2 className="font-black text-cyan-950">{product.title}</h2>
+        <h2 id={`cart-item-heading${product.id}`} className="font-black text-cyan-950">{product.title}</h2>
       </div>
       {product.discountPercentage && (
         <p>{product.discountPercentage ?? 0}% off</p>
@@ -42,6 +42,7 @@ export default function CartItem({
             variant="ghost"
             onClick={() => onQuantityChange(product.id, quantity - 1)}
             className="text-dark hover:bg-tertiary/30 hover:rounded-none"
+            aria-hidden="true"
           >
             -
           </Button>
@@ -60,6 +61,7 @@ export default function CartItem({
             variant="ghost"
             onClick={() => onQuantityChange(product.id, quantity + 1)}
             className="text-dark text-lg hover:bg-primary/30 hover:rounded-none"
+            aria-hidden="true"
           >
             +
           </Button>
@@ -67,13 +69,13 @@ export default function CartItem({
         <div className="flex flex-col font-heading">
           {quantity > 1 && (
             <p
-              aria-label="Cost Per product"
+              aria-label={`Cost Per product: ${toEurosString(product.price)}`}
               className="text-secondary text-sm text-right"
             >
               {toEurosString(product.price)}
             </p>
           )}
-          <p aria-label="Cost for all products" className="text-dark text-lg">
+          <p aria-label={`Cost for all products ${toEurosString(product.price * quantity)}`} className="text-dark text-lg">
             {toEurosString(product.price * quantity)}
           </p>
         </div>
@@ -82,7 +84,7 @@ export default function CartItem({
           variant="tertiary"
           size="sm"
           onClick={() => onRemove(product.id)}
-          aria-label="Remove Item"
+          title="Remove from cart"
         >
           X
         </Button>

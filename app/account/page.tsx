@@ -31,15 +31,15 @@ interface Purchase {
 }
 
 // Temporary and static product data.
-const ids = [126, 145, 42, 11, 99];
-const productsInCart: ProductWithIncludes[] = [];
+const productIds = [126, 145, 42, 11, 99];
+const staticProducts: ProductWithIncludes[] = [];
 
-for (const id of ids)
+for (const id of productIds)
 {
     const product = await getProduct(id);
 
     if (product) {
-        productsInCart.push(product);
+        staticProducts.push(product);
     }
 }
 
@@ -47,23 +47,23 @@ for (const id of ids)
 const user1: StaticUser = {
     id: 1,
     userName: "Kalle",
-    favorites: [ productsInCart[0], productsInCart[2] ],
+    favorites: [ staticProducts[0], staticProducts[2] ],
     purchaseHistory: [
         {
             id: 1,
             date: "2026-9-24",
             priceWhenBought: 5999, //in cents, not full euros
-            product: productsInCart[1]
+            product: staticProducts[1]
         }, {
             id: 2,
             date: "2026-9-24",
             priceWhenBought: 1114, //in cents, not full euros
-            product: productsInCart[4]
+            product: staticProducts[4]
         }, {
             id: 3,
             date: "2026-9-24",
             priceWhenBought: 147, //in cents, not full euros
-            product: productsInCart[3]
+            product: staticProducts[3]
         },
     ]
 }
@@ -85,28 +85,30 @@ export default async function MyAccountPage()
       }
 
     const user: StaticUser = user1;
+    const {name: userName, email: userEmail, role: userRole, image: accountImg} = session.user;
 
     return(
-        <main className="flex flex-wrap gap-6   max-w-7xl mx-auto px-6">
+        <main aria-label="My account page" className="flex flex-wrap gap-6   max-w-7xl mx-auto px-6 mb-8">
 
             {/* Section with info about the users account */}
             <section aria-labelledby="my-account-heading" className={`${sectionStyling} xl:text-center`}>
-                <h1 id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
+                <h1 aria-level={2} id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
                 <div className={`${borderStyling} w-max mx-0 px-12 pb-5 pt-3 xl:mx-auto`} >
-                    <h2 className="h3 text-secondary text-center"> {session.user.name} </h2>
+                    <h3 aria-label={`Account name: ${userName}`} className="h3 text-secondary text-center"> {userName} </h3>
 
-                    <p className="text-secondary"> {session.user.email} </p>
+                    <p aria-label={`Account email:`} className="text-secondary"> {userEmail} </p>
 
-                    {   // Shows ADMIN tag if user is an admin
-                        session.user.role == "ADMIN" &&
-                        <span className="block mx-auto text-lg text-accent font-bold" aria-label="Logged in as an admin"> {session.user.role} </span>
+                    {/* Shows ADMIN tag and link to admin page if user is an admin */}
+                    {
+                        userRole == "ADMIN" &&
+                        <span className="block mx-auto text-lg text-accent font-bold" aria-label="Logged in as an admin"> {userRole} </span>
                     } {
-                        session.user.role == "ADMIN" &&
+                        userRole == "ADMIN" &&
                         <Link href="/admin" className="text-md font-medium text-secondary underline  transition-opacity hover:opacity-60" > Go to admin page </Link>
                     }
 
-                    <Image src={session.user.image || "/file.svg"} alt="User profile picture" width={150} height={150} className="mx-auto my-6" />
+                    <Image src={accountImg || "/file.svg"} alt="User profile picture" width={150} height={150} className="mx-auto my-6" />
 
                     <LogoutButton />
                 </div>
@@ -119,7 +121,7 @@ export default async function MyAccountPage()
 
                 <ul className={listStyling} >
                 {   user.favorites && user.favorites.map( (favProduct) => (
-                        <li className={`${borderStyling}`} key={favProduct.id}>
+                        <li className={`${borderStyling}`} key={favProduct.id} aria-labelledby={`fav-prod-title-${favProduct.id}`} >
                             <FavProductCard product={favProduct} />
                         </li>
                     ) )
@@ -135,7 +137,7 @@ export default async function MyAccountPage()
                 <ol className={listStyling} >
                 {
                     user.purchaseHistory && user.purchaseHistory.map( (prevPurchase) => (
-                        <li className={`${borderStyling}`} key={prevPurchase.id} >
+                        <li className={`${borderStyling}`} key={prevPurchase.id} aria-labelledby={`prev-purchase-title-${prevPurchase.product.id}`} >
                             <PrevPurchaseCard purchase={prevPurchase} />
                         </li>
                     ) )
@@ -154,22 +156,21 @@ const cardStyling: string = "grid gap-2 glass p-2 rounded-2xl max-w-96";
 // A productcard variant for the users favorite product.
 function FavProductCard( {product}: {product: ProductWithIncludes} )
 {
-    const { id, title, description, category, price, thumbnail } = product;
+    const { id, title, category, price, thumbnail } = product;
 
 
     return(
         <article className={cardStyling} aria-labelledby={`fav-prod-title-${id}`}>
             <Image src={thumbnail} alt="" width={300} height={300} className="justify-self-center" />
 
-            <Link href={`/product/${id}`} className="hover:underline hover:text-primary">
-                <h3 id={`fav-prod-title-${id}`} className="h3"> {title} </h3>
+            <Link href={`/product/${id}`} className="hover:underline hover:text-primary" aria-label="Go to product details page">
+                <h3 id={`fav-prod-title-${id}`} className="h3 truncate"> {title} </h3>
             </Link>
 
-            <p className="text-s text-secondary"> {category?.name} </p>
-            <p className="line-clamp-3 text-s leading-4 text-primary"> {description} </p>
+            <p aria-label={`Category: ${category.name}`} className="text-s text-secondary"> {category?.name} </p>
 
             <div className="flex justify-between items-center">
-                <p className="font-heading text-xl text-price"> {toEurosString(price)} </p>
+                <p aria-label={`Price: ${toEurosString(price)}`} className="font-heading text-xl text-price"> {toEurosString(price)} </p>
 
                 <Button variant="tertiary" iconPosition="right"  icon={<Heart/>}>
                     Unfavorite
@@ -183,22 +184,21 @@ function FavProductCard( {product}: {product: ProductWithIncludes} )
 // A productcard variant for the users previous purchases in their purchase history.
 function PrevPurchaseCard( {purchase}: {purchase: Purchase} )
 {
-    const { id, title, description, category, thumbnail } = purchase.product;
+    const { id, title, category, thumbnail } = purchase.product;
 
     return(
         <article className={cardStyling} aria-labelledby={`prev-purchase-title-${id}`} >
             <Image src={thumbnail} alt="" width={300} height={300} className="justify-self-center" />
 
-            <Link href={`/product/${id}`} className="hover:underline hover:text-primary">
-                <h3 id={`prev-purchase-title-${id}`} className="h3" > {title} </h3>
+            <Link href={`/product/${id}`} className="hover:underline hover:text-primary" aria-label="Go to product details page">
+                <h3 id={`prev-purchase-title-${id}`} className="h3 truncate" > {title} </h3>
             </Link>
 
-            <p className="text-s text-secondary"> {category?.name} </p>
-            <p className="line-clamp-3 text-s leading-4 text-primary"> {description} </p>
+            <p aria-label={`Category: ${category.name}`} className="text-s text-secondary"> {category?.name} </p>
 
             <div className="flex justify-between">
-                <p className="font-heading text-xl text-price"> Paid: {toEurosString(purchase.priceWhenBought)} </p>
-                <p className="font-heading text-xl text-primary"> {purchase.date} </p>
+                <p className="font-heading text-xl text-price"> {`Paid: ${toEurosString(purchase.priceWhenBought)}`} </p>
+                <p className="font-heading text-xl text-primary" aria-label={`Purchased: ${purchase.date}`} > {purchase.date} </p>
             </div>
         </article>
     );

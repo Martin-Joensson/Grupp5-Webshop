@@ -33,6 +33,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
           page === 1 ? "pointer-events-none opacity-50" : ""
         }`}
         scroll={false}
+        title="Previous page"
       >
         <span className="material-symbols material-symbols-filled text-3xl h-10">
           chevron_left
@@ -46,6 +47,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
             page === 1 ? "bg-accent text-white" : "bg-white"
           }`}
           scroll={false}
+          title="First page"
         >
           1
         </Link>
@@ -82,6 +84,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
               page === pages ? "bg-accent text-white" : "bg-white"
             }`}
             scroll={false}
+            title="Last page"
           >
             {pages}
           </Link>
@@ -95,6 +98,7 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
           page === pages ? " pointer-events-none opacity-50" : ""
         }`}
         scroll={false}
+        title="Next page"
       >
         <span className="material-symbols material-symbols-filled text-3xl">
           chevron_right
