@@ -20,7 +20,7 @@ export default function FilterSection({
   const router = useRouter();
 
   const inputFieldStyle: string =
-    "w-full px-3 py-2 border border-gray-300 rounded-md bg-white";
+    "w-full px-3 py-2 border border-gray-300 rounded glass";
 
   return (
     <section
@@ -37,7 +37,7 @@ export default function FilterSection({
         onSubmit={(event) => event.preventDefault()}
       >
         {/* Form group: Search input */}
-        <div className="w-1/3">
+        <div className="w-1/3 ">
           <Suspense fallback={<div>Loading...</div>}>
             <Search />
           </Suspense>
