@@ -13,6 +13,7 @@ import LogoutButton from "@/profile/LogoutButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth";
 import { redirect } from "next/navigation";
+import ProductCard from "@/components/customer/products/ProductCard";
 
 interface StaticUser {
   id: number;
@@ -98,7 +99,7 @@ export default async function MyAccountPage() {
         </h1>
 
         <div className={` w-max mx-0 px-12 pb-5 pt-3 xl:mx-auto`}>
-          <h2 className="h3 text-secondary lg:text-center">{session.user.name}</h2>
+          <h2 className="h3 text-secondary">{session.user.name}</h2>
           <p className="text-secondary"> {session.user.email} </p>
           {
             // Shows ADMIN tag if user is an admin
@@ -125,7 +126,7 @@ export default async function MyAccountPage() {
             width={200}
             height={200}
             unoptimized
-            className="mx-auto my-6 border border-secondary rounded"
+            className="mx-auto my-6 border border-secondary rounded-xl"
           />
           <LogoutButton />
         </div>
@@ -138,11 +139,27 @@ export default async function MyAccountPage() {
           Favorites{" "}
         </h2>
 
-        <ul className={listStyling}>
+        <ul className="grid sm:grid-cols-2 gap-4">
           {user.favorites &&
             user.favorites.map((favProduct) => (
-              <li className={`${borderStyling}`} key={favProduct.id}>
-                <FavProductCard product={favProduct} />
+              <li className="max-w-80" key={favProduct.id}>
+                {/* <FavProductCard product={favProduct} /> */}
+                <ProductCard
+                  id={favProduct.id}
+                  title={favProduct.title}
+                  thumbnail={favProduct.thumbnail}
+                  category={favProduct.category}
+                  description={favProduct.description}
+                  price={favProduct.price}
+                />
+                <Button
+                  variant="tertiary"
+                  iconPosition="right"
+                        icon={<Heart />}
+                        className="w-full"
+                >
+                  Unfavorite
+                </Button>
               </li>
             ))}
         </ul>
