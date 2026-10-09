@@ -7,24 +7,25 @@
 # Nagare Webshop
 The customer facing side of a webshop, building upon a previous group project [here](https://github.com/Martin-Joensson/projekt-agila-metoder-webshop), which developed the admin side.
 
----
+
 
 ## :star: Features
 - Browse, filter and search products
 - View detailed product information
 - Add and remove items from shopping cart
-- Register customer account 
+- Register customer account
 - Login with admin account to gain access to admin page
 
 ## :eye: Demo
-<!-- Link to deployment -->
+Link to deployment
 
+<!--
 ## :camera: Screenshots
-<!-- Maybe remove this section if we have a deployed demo? -->
 ![]()
 Caption
 
 ---
+-->
 
 ## :wheel: Under the hood
 <!-- Currently too much duplication with Technologies below. Previously I have used this section to be a bit more detailed and lift out specific elements, and then kept the technologies as a simple list. May make more sense to remove this section. -->
@@ -46,30 +47,15 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## :sewing_needle: Technologies
-<!-- I think either simplify this to a simple bullet list e.g.
 - Next.js
 - React
-- Typescript
+- TypeScript
 - Tailwind
 - Neon
 - NextAuth
 - Prisma
 - Zod
 - Zustand
-
-or remove Under the hood section above.
--->
-| Technology     | Used for                           |
-| -------------- | ---------------------------------- |
-| Next.js        | User interface & Server Components |
-| React          |                                    |
-| TypeScript     | Type safety                        |
-| Tailwind       | Styling                            |
-| Neon           | PostgreSQL Database                |
-| NextAuth       | Authentication                     |
-| Prisma         | ORM                                |
-| Zod            | Data validation                    |
-| Zustand        | Shopping Cart                      |
 
 ## :white_check_mark: Project progress
 <!-- TODO: add more here put in sensible order -->
@@ -81,7 +67,6 @@ or remove Under the hood section above.
 - [ ] Admin can apply discounts to products
 - [ ] Customer can review products
 - [ ] Customer can add products to favourites
-- [ ] $$$
 
 ## :open_file_folder: Project structure
 ```
@@ -111,31 +96,8 @@ or remove Under the hood section above.
     │   └── edit-product / [productid] / page.tsx
     │
     ├── components
-    │   ├── admin
-    │   │   ├── Banner.tsx
-    │   │   ├── ConfirmSubmitButton.tsx
-    │   │   ├── FilterCard.tsx
-    │   │   ├── Modal.tsx
-    │   │   ├── Pagination.tsx
-    │   │   ├── ProductCard.tsx
-    │   │   ├── ProductForm.tsx
-    │   │   ├── ProductList.tsx
-    │   │   ├── SearchBar.tsx
-    │   │   └── Search.tsx
-    │   ├── customer
-    │   │   ├── AccountLink.tsx
-    │   │   ├── AddToCartButton.tsx
-    │   │   ├── Button.tsx
-    │   │   ├── cart
-    │   │   │   ├── CartCount.tsx
-    │   │   │   └── CartItem.tsx
-    │   │   ├── FilterSection.tsx
-    │   │   ├── ImageGallery.tsx
-    │   │   ├── LimitDropDown.tsx
-    │   │   ├── Pagination.tsx
-    │   │   └── products
-    │   │       ├── ProductCard.tsx
-    │   │       └── ProductList.tsx
+    │   ├── admin / ... 
+    │   ├── customer / ...
     │   ├── Navbar.tsx
     │   └── Providers.tsx
     │
