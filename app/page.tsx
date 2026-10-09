@@ -1,90 +1,91 @@
-import { FilterCard } from "./components/FilterCard";
-import type { Category, ProductsResponse, Stats } from "./types";
-import { ProductList } from "@/components/ProductList";
-import { SearchBar } from "./components/SearchBar";
-import { Pagination } from "./components/Pagination";
-import { createUrlSearchParams } from "./lib/utils";
+import { Suspense } from "react";
+import Background from "@/design/assets/splash2.svg";
 
-const API_URL = "http://localhost:4000";
-const defaultLimit = "6";
-export default async function Home({
+import type { ProductsResponse } from "@/types";
+import { getProducts, getCategories, GetProductsOptions } from "@/lib/api";
+import { createUrlSearchParams, orderBy } from "./lib/utils";
+
+import { ProductList } from "@/components/customer/products/ProductList";
+import { Pagination } from "./components/customer/Pagination";
+import LimitDropDown from "./components/customer/LimitDropDown";
+import FilterSection from "@/components/customer/FilterSection";
+import { Category } from "./generated/prisma/browser";
+
+const DEFAULT_LIMIT = 12;
+
+export default async function HomePage({
   searchParams,
 }: {
   searchParams: Promise<{
     [key: string]: string | undefined;
   }>;
 }) {
-  const categories: Category[] = await fetch(`${API_URL}/categories`).then(
-    (res) => res.json(),
-  );
-
-  const stock = ["In Stock", "Low Stock", "Out of Stock"];
-
   const {
-    total: totalStock,
-    lowStock,
-    outOfStock,
-    inStock,
-  }: Stats = await fetch(`${API_URL}/products/stats`).then((res) => res.json());
-
-  // we use the fetch() method to get the products from the API
-  // in this fetch we sort using _sort and _order and we limit the number of products using _limit
-  // we also use _expand to get the relational category data
-  // we can use the other destructed variables like page, total and so on to create pagination or show info
-  const {
-    page: currentPage = "1",
-    category: categorySlug = "",
-    stock: stockStatus = "",
-    search = "",
+    page: currentPage,
+    limit: currentLimit = DEFAULT_LIMIT,
+    category,
+    search,
+    sort,
+    stock,
   } = await searchParams;
-
   const urlParams = createUrlSearchParams(await searchParams);
-
-  const selectedCategory = categories.find(
-    (category) => category.slug === categorySlug,
-  );
-
-  const query = new URLSearchParams({
-    _page: String(currentPage),
-    _limit: defaultLimit,
-    _sort: "id",
-    _order: "desc",
-    _expand: "category",
-  });
-
-  if (selectedCategory) {
-    query.set("categoryId", String(selectedCategory.id));
-  }
-  if (stockStatus) {
-    query.set("availabilityStatus", stockStatus);
-  }
-  if (search) {
-    query.set("title_like", search);
+  const apiQuery: GetProductsOptions = {
+    page: currentPage,
+    limit: currentLimit,
+    expand: ["category"],
+    filter: {
+      category: { slug: category },
+      title: { contains: search, mode: "insensitive" },
+      stock: { gte: stock ? 1 : 0 },
+    },
+  };
+  if (orderBy(sort)) {
+    apiQuery.orderBy = orderBy(sort);
   }
 
-  const { products, total, page, pages, limit }: ProductsResponse = await fetch(
-    `${API_URL}/products/?${query.toString()}`,
-  ).then((res) => res.json());
+  const { products, total, page, pages, limit }: ProductsResponse =
+    await getProducts(apiQuery);
+
+  const allCategories: Category[] = await getCategories();
 
   return (
-    <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">
-      <div className="flex flex-col sm:flex-row gap-2">
-        <FilterCard category="products" value={totalStock} />
-        <FilterCard category="instock" value={inStock} />
-        <FilterCard category="lowstock" value={lowStock} />
-        <FilterCard category="outofstock" value={outOfStock} />
-      </div>
-      <SearchBar categories={categories} stock={stock} />
-      <section className="rounded-lg border-gray-300 border overflow-hidden">
+    <main className="min-h-screen">
+      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 " />
+  
+      <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6">
+        <h1 className="h1 text-primary self-center"> Nagare Webshop </h1>
+
+        <Suspense>
+          {/* Add skeleton filter section as fallback */}
+          <FilterSection categories={allCategories} />
+        </Suspense>
+
+        <div className="flex justify-center items-center gap-4">
+          {pages > 1 && (
+            <Pagination
+              page={page}
+              pages={pages}
+              total={total}
+              limit={limit}
+              urlParams={urlParams}
+            />
+          )}
+          <LimitDropDown currentLimit={Number(currentLimit)} />
+        </div>
         <ProductList products={products} />
-        <Pagination
-          page={page}
-          pages={pages}
-          total={total}
-          limit={limit}
-          urlParams={urlParams}
-        />
-      </section>
+        <div className="flex justify-center items-center gap-4">
+          {pages > 1 && (
+            <Pagination
+              page={page}
+              pages={pages}
+              total={total}
+              limit={limit}
+              urlParams={urlParams}
+            />
+          )}
+          <LimitDropDown currentLimit={Number(currentLimit)} />
+        </div>
+      </div>
     </main>
   );
 }

@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+generator zod {
+  provider = "prisma-zod-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  /// @zod.coerce()
+  id                   Int      @id @default(autoincrement())
+  title                String
+  description          String
+  /// @zod.coerce()
+  categoryId           Int
+  /// @zod.coerce()
+  price                Int
+  /// @zod.coerce()
+  discountPercentage   Decimal?
+  /// @zod.coerce()
+  rating               Float?
+  /// @zod.coerce()
+  stock                Int?
+  /// @zod.coerce()
+  tags                 String[]
+  brand                String?
+  sku                  String?  @default("CAT-BRD-TTL-000")
+  /// @zod.coerce()
+  weight               Float?
+  /// @zod.coerce()
+  width                Float?
+  /// @zod.coerce()
+  height               Float?
+  /// @zod.coerce()
+  depth                Float?
+  warrantyInformation  String?
+  shippingInformation  String?
+  /// @zod.coerce()
+  returnPolicy         String?
+  minimumOrderQuantity Int?
+  /// @zod.coerce()
+  createdAt            DateTime @default(now())
+  /// @zod.coerce()
+  updatedAt            DateTime @default(now())
+  barcode              String?
+  qrCode               String?
+  /// @zod.coerce()
+  images               String[]
+  thumbnail            String
+  availabilityStatus   String?  @default(dbgenerated("\nCASE\n    WHEN (stock = 0) THEN 'Out of Stock'::text\n    WHEN (stock < 10) THEN 'Low Stock'::text\n    ELSE 'In Stock'::text\nEND"))
+  category             Category @relation(fields: [categoryId], references: [id])
+  reviews              Review[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  slug     String
+  image    String
+  products Product[]
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  productId     Int?
+  rating        Int
+  comment       String
+  date          DateTime
+  reviewerName  String
+  reviewerEmail String
+  product       Product? @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  role          Role      @default(USER)
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
