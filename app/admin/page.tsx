@@ -6,10 +6,6 @@ import { Pagination } from "@/components/admin/Pagination";
 import { createUrlSearchParams } from "@/lib/utils";
 import { getAvailabilityStats, getCategories, getProducts } from "@/lib/api";
 import { ProductWhereInput } from "@/generated/prisma/models";
-
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/../auth";
-import { redirect } from "next/navigation";
 import { Category } from "@/generated/prisma/browser";
 
 export default async function AdminHomePage({
@@ -60,16 +56,6 @@ export default async function AdminHomePage({
       expand: ["category"],
       filter: filter,
     });
-
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect("/login");
-  }
-
-  if (session.user.role !== "ADMIN") {
-    redirect("/");
-  }
 
   return (
     <main className="max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">
