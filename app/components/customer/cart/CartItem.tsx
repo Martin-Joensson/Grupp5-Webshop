@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/customer/Button";
 import { toEurosString } from "@/lib/utils";
 import type { CartItem as CartItemType } from "@/store/cartStore";
