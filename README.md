@@ -4,15 +4,16 @@
   width="60"
 />
 
-# Webshop
-A webshop. This was a group project for the frontend education with Lexicon. It builds upon the previous group project [here](https://github.com/Martin-Joensson/projekt-agila-metoder-webshop).
+# Nagare Webshop
+The customer facing side of a webshop, building upon a previous group project [here](https://github.com/Martin-Joensson/projekt-agila-metoder-webshop), which developed the admin side.
 
 ---
 
 ## :star: Features
 - Browse, filter and search products
-- Persistent shopping cart
-- Register customer account
+- View detailed product information
+- Add and remove items from shopping cart
+- Register customer account 
 - Login with admin account to gain access to admin page
 
 ## :eye: Demo
@@ -31,6 +32,7 @@ Caption
 - Authentication with NextAuth
 - Data storage with Neon PostgreSQL database + Prisma ORM
 - Data validation with Zod
+- Filtering and pagination with url state management.
 
 
 ## :arrow_down_small: Installation
@@ -108,11 +110,6 @@ or remove Under the hood section above.
     │   ├── add-product / page.tsx
     │   └── edit-product / [productid] / page.tsx
     │
-    ├── actions
-    │   └── auth.ts
-    ├── actions.ts
-    ├── api / auth / [...nextauth] / route.ts
-    │
     ├── components
     │   ├── admin
     │   │   ├── Banner.tsx
@@ -142,9 +139,15 @@ or remove Under the hood section above.
     │   ├── Navbar.tsx
     │   └── Providers.tsx
     │
+    ├── actions
+    │   └── auth.ts
+    ├── actions.ts
+    ├── api / auth / [...nextauth] / route.ts
+    │
     ├── lib
     │   ├── api.ts
     │   └── utils.ts
+    │
     ├── store / cartStore.ts
     ├── types / next-auth.d.ts
     ├── types.ts
