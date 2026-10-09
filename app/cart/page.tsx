@@ -21,8 +21,7 @@ export default function CartPage() {
         <Button
           variant="outline"
           size="md"
-          icon={<Arrow />}
-          iconPosition="right"
+  
           onClick={() => router.back()}
         >
           Back
