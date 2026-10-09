@@ -22,11 +22,7 @@ export default function CartItem({
 
   return (
     <article aria-labelledby={`cart-item-heading${product.id}`} className="flex w-full flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between">
-      <Link
-        href={`/product/${product.id}`}
-        className="flex items-center gap-4 md:w-72 hover:underline"
-        aria-label={`Product page for ${product.title}`}
-        >
+      <div className="flex items-center gap-4 md:w-72 hover:underline" aria-label={`Product page for ${product.title}`} >
         <Image
           src={product.thumbnail}
           alt=""
@@ -36,7 +32,7 @@ export default function CartItem({
         />
 
         <h2 id={`cart-item-heading${product.id}`} className="font-black text-cyan-950">{product.title}</h2>
-      </Link>
+      </div>
       {product.discountPercentage && (
         <p>{product.discountPercentage ?? 0}% off</p>
       )}
