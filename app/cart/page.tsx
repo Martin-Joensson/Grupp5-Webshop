@@ -59,6 +59,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <main className="mx-auto flex min-h-96 max-w-7xl flex-col items-center justify-center gap-6 px-6">
+        <Background className="fixed -z-10 -inset-1 top-[30%] left-[20%] text-soft/40 " />
         <h1 className="text-3xl text-dark">My cart</h1>
         <p className="text-primary">Your cart is empty.</p>
         <Link href="/" className="rounded-md bg-yellow-600 p-2 text-white">
@@ -71,8 +72,8 @@ export default function CartPage() {
   return (
     <main className="mx-auto w-full max-w-7xl px-6">
       <Background className="fixed -z-10 -inset-1 top-[30%] left-[20%] text-soft/40 " />
-      <section aria-label="Cart summary" className="mx-auto text-center">
-        <div className="my-8 text-4xl">
+      <section aria-label="Cart summary" className="mx-auto text-center my-20">
+        <div className="my-8 text-3xl sm:text-5xl md:text-7xl">
           <p className="font-accent text-primary">{toEurosString(total)}</p>
         </div>
         {ButtonPanel()}
@@ -81,13 +82,13 @@ export default function CartPage() {
       <section aria-labelledby="cart-list-heading">
         <h1
           id="cart-list-heading"
-          className="my-4 text-center text-3xl text-dark font-heading"
+          className="my-4 text-center text-3xl text-primary font-heading"
         >
           My Cart
         </h1>
         <ul
           aria-label={`Shopping cart list with ${items.length} product(s)`}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 max-w-5xl m-auto"
         >
           {items.map((item) => (
             <li key={item.product.id}>

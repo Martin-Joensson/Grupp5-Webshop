@@ -27,7 +27,7 @@ export default function FilterSection({
       className="mx-auto w-full"
       aria-labelledby="filter-section-heading"
     >
-      <h2 id="filter-section-heading" className="h3">
+      <h2 id="filter-section-heading" className="h3 text-secondary">
         Filter
       </h2>
 
