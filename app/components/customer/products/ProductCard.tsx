@@ -36,9 +36,21 @@ export const ProductCard = ({
 
       <div className="flex-1 flex flex-col justify-between">
         <div className="flex flex-col gap-1">
-          <h3 id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark">
-            {title}
-          </h3>
+
+          {
+            // If the heading is more than 25 characters it's likeley to overflow and a `title` is added
+            // so that the entire product title can be seen by hovering over the title text.
+            title.length > 25 &&
+            <h3 title={title} id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark">
+              {title}
+            </h3>
+            ||
+            <h3 id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark">
+              {title}
+            </h3>
+          }
+
+          
 
           <p aria-label={`Product category: ${category?.name}`} className="text-xs text-secondary">{category?.name}</p>
 
