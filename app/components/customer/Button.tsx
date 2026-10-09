@@ -32,7 +32,7 @@ export function Button({
     ghost:
       "bg-transparent text-brand-lightblue hover:rounded-4xl hover:text-dark",
     outline:
-      "border border-accent bg-transparent text-accent hover:rounded-4xl hover:bg-gray-100",
+      "glass border border-accent bg-transparent text-accent hover:rounded-4xl hover:bg-gray-100",
   };
 
   const alignmentStyles = icon ? "justify-between" : "justify-center";

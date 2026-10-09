@@ -60,7 +60,7 @@ export default async function HomePage({
           <FilterSection categories={allCategories} />
         </Suspense>
 
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 mb-10">
           {pages > 1 && (
             <Pagination
               page={page}
