@@ -22,9 +22,9 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const addItem = useCartStore((state) => state.addItem);
   return (
-    <article className="group backdrop-blur-xs flex flex-col h-full gap-2">
+    <article className="group glass flex flex-col h-full gap-2 rounded ">
       <Link href={`/product/${id}`}>
-        <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
+        <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md  border-accent border rounded-tr-3xl">
           <Image
             src={thumbnail}
             alt={title}
@@ -34,15 +34,17 @@ export const ProductCard = ({
         </div>
       </Link>
 
-      <div className="flex-1 flex flex-col justify-between">
-        <div className="flex flex-col gap-1">
-          <p className="truncate text-lg font-bold font-heading text-dark">
-            {title}
-          </p>
+      <div className="flex-1 flex flex-col justify-between m-2 gap-4">
+        <div className="flex flex-col gap-4">
+          <div>
+            <p className="truncate text-lg font-bold font-heading text-dark">
+              {title}
+            </p>
 
-          <p className="text-xs text-secondary">{category?.name}</p>
+            <p className="text-xs text-secondary">{category?.name}</p>
+          </div>
 
-          <p className="line-clamp-3 text-xs leading-4 text-primary">
+          <p className="line-clamp-2 text-xs leading-4 text-primary">
             {description}
           </p>
         </div>

@@ -29,7 +29,7 @@ export default function LimitDropDown({ currentLimit }: LimitDropDownProps) {
       <select
         id="page-limit"
         className="w-full sm:w-auto p-2 border border-accent hover:bg-accent hover:text-white active:bg-secondary rounded"
-        defaultValue={currentLimit}
+        // defaultValue={currentLimit}
         value={limit}
         onChange={(e) => {
           changeLimit(e.target.value);
