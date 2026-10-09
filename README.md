@@ -82,14 +82,6 @@ or remove Under the hood section above.
 - [ ] $$$
 
 ## :open_file_folder: Project structure
-<!-- Didn't want to do to much here in case we want to make changes to the file structure. 
-I started from an auto generated `tree > tree.txt` and am thinking to do that again when we are happy the file structure won't change.
-Things I have done:
-- reordered more thematically (e.g. page routes together)
-- removed obvious things to remove (still pretty long :/ )
-
-Thinking to add comments to key files (or all files) when ready.
--->
 ```
 .
 ├── README.md
@@ -97,41 +89,29 @@ Thinking to add comments to key files (or all files) when ready.
 ├── prisma/schema.prisma
 │
 └── app
-    ├── admin
-    │   ├── add-product
-    │   │   └── page.tsx
-    │   ├── edit-product
-    │   │   └── [productid]
-    │   │       └── page.tsx
-    │   ├── layout.tsx
-    │   └── page.tsx
-    │
-    ├── account
-    │   └── page.tsx
-    ├── cart
-    │   └── page.tsx
-    ├── db-test
-    │   └── page.tsx
-    ├── login
-    │   └── page.tsx
+    ├── layout.tsx
     ├── not-found.tsx
+    │
     ├── page.tsx
-    ├── product
-    │   └── [id]
-    │       └── page.tsx
+    ├── account / page.tsx
+    ├── cart / page.tsx
+    ├── login / page.tsx
+    ├── product / [id] / page.tsx
     ├── profile
-    │   ├── LogoutButton.tsx
-    │   └── page.tsx
-    ├── register
-    │   └── page.tsx
+    │   ├── page.tsx
+    │   └── LogoutButton.tsx
+    ├── register / page.tsx
+    │
+    ├── admin
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   ├── add-product / page.tsx
+    │   └── edit-product / [productid] / page.tsx
     │
     ├── actions
     │   └── auth.ts
     ├── actions.ts
-    ├── api
-    │   └── auth
-    │       └── [...nextauth]
-    │           └── route.ts
+    ├── api / auth / [...nextauth] / route.ts
     │
     ├── components
     │   ├── admin
@@ -162,26 +142,11 @@ Thinking to add comments to key files (or all files) when ready.
     │   ├── Navbar.tsx
     │   └── Providers.tsx
     │
-    ├── design
-    │   ├── assets
-    │   │   ├── arrow.svg
-    │   │   ├── heart.svg
-    │   │   ├── line.svg
-    │   │   ├── splash1.svg
-    │   │   ├── splash2.svg
-    │   │   ├── splash3.svg
-    │   │   ├── swoop.svg
-    │   │   └── user.svg
-    │   └── page.tsx
-    │
-    ├── layout.tsx
     ├── lib
     │   ├── api.ts
     │   └── utils.ts
-    ├── store
-    │   └── cartStore.ts
-    ├── types
-    │   └── next-auth.d.ts
+    ├── store / cartStore.ts
+    ├── types / next-auth.d.ts
     ├── types.ts
     └── utils
         ├── updateFilter.ts
