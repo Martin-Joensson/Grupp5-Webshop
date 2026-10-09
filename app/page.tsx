@@ -10,6 +10,7 @@ import { Pagination } from "./components/customer/Pagination";
 import LimitDropDown from "./components/customer/LimitDropDown";
 import FilterSection from "@/components/customer/FilterSection";
 import { Category } from "./generated/prisma/browser";
+import { Hero } from "./components/customer/Hero";
 
 const DEFAULT_LIMIT = 12;
 
@@ -50,17 +51,18 @@ export default async function HomePage({
 
   return (
     <main className="min-h-screen">
-      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 " />
-  
-      <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6">
-        <h1 className="h1 text-primary self-center"> Nagare Webshop </h1>
+      <Hero />
+      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 w-400" />
+
+      <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6 pt-20">
+        <h1 className="h1 text-primary self-center sr-only"> Nagare Webshop </h1>
 
         <Suspense>
           {/* Add skeleton filter section as fallback */}
           <FilterSection categories={allCategories} />
         </Suspense>
 
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
           {pages > 1 && (
             <Pagination
               page={page}
@@ -73,7 +75,7 @@ export default async function HomePage({
           <LimitDropDown currentLimit={Number(currentLimit)} />
         </div>
         <ProductList products={products} />
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
           {pages > 1 && (
             <Pagination
               page={page}

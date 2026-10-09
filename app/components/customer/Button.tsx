@@ -7,6 +7,7 @@ type ButtonSize = "sm" | "md" | "lg";
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  iconSize?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
@@ -15,6 +16,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function Button({
   variant = "primary",
   size = "md",
+  iconSize,
   fullWidth = false,
   icon,
   iconPosition = "left",
@@ -32,7 +34,7 @@ export function Button({
     ghost:
       "bg-transparent text-brand-lightblue hover:rounded-4xl hover:text-dark",
     outline:
-      "border border-accent bg-transparent text-accent hover:rounded-4xl hover:bg-gray-100",
+      "glass border border-accent bg-transparent text-accent hover:rounded-4xl hover:bg-gray-100",
   };
 
   const alignmentStyles = icon ? "justify-between" : "justify-center";
@@ -42,12 +44,15 @@ export function Button({
     md: "h-10 px-4 text-sm",
     lg: "h-12 min-w-40 px-6 text-base",
   };
+  
 
-  const iconSizeStyles: Record<ButtonSize, string> = {
-    sm: "h-4 w-4",
-    md: "h-8 w-8",
-    lg: "h-10 w-10",
-  };
+ const iconSizeStyles: Record<ButtonSize, string> = {
+   sm: "h-4 w-4",
+   md: "h-8 w-8",
+   lg: "h-10 w-10",
+ };
+  
+  const resolvedIconSize = iconSize ?? size;
 
   return (
     <button
@@ -67,7 +72,7 @@ export function Button({
     >
       {icon && iconPosition === "left" && (
         <span
-          className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[size]}`}
+          className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[resolvedIconSize]}`}
         >
           {icon}
         </span>
@@ -77,7 +82,7 @@ export function Button({
 
       {icon && iconPosition === "right" && (
         <span
-          className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[size]}`}
+          className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[resolvedIconSize]}`}
         >
           {icon}
         </span>

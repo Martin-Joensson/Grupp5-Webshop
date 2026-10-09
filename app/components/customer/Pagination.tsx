@@ -22,10 +22,10 @@ export const Pagination = ({ page, pages, urlParams }: PaginationProps) => {
   }
 
   const buttonStyle =
-    "w-10 h-10 rounded border border-gray-300 font-bold hover:bg-accent hover:text-white";
+    "w-10 h-10 rounded border border-secondary glass hover:bg-accent hover:text-white";
 
   return (
-    <nav className="bg-neutral-50 py-4 flex gap-2 text-neutral-500 justify-center items-center">
+    <nav className=" py-4 flex gap-2 text-primary justify-center items-center">
       <Link
         href={page > 1 ? getPageUrl(page - 1) : "#"}
         aria-disabled={page === 1}

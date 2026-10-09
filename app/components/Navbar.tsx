@@ -45,13 +45,13 @@ export default function Navbar() {
             <AccountLink />
           </div>
           <CartCount />
-          {/* Placeholder image */}
+          {/* Placeholder image
           <Link
             href="/cart"
             className="text-sm font-medium transition-opacity hover:opacity-60"
           >
             <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
-          </Link>
+          </Link> */}
         </div>
 
         {/* Mobile hamburger */}
@@ -100,21 +100,21 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <div className="border-b border-soft py-4">
-              <CartCount />
-            </div>
 
             {/* Image in mobile drawer */}
             <div className="border-b border-soft py-4 text-lg">
               <AccountLink />
             </div>
-            <Link
+            <div className="border-b border-soft py-4">
+              <CartCount />
+            </div>
+            {/* <Link
               href="/cart"
               className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
             >
               <User className="text-brand-golden h-15 w-15 overflow-hidden" />
               <span className="text-sm">Cart</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
