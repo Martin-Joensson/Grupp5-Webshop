@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Notable, Chonburi, Jost } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import Banner from "./components/Banner";
+import Navbar from "./components/Navbar";
+import Providers from "./components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +15,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const notable = Notable({
+  weight: "400",
+  variable: "--font-notable",
+  subsets: ["latin"],
+});
+
+const chonburi = Chonburi({
+  weight: "400",
+  variable: "--font-chonburi",
+  subsets: ["latin"],
+});
+
+const jost = Jost({
+  variable: "--font-jost",
+  subsets: ["latin"],
+});
+
 const materialSymbols = localFont({
   src: "../fonts/material-symbols-rounded.woff2",
   weight: "100 900",
@@ -21,8 +39,8 @@ const materialSymbols = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Webshop - Admin",
-  description: "Admin page for webshop app",
+  title: "Webshop - Client",
+  description: "Client side of the webshop",
 };
 
 export default function RootLayout({
@@ -33,11 +51,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${materialSymbols.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${materialSymbols.variable} ${chonburi.variable} ${notable} ${jost.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Banner />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

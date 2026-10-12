@@ -1,22 +1,13 @@
 # 🏛️ Architecture Decision Record (ADR) Mall
 
-> **Vad är en ADR?**  
-> En ADR (Architecture Decision Record) är ett kortfattat dokument som fångar ett viktigt arkitektur- eller teknikbeslut, kontexten kring beslutet och dess konsekvenser. Spara era beslut i mappen `docs/` med namn som `ADR-001-val-av-databas.md`.
-
-> ⚖️ **Tumregel: När ska vi skriva en ADR i detta projekt?**  
-> * **Skriv INTE en ADR för allt!** Ni ska **endast skriva 1 (max 2) ADR:er för hela projektet**.
-> * **Var?** Skriv den uteslutande för era **valbara fördjupningsmoduler** eller ert största tekniska vägval (t.ex. *Val av state-hantering för varukorg*, *Val av Auth-tjänst*, eller *Val av molndatabas*).
-> * **När behövs INTE en ADR?** Skriv aldrig en ADR för UI-styling, vanliga React-komponenter, sidlayouter eller buggfixar.
-
 ---
 
 # ADR-1: Val av State Management för varukorg
 
-* **Status:** Föreslagen
+* **Status:** Beslutat
 * **Datum:** 2026-09-21
 * **Deltagare:** Martin, Josefin, Wilmer
-* **Relaterad Issue/Ticket:** #[Issue-nummer på GitHub]
-
+* **Relaterad Issue/Ticket:** #7
 ---
 
 ## 1. Kontext & Problemställning
@@ -28,15 +19,15 @@ Vi behöver hantera kundens varukorg i webbshoppen. Korgen ska kunna uppdateras 
 
 ## 2. Övervägda Alternativ
 
-### Alternativ A: [t.ex. React Context API med LocalStorage]
+### Alternativ A: React Context API med LocalStorage
 * **Fördelar:** Inbyggt i React, inga externa beroenden, enkelt att komma igång med.
 * **Nackdelar:** Kan orsaka onödiga omrenderingar vid frekventa uppdateringar, kräver manuell hantering av SSR/hydration mismatch vid synk mot LocalStorage.
 
-### Alternativ B: [t.ex. Zustand med persist-middleware]
+### Alternativ B: Zustand med persist-middleware
 * **Fördelar:** Lättviktigt (under 2kB), mycket snabbt, friktionsfri selector-modell som minimerar omrenderingar, inbyggt stöd för att persistera till LocalStorage eller Cookies.
 * **Nackdelar:** Ett extra npm-paket att underhålla och lära sig.
 
-### Alternativ C: [t.ex. Server State med Cookies och Server Actions]
+### Alternativ C: Server State med Cookies och Server Actions
 * **Fördelar:** Fungerar sömlöst med Server Components och kräver minimal JavaScript på klienten.
 * **Nackdelar:** Mer komplext att implementera för snabba UI-uppdateringar utan fördröjning om inte optimistiska uppdateringar används.
 
