@@ -18,9 +18,9 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-dark/30" />
 
       {/* Hero content */}
-      <div className="absolute inset-0 flex items-center justify-end px-6 md:px-16">
+      <div className="absolute max-w-7xl m-auto inset-0 flex items-center justify-end px-6 ">
         <div className="flex max-w-2xl flex-col items-end gap-6 text-right text-light ">
-          <p className="text-3xl sm:text-4xl font-heading md:text-6xl">
+          <p className="  text-3xl sm:text-4xl font-heading md:text-6xl">
             Thoughtful flow
           </p>
           <p className="text-2xl sm:text-3xl font-heading md:text-4xl">for a calmer home</p>

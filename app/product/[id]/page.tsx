@@ -52,7 +52,7 @@ export default async function ProductDetailsPage({
         {/* Right panel */}
         <div className="flex flex-1 flex-col gap-10 md:gap-0 justify-between items-end text-right">
           <div>
-            <h2>{product.title}</h2>
+            <h2 className="h2">{product.title}</h2>
             <p className="text-secondary">{product.category?.name}</p>
           </div>
           <p className="font-heading text-2xl sm:text-4xl md:text-6xl">
