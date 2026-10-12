@@ -27,7 +27,10 @@ export const ProductCard = ({
         <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md bg-brand-offwhite/60 border-accent border rounded-tr-3xl">
           <Image
             src={thumbnail}
-            alt={`Product details page for ${title}`}
+            alt=""
+            sizes="(max-width: 640px) 50vw, 25vw"
+            loading="eager"
+
             fill
             className="object-contain p-4 transition-transform duration-300 group-hover:scale-105 hover:cursor-pointer"
           />
