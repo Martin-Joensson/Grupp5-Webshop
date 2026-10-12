@@ -6,6 +6,7 @@ import NotFound from "@/not-found";
 import { AddToCartButton } from "@/components/customer/AddToCartButton";
 import type { Metadata } from "next";
 import { toEurosString } from "@/lib/utils";
+import Arrow from "@/design/assets/arrow.svg";
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
@@ -49,12 +50,12 @@ export default async function ProductDetailsPage({
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-1 flex-col justify-between items-end text-right">
+        <div className="flex flex-1 flex-col gap-10 md:gap-0 justify-between items-end text-right">
           <div>
             <h2>{product.title}</h2>
             <p className="text-secondary">{product.category?.name}</p>
           </div>
-          <p className="font-heading text-6xl">
+          <p className="font-heading text-2xl sm:text-4xl md:text-6xl">
             {toEurosString(product.price)}
           </p>
           <p className="max-w-[50ch]">{product.description}</p>
@@ -74,11 +75,11 @@ export default async function ProductDetailsPage({
 
       <div className="relative h-20">
         {/* Banner background */}
-        <div className="absolute inset-y-0 left-0 w-3/4 bg-primary rounded-tr-[8rem] rounded-br-lg" />
+        <div className="absolute inset-y-0 left-0 w-11/12 sm:w-3/4 bg-primary rounded-tr-[8rem] rounded-br-lg" />
 
         {/* Content aligned with the rest of the page */}
         <div className="relative max-w-270 mx-auto p-4 h-full flex items-center">
-          <p className="text-light font-heading text-2xl">More information</p>
+          <p className="text-light font-heading text-xl sm:text-2xl">More information</p>
         </div>
 
         <div className="max-w-270 mx-auto p-4 mt-10 flex flex-col gap-6">

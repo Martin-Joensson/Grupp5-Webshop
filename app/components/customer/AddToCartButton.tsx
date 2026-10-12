@@ -1,6 +1,7 @@
 "use client";
 import { useCartStore } from "@/store/cartStore";
 import { Button } from "@/components/customer/Button";
+import Arrow from "@/design/assets/arrow.svg";
 
 type AddButtonProps = {
   id: number;
@@ -19,6 +20,7 @@ export function AddToCartButton({
   return (
     <Button
       variant="primary"
+      icon={<Arrow />}
       iconPosition="right"
       onClick={() =>
         addItem({

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 export default function AccountLink() {
   const { data: session } = useSession();
 
-  const href = session ? "/profile" : "/login";
+  const href = session ? "/account" : "/login";
   const label = session ? "account" : "login";
 
   return (

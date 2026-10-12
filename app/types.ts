@@ -17,4 +17,5 @@ export interface ProductsResponse {
 
 export type ProductWithIncludes = Prisma.ProductGetPayload<{
   include: { category: true; reviews: true };
+  
 }>;

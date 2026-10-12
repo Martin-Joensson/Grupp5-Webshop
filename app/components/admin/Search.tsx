@@ -37,7 +37,7 @@ export default function Search() {
         id="search-product"
         type="search"
         placeholder="Search products..."
-        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white"
+        className="w-full px-3 py-2 border border-gray-300 rounded-md glass"
         onChange={(e) => {
           handleSearch(e.target.value);
         }}
