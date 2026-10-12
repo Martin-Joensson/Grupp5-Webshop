@@ -28,6 +28,8 @@ export const ProductCard = ({
           <Image
             src={thumbnail}
             alt={title}
+            sizes="(max-width: 640px) 50vw, 25vw"
+            loading="eager"
             fill
             className="object-contain p-4 transition-transform duration-300 group-hover:scale-105 hover:cursor-pointer"
           />

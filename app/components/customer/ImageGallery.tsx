@@ -28,7 +28,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
           alt={activeImage.alt}
           fill
           priority
-          className="object-cover "
+          className="object-cover"
           sizes="(max-width: 768px) 100vw, 60vw"
         />
       </div>
