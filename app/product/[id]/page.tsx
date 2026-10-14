@@ -52,7 +52,8 @@ export default async function ProductDetailsPage({
         {/* Right panel */}
         <div aria-label="General information" className="flex flex-1 flex-col gap-10 md:gap-0 justify-between items-end text-right">
           <div>
-            <h1 id="product-details-heading" className="h2 text-primary self-center">{product.title}</h1>
+            <h1 id="product-details-heading" className="h2">{product.title}</h1>
+
             <p aria-label="Product category" className="text-secondary">{product.category?.name}</p>
           </div>
           <span className="block font-heading text-2xl sm:text-4xl md:text-6xl">
