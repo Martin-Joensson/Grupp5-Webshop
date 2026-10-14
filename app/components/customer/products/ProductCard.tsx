@@ -34,7 +34,7 @@ export const ProductCard = ({
         <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md  border-accent border rounded-tr-3xl">
           <Image
             src={thumbnail}
-            alt=""
+            alt={`Product details page for ${title}`}
             sizes="(max-width: 640px) 50vw, 25vw"
             loading="eager"
 

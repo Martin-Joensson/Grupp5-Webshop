@@ -129,7 +129,7 @@ export default async function MyAccountPage()
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 center">
           {user.favorites &&
             user.favorites.map((favProduct) => (
-              <li className="flex flex-col gap-4 max-w-80" key={favProduct.id} aria-labelledby={`fav-prod-title-${favProduct.id}`}>
+              <li className="flex flex-col gap-4 max-w-80" key={favProduct.id} aria-labelledby={`product-card-heading-${favProduct.id}`}>
                 <ProductCard
                   id={favProduct.id}
                   title={favProduct.title}
@@ -155,7 +155,7 @@ export default async function MyAccountPage()
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 center">
           {user.purchaseHistory &&
             user.purchaseHistory.map((prevPurchase) => (
-              <li aria-labelledby={`prev-purchase-title-${prevPurchase.product.id}`}
+              <li aria-labelledby={`product-card-heading-${prevPurchase.product.id}`}
                 className="max-w-80"
                 key={prevPurchase.id}
               >

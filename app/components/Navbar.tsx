@@ -8,7 +8,7 @@ import CartCount from "./customer/cart/CartCount";
 import AccountLink from "./customer/AccountLink";
 
 const navItems = [
-  { label: "shop", href: "/" },
+  { label: "shop", href: "/#product-list-heading" },
   { label: "story", href: "/story" },
   // { label: "account", href: "/profile" },
 ];

@@ -62,7 +62,7 @@ export default async function HomePage({
           <FilterSection categories={allCategories} />
         </Suspense>
 
-        <section aria-label="Pagination" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
+        <section aria-label="Pagination above product list" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
           {pages > 1 && (
             <Pagination
               page={page}
@@ -81,9 +81,7 @@ export default async function HomePage({
 
       </div>
 
-      <ProductList products={products} />
-
-      <section aria-label="Pagination" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
+      <section aria-label="Pagination under productlist" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
         {pages > 1 && (
           <Pagination
             page={page}

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const Hero = () => {
   return (
-    <section className="relative h-160 w-full">
+    <section aria-label="Hero for Nagare homepage" className="relative h-160 w-full">
       <Image
         src={hero}
         alt=""
@@ -20,10 +20,12 @@ export const Hero = () => {
       {/* Hero content */}
       <div className="absolute max-w-7xl m-auto inset-0 flex items-center justify-end px-6 ">
         <div className="flex max-w-2xl flex-col items-end gap-6 text-right text-light ">
-          <p className="  text-3xl sm:text-4xl font-heading md:text-6xl">
+          <span className="block text-3xl sm:text-4xl font-heading md:text-6xl">
             Thoughtful flow
-          </p>
-          <p className="text-2xl sm:text-3xl font-heading md:text-4xl">for a calmer home</p>
+          </span>
+          <span className="block text-2xl sm:text-3xl font-heading md:text-4xl">
+            for a calmer home
+          </span>
 
           <div className="flex flex-wrap justify-end gap-4">
             <Link href="/story">
