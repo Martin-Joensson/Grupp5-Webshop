@@ -26,7 +26,7 @@ export default function CartPage() {
           size="md"
   
           onClick={() => router.back()}
-          aria-label="Back to previus page"
+          aria-label="Back to previous page"
         >
           Back
         </Button>

@@ -10,7 +10,6 @@ import AccountLink from "./customer/AccountLink";
 const navItems = [
   { label: "shop", href: "/#product-list-heading" },
   { label: "story", href: "/story" },
-  // { label: "account", href: "/profile" },
 ];
 
 export default function Navbar() {
@@ -43,14 +42,6 @@ export default function Navbar() {
             <AccountLink />
           </div>
           <CartCount />
-          {/* Placeholder image
-          <Link
-            href="/cart"
-            className="text-sm font-medium transition-opacity hover:opacity-60"
-            aria-label="Link to cart page"
-          >
-            <User className="text-brand-golden ml-2 h-15 w-15 overflow-hidden" />
-          </Link> */}
         </div>
 
         {/* Mobile hamburger */}
@@ -107,15 +98,10 @@ export default function Navbar() {
             <div className="border-b border-soft py-4">
               <CartCount />
             </div>
-            {/* <Link
-              href="/cart"
-              className="text-sm py-4 flex gap-4 items-center font-medium transition-opacity hover:opacity-60"
-            >
-              <User className="text-brand-golden h-15 w-15 overflow-hidden" />
-              <span className="text-sm">Cart</span>
-            </Link> */}
+
           </div>
         </div>
+
       </div>
     </header>
   );
