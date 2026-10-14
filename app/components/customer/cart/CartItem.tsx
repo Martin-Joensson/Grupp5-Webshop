@@ -21,17 +21,17 @@ export default function CartItem({
   const minimumQuantity = product.minimumOrderQuantity ?? 1;
 
   return (
-    <article className="relative flex w-full flex-col gap-4 p-4  md:flex-row md:items-center md:justify-between">
+    <article aria-labelledby={`cart-item-heading${product.id}`} className="relative flex w-full flex-col gap-4 p-4  md:flex-row md:items-center md:justify-between">
       <Link href={`/product/${product.id}`} className="flex items-center gap-4 ">
         <Image
           src={product.thumbnail}
-          alt={product.title}
+          alt=""
           width={80}
           height={80}
           className="object-contain border border-secondary rounded-xl"
         />
 
-        <h2 className="font-black text-primary font-heading">
+        <h2 id={`cart-item-heading${product.id}`} className="font-black text-primary font-heading">
           {product.title}
         </h2>
       </Link>
@@ -47,6 +47,7 @@ export default function CartItem({
               variant="ghost"
               onClick={() => onQuantityChange(product.id, quantity - 1)}
               className="text-dark hover:bg-accent hover:text-light hover:rounded-none"
+              aria-hidden="true"
             >
               -
             </Button>
@@ -67,6 +68,7 @@ export default function CartItem({
               variant="ghost"
               onClick={() => onQuantityChange(product.id, quantity + 1)}
               className="text-dark hover:bg-accent hover:text-light hover:rounded-none"
+              aria-hidden="true"
             >
               +
             </Button>
@@ -75,7 +77,7 @@ export default function CartItem({
           {/* Price */}
           <div className="flex min-w-0 flex-col items-end justify-center font-heading">
             {quantity > 1 && (
-              <p className="text-secondary text-sm">
+              <p aria-label="Cost Per product" className="text-secondary text-sm">
                 {toEurosString(product.price)}
               </p>
             )}
@@ -93,7 +95,8 @@ export default function CartItem({
             variant="tertiary"
             size="sm"
             onClick={() => onRemove(product.id)}
-            aria-label="Remove Item"
+            aria-label="Remove item from cart"
+            title="Remove item from cart"
             className="w-10 sm:static absolute left-4 bottom-5"
           >
             X

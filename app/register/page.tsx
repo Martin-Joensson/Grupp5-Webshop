@@ -27,12 +27,16 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="max-w-270 mx-auto my-27">
-      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 -rotate-90 " />
+    <main aria-label="Register account page" className="max-w-270 mx-auto my-27">
+      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 -rotate-90" aria-hidden="true" />
+
       <h1 className="font-heading my-4">Register</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <form aria-label="Register account" onSubmit={handleSubmit} className="flex flex-col gap-2">
+
+        <label htmlFor="name-input" className="sr-only"> Name </label>
         <input
+          id="name-input"
           className="glass border px-4 py-2 rounded border-secondary"
           name="name"
           type="text"
@@ -40,7 +44,9 @@ export default function RegisterPage() {
           required
         />
 
+        <label htmlFor="email-input" className="sr-only"> Email address </label>
         <input
+          id="email-input"
           className="glass border px-4 py-2 rounded border-secondary"
           name="email"
           type="email"
@@ -48,7 +54,9 @@ export default function RegisterPage() {
           required
         />
 
+        <label htmlFor="password-input" className="sr-only"> Account password </label>
         <input
+          id="password-input"
           className="glass border px-4 py-2 rounded border-secondary"
           name="password"
           type="password"
@@ -57,7 +65,7 @@ export default function RegisterPage() {
         />
 
         <Button className="my-4" type="submit">
-          Register
+          Register account
         </Button>
 
         {error && <p>{error}</p>}
@@ -65,7 +73,6 @@ export default function RegisterPage() {
       <Link
         href="/login"
         className=" text-primary underline"
-        aria-label="Register Account"
       >
         Already have an account? Login
       </Link>

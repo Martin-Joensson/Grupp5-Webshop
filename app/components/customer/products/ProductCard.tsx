@@ -34,9 +34,10 @@ export const ProductCard = ({
         <div className="relative w-full flex-none self-start h-auto aspect-4/5 overflow-hidden rounded-md  border-accent border rounded-tr-3xl">
           <Image
             src={thumbnail}
-            alt={title}
+            alt={`Product details page for ${title}`}
             sizes="(max-width: 640px) 50vw, 25vw"
             loading="eager"
+
             fill
             className="object-contain p-4 transition-transform duration-300 group-hover:scale-105 hover:cursor-pointer"
           />
@@ -46,11 +47,20 @@ export const ProductCard = ({
       <div className="flex-1 flex flex-col justify-between m-2 gap-4">
         <div className="flex flex-col gap-4">
           <div>
-            <p className="truncate text-lg font-bold font-heading text-dark">
-              {title}
-            </p>
+            {
+              // If the heading is more than 25 characters it's likeley to overflow and a `title` is added
+              // so that the entire product title can be seen by hovering over the title text.
+              title.length > 25 &&
+              <h3 id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark" title={title}>
+                {title}
+              </h3>
+              ||
+              <h3 id={`product-card-heading-${id}`} className="truncate text-lg font-bold font-heading text-dark">
+                {title}
+              </h3>
+            }
 
-            <p className="text-xs text-secondary">{category?.name}</p>
+            <p aria-label="Product category" className="text-xs text-secondary">{category?.name}</p>
           </div>
 
           <p className="line-clamp-2 text-xs leading-4 text-primary">
@@ -77,7 +87,7 @@ export const ProductCard = ({
             iconSize="md"
             icon={<Arrow />}
             iconPosition="right"
-            aria-label={`Add ${title} to cart`}
+            title="Add to cart"
             onClick={() =>
               addItem({
                 id,

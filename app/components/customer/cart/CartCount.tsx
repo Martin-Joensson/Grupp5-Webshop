@@ -14,7 +14,7 @@ export default function CartCount() {
     <Link
       href="/cart"
       className=" font-medium transition-opacity hover:opacity-60"
-      aria-label={`Cart with ${hasHydrated ? itemCount : 0} item(s)`}
+      aria-label={`Cart with ${hasHydrated ? itemCount : 0} items`}
     >
      
       <div className="relative w-15">
@@ -23,7 +23,7 @@ export default function CartCount() {
 
     
       {hasHydrated && itemCount > 0 && (
-        <span className="absolute -right-4 -top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-secondary px-1 text-xs text-white">
+        <span aria-hidden="true" className="absolute -right-4 -top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-secondary px-1 text-xs text-white">
           {itemCount}
         </span>
       )}

@@ -73,6 +73,7 @@ export function Button({
       {icon && iconPosition === "left" && (
         <span
           className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[resolvedIconSize]}`}
+          aria-hidden="true"
         >
           {icon}
         </span>
@@ -83,6 +84,7 @@ export function Button({
       {icon && iconPosition === "right" && (
         <span
           className={`flex shrink-0 group-hover:animate-pulse ${iconSizeStyles[resolvedIconSize]}`}
+          aria-hidden="true"
         >
           {icon}
         </span>

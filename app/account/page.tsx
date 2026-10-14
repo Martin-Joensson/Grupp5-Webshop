@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import { ProductWithIncludes } from "@/types";
 import { getProduct } from "@/lib/api";
-import { toEurosString } from "@/lib/utils";
 
 import Heart from "@/design/assets/heart.svg";
 import Background from "@/design/assets/splash3.svg";
@@ -13,7 +12,7 @@ import LogoutButton from "@/profile/LogoutButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth";
 import { redirect } from "next/navigation";
-import ProductCard from "@/components/customer/products/ProductCard";
+import { ProductCard } from "@/components/customer/products/ProductCard";
 
 interface StaticUser {
   id: number;
@@ -31,45 +30,46 @@ interface Purchase {
 }
 
 // Temporary and static product data.
-const ids = [126, 145, 42, 11, 99];
-const productsInCart: ProductWithIncludes[] = [];
+const productIds = [126, 145, 42, 11, 99];
+const staticProducts: ProductWithIncludes[] = [];
 
-for (const id of ids) {
-  const product = await getProduct(id);
+for (const id of productIds)
+{
+    const product = await getProduct(id);
 
-  if (product) {
-    productsInCart.push(product);
-  }
+    if (product) {
+        staticProducts.push(product);
+    }
 }
 
 const user1: StaticUser = {
-  id: 1,
-  userName: "Kalle",
-  favorites: [productsInCart[0], productsInCart[2]],
-  purchaseHistory: [
-    {
-      id: 1,
-      date: "2026-9-24",
-      priceWhenBought: 5999, //in cents, not full euros
-      product: productsInCart[1],
-    },
-    {
-      id: 2,
-      date: "2026-9-24",
-      priceWhenBought: 1114, //in cents, not full euros
-      product: productsInCart[4],
-    },
-    {
-      id: 3,
-      date: "2026-9-24",
-      priceWhenBought: 147, //in cents, not full euros
-      product: productsInCart[3],
-    },
-  ],
-};
+    id: 1,
+    userName: "Kalle",
+    favorites: [ staticProducts[0], staticProducts[2] ],
+    purchaseHistory: [
+        {
+            id: 1,
+            date: "2026-9-24",
+            priceWhenBought: 5999, //in cents, not full euros
+            product: staticProducts[1]
+        }, {
+            id: 2,
+            date: "2026-9-24",
+            priceWhenBought: 1114, //in cents, not full euros
+            product: staticProducts[4]
+        }, {
+            id: 3,
+            date: "2026-9-24",
+            priceWhenBought: 147, //in cents, not full euros
+            product: staticProducts[3]
+        },
+    ]
+}
+
 
 // Page with your account. If not logged in, user is redirected to login page. Account page path: `/account`
-export default async function MyAccountPage() {
+export default async function MyAccountPage()
+{
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -77,48 +77,39 @@ export default async function MyAccountPage() {
   }
 
   const user: StaticUser = user1;
+  const {name: userName, email: userEmail, role: userRole, image: accountImg} = session.user;
 
   const placeHolder = `https://api.dicebear.com/10.x/thumbs/svg?bodyProbability=100&shapeColor=c79844,556d92,541413&scale=0.99&backgroundColor=c79844,313d55,556d92,10151a,f2f1eb&seed=${session.user.name}`;
 
   return (
-    <main className="flex flex-wrap gap-6 justify-between  max-w-7xl mx-auto py-6 px-4">
+    <main aria-label="My account page" className="flex flex-wrap gap-6 justify-between  max-w-7xl mx-auto py-6 px-4">
+
       <Background2 className="fixed -z-10  top-[-10%] right-0 text-soft/40 rotate-130 w-270" />
       <Background className="fixed -z-10  top-[70%] right-0 text-soft/40 rotate-10 w-400" />
+
       {/* Section with info about the users account */}
-      <section
-        aria-labelledby="my-account-heading"
-        className="max-w-70 text-center mx-auto"
-      >
-        <h1 id="my-account-heading" className="h2 text-brand-darkblue">
-          My account
-        </h1>
+      <section aria-labelledby="my-account-heading" className="max-w-70 text-center mx-auto">
+        <h1 aria-level={2} id="my-account-heading" className="h2 text-brand-darkblue"> My account </h1>
 
         <div className="">
-          <h2 className="font-heading font-bold text-5xl text-secondary">
-            {session.user.name}
-          </h2>
-          <p className="text-secondary"> {session.user.email} </p>
+          <h3 aria-label="Account name" className="font-heading font-bold text-5xl text-secondary"> {userName} </h3>
+
+          <p aria-label="Account email" className="text-secondary"> {userEmail} </p>
           {
             // Shows ADMIN tag if user is an admin
-            session.user.role == "ADMIN" && (
-              <span
-                className="block mx-auto text-lg text-accent font-bold"
-                aria-label="Logged in as an admin"
-              >
-                {session.user.role}
+            userRole == "ADMIN" && (
+              <span className="block mx-auto text-lg text-accent font-bold" aria-label="Logged in as an admin">
+                {userRole}
               </span>
             )
           }
-          {session.user.role == "ADMIN" && (
-            <Link
-              href="/admin"
-              className="text-md font-medium text-secondary underline  transition-opacity hover:opacity-60"
-            >
+          {userRole == "ADMIN" && (
+            <Link href="/admin" className="text-md font-medium text-secondary underline transition-opacity hover:opacity-60">
               Go to admin page
             </Link>
           )}
           <Image
-            src={session.user.image || placeHolder}
+            src={accountImg || placeHolder}
             alt="User profile picture"
             width={200}
             height={200}
@@ -138,8 +129,7 @@ export default async function MyAccountPage() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 center">
           {user.favorites &&
             user.favorites.map((favProduct) => (
-              <li className="flex flex-col gap-4 max-w-80" key={favProduct.id}>
-                {/* <FavProductCard product={favProduct} /> */}
+              <li className="flex flex-col gap-4 max-w-80" key={favProduct.id} aria-labelledby={`product-card-heading-${favProduct.id}`}>
                 <ProductCard
                   id={favProduct.id}
                   title={favProduct.title}
@@ -148,12 +138,7 @@ export default async function MyAccountPage() {
                   description={favProduct.description}
                   price={favProduct.price}
                 />
-                <Button
-                  variant="tertiary"
-                  iconPosition="right"
-                  fullWidth
-                  icon={<Heart />}
-                >
+                <Button variant="tertiary" icon={<Heart/>} iconPosition="right" fullWidth>
                   Unfavorite
                 </Button>
               </li>
@@ -162,10 +147,7 @@ export default async function MyAccountPage() {
       </section>
 
       {/* Section with the users purchase history */}
-      <section
-        aria-labelledby="purchase-history-heading"
-        className="mb-40 mx-auto"
-      >
+      <section aria-labelledby="purchase-history-heading" className="mb-40 mx-auto">
         <h2 id="purchase-history-heading" className="h2 text-primary">
           Purchase history
         </h2>
@@ -173,9 +155,11 @@ export default async function MyAccountPage() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 center">
           {user.purchaseHistory &&
             user.purchaseHistory.map((prevPurchase) => (
-              <li className="max-w-80" key={prevPurchase.id}>
-                {/* <PrevPurchaseCard purchase={prevPurchase} />
-                    {console.log(prevPurchase)} */}
+              <li aria-labelledby={`product-card-heading-${prevPurchase.product.id}`}
+                className="max-w-80"
+                key={prevPurchase.id}
+              >
+
                 <ProductCard
                   id={prevPurchase.product.id}
                   title={prevPurchase.product.title}

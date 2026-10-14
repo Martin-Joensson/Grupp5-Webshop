@@ -49,20 +49,20 @@ export default async function HomePage({
 
   const allCategories: Category[] = await getCategories();
 
-  return (
-    <main className="min-h-screen">
+  return (  
+    <main aria-labelledby="nagare-homepage-heading" className="min-h-screen">
       <Hero />
-      <Background className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 w-400" />
+      <Background aria-hidden className="fixed -z-10 -inset-1 top-[30%] text-soft/40 rotate-40 w-400" />
 
       <div className="flex flex-1 flex-col max-w-7xl mx-auto px-6 pt-20">
-        <h1 className="h1 text-primary self-center sr-only"> Nagare Webshop </h1>
+        <h1 id="nagare-homepage-heading" className="h1 text-primary self-center sr-only"> Nagare Webshop </h1>
 
         <Suspense>
           {/* Add skeleton filter section as fallback */}
           <FilterSection categories={allCategories} />
         </Suspense>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
+        <section aria-label="Pagination above product list" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
           {pages > 1 && (
             <Pagination
               page={page}
@@ -72,22 +72,28 @@ export default async function HomePage({
               urlParams={urlParams}
             />
           )}
-          <LimitDropDown currentLimit={Number(currentLimit)} />
-        </div>
-        <ProductList products={products} />
-        <div className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
-          {pages > 1 && (
-            <Pagination
-              page={page}
-              pages={pages}
-              total={total}
-              limit={limit}
-              urlParams={urlParams}
-            />
-          )}
-          <LimitDropDown currentLimit={Number(currentLimit)} />
-        </div>
+          <LimitDropDown currentLimit={Number(currentLimit)} limitId={0} />
+        </section>
+
+        <section aria-labelledby="product-list-heading">
+          <ProductList products={products} />
+        </section>
+
       </div>
+
+      <section aria-label="Pagination under productlist" className="flex flex-col sm:flex-row justify-center items-center sm:gap-4 my-10">
+        {pages > 1 && (
+          <Pagination
+            page={page}
+            pages={pages}
+            total={total}
+            limit={limit}
+            urlParams={urlParams}
+          />
+        )}
+        <LimitDropDown currentLimit={Number(currentLimit)} limitId={1} />
+      </section>
+
     </main>
   );
 }
