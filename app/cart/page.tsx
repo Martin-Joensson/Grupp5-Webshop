@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { Button } from "@/components/customer/Button";
 import Arrow from "@/design/assets/arrow.svg";
@@ -23,8 +24,7 @@ export default function CartPage() {
         <Button
           variant="outline"
           size="md"
-          icon={<Arrow />}
-          iconPosition="right"
+  
           onClick={() => router.back()}
           aria-label="Back to previus page"
         >
@@ -64,8 +64,11 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <main aria-labelledby="my-cart-heading" className="mx-auto flex min-h-96 max-w-7xl flex-col items-center justify-center gap-6 px-6">
+        <Background className="fixed -z-10 -inset-1 top-[30%] left-[20%] text-soft/40 " />
         <h1 id="my-cart-heading" className="text-3xl text-dark">My cart</h1>
+
         <p className="text-primary">Your cart is empty.</p>
+
         <Link href="/" className="rounded-md bg-yellow-600 p-2 text-white">
           Back to products
         </Link>
@@ -81,23 +84,26 @@ export default function CartPage() {
   return (
     <main aria-labelledby="cart-list-heading" className="mx-auto w-full max-w-7xl px-6">
       <Background aria-hidden className="fixed -z-10 -inset-1 top-[30%] left-[20%] text-soft/40 " />
-      <section aria-label="Cart summary with back and checkout buttons" className="mx-auto text-center">
-        <div className="my-8 text-4xl">
-          <span aria-label={`Total price: ${totalString}`} className="block font-accent text-primary">{totalString}</span>
+
+      <section aria-label="Cart summary with back and checkout buttons" className="mx-auto text-center my-20">
+
+        <div className="my-8 text-3xl sm:text-5xl md:text-7xl">
+          <span aria-label="Total price" className="block font-accent text-primary">
+            {totalString}
+          </span>
         </div>
+
         {ButtonPanel()}
       </section>
 
       <section aria-label="Products in my cart">
-        <h1
-          id="cart-list-heading"
-          className="my-4 text-center text-3xl text-dark font-heading"
-        >
+        <h1 id="cart-list-heading" className="my-4 text-center text-3xl text-primary font-heading">
           My Cart
         </h1>
+
         <ul
           aria-label={`Shopping cart list with ${items.length} different products`}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-6 max-w-5xl m-auto"
         >
           {items.map((item) => (
             <li key={item.product.id} aria-labelledby={`cart-item-heading${item.product.id}`} >
@@ -112,8 +118,10 @@ export default function CartPage() {
             Total: {totalString}
           </span>
         </ul>
+
         {ButtonPanel()}
       </section>
+
     </main>
   );
 }

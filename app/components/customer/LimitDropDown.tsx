@@ -17,6 +17,8 @@ export default function LimitDropDown({ currentLimit, limitId }: LimitDropDownPr
   const path = usePathname();
   const { replace } = useRouter();
 
+  const limit = Number(searchParams.get("limit")) || currentLimit;
+
   const changeLimit = (limit: string) => {
     const params = new URLSearchParams(searchParams);
     params.delete("page");
@@ -26,14 +28,15 @@ export default function LimitDropDown({ currentLimit, limitId }: LimitDropDownPr
 
 
   return (
-    <div aria-labelledby={`limit-dropdown-label${limitId}`} className="w-full sm:w-auto flex flex-col sm:flex-row gap-4">
-      <label id={`limit-dropdown-label${limitId}`} htmlFor={`page-limit-${limitId}`} className="sr-only">
+    <div aria-labelledby={`limit-dropdown-label-${limitId}`} className="w-full sm:w-auto glass flex flex-col sm:flex-row gap-4">
+      <label id={`limit-dropdown-label-${limitId}`} htmlFor={`page-limit-${limitId}`} className="sr-only">
         Number of products per page {currentLimit}
       </label>
       <select
         id={`page-limit-${limitId}`}
-        className="w-full sm:w-auto p-2 border border-gray-300 hover:bg-gray-200 active:bg-gray-300 rounded-md"
-        defaultValue={currentLimit}
+        className="w-full sm:w-auto p-2 border border-accent hover:bg-accent hover:text-white active:bg-secondary rounded"
+        // defaultValue={currentLimit}
+        value={limit}
         onChange={(e) => {
           changeLimit(e.target.value);
         }}
