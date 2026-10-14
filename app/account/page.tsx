@@ -67,12 +67,6 @@ const user1: StaticUser = {
 }
 
 
-// Tailwind styling variables
-const sectionStyling: string = "min-w-96";
-const borderStyling: string = "border border-gray-300 rounded-2xl";
-const listStyling: string = "flex flex-wrap gap-4";
-
-
 // Page with your account. If not logged in, user is redirected to login page. Account page path: `/account`
 export default async function MyAccountPage()
 {

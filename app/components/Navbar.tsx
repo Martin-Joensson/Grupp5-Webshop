@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import CartCount from "./customer/cart/CartCount";
 
-import User from "@/design/assets/user.svg";
 import Line from "@/design/assets/line.svg";
-
+import CartCount from "./customer/cart/CartCount";
 import AccountLink from "./customer/AccountLink";
 
 const navItems = [

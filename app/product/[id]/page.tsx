@@ -6,7 +6,7 @@ import NotFound from "@/not-found";
 import { AddToCartButton } from "@/components/customer/AddToCartButton";
 import type { Metadata } from "next";
 import { toEurosString } from "@/lib/utils";
-import Arrow from "@/design/assets/arrow.svg";
+
 
 type ProductDetailsPageProps = {
   params: Promise<{ id: string }>;
